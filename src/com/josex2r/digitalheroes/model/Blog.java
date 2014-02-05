@@ -1,11 +1,14 @@
 package com.josex2r.digitalheroes.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.util.SparseArray;
 
 import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
@@ -14,7 +17,8 @@ import com.josex2r.digitalheroes.controllers.RssXmlPullParser;
 
 public class Blog {
 
-	private List<Post> loadedPosts;
+	//private List<Post> loadedPosts;
+	private SparseArray<SparseArray<List<Post>>> filteredPagedPosts;
 	public int currentPage;
 	private int lastLoadedPage;
 	private String feedUrl;
@@ -51,8 +55,9 @@ public class Blog {
 		this.feedUrl=url;
 		this.currentPage=1;
 		this.lastLoadedPage=1;
-		this.activeFilter=this.FILTER_ALL;
-		this.loadedPosts=new ArrayList<Post>();
+		this.activeFilter=Blog.FILTER_ALL;
+		//this.loadedPosts=new ArrayList<Post>();
+		this.filteredPagedPosts=new SparseArray<SparseArray<List<Post>>>();
 	}
 	
 	public void setAdapter(PostsAdapter adapter){
@@ -63,6 +68,10 @@ public class Blog {
 		this.mainActivity=(MainActivity) activity;
 	}
 	
+	public void setFeedUrl(String url){
+		this.feedUrl=url;
+	}
+	
 	public PostsAdapter getAdapter(){
 		return adapter;
 	}
@@ -71,68 +80,77 @@ public class Blog {
 		return mainActivity;
 	}
 	
+	public SparseArray<SparseArray<List<Post>>> getFilteredPagedPosts(){
+		return filteredPagedPosts;
+	}
+	
+	public int getActiveFilter(){
+		return activeFilter;
+	}
+	
+	public int getCurrentPage(){
+		return currentPage;
+	}
+	
 	public void loadNextPage(){
 		currentPage++;
 		loadCurrentPage();
 	}
 	
 	public void loadCurrentPage(){
-		Log.d("MyApp","Loaded posts: "+Integer.toString(loadedPosts.size()));
 		Log.d("MyApp","Filter: "+Integer.toString(activeFilter));
-		if(loadedPosts.size()==0){
+		/*if(filteredPagedPosts.get(Blog.FILTER_ALL)==null){
 			//First Blog load
+			filteredPagedPosts.setValueAt(Blog.FILTER_ALL, new SparseArray<List<Post>>());
 			FeedPageLoader firstPage=new FeedPageLoader(new AsyncTaskListener() {
 				@Override
-				public void onTaskComplete(Boolean result) {
-					if(result)
-						displayPosts( loadedPosts );
+				public void onTaskComplete(List<Post> loadedPosts) {
+					//if(filteredPagedPosts.get(Blog.FILTER_ALL).get(currentPage)==null)
+					//initialize list	
+					filteredPagedPosts.get(Blog.FILTER_ALL).setValueAt(currentPage, loadedPosts);
+					displayPosts();
 				}
+				@Override
+				public void onTaskFailed() {}
 			});
 			firstPage.execute(currentPage);
-		}else{
-			if(activeFilter==this.FILTER_ALL)
-				displayPosts( this.loadedPosts );
-			else{
-				List<Post> filteredPosts=filterPosts();
-				if(filteredPosts.size()<Blog.POSTS_PER_FEED){
-					
-					FeedPageLoader firstPage=new FeedPageLoader(new AsyncTaskListener() {
-						@Override
-						public void onTaskComplete(Boolean result) {
-							List<Post> filteredPosts=filterPosts();
-							displayPosts( filteredPosts );
-						}
-					});
-					lastLoadedPage++;
-					firstPage.execute(lastLoadedPage);
-					
-				}else
-					displayPosts( filteredPosts );
+		}else{*/
+
+			if(filteredPagedPosts.get(this.activeFilter)==null)
+				filteredPagedPosts.put(this.activeFilter, new SparseArray<List<Post>>());
+			Log.d("MyApp",Boolean.toString(filteredPagedPosts.get(this.activeFilter).get(this.currentPage)==null));
+			if(filteredPagedPosts.get(this.activeFilter).get(this.currentPage)==null){
+				FeedPageLoader page=new FeedPageLoader(new AsyncTaskListener() {
+					@Override
+					public void onTaskComplete(List<Post> loadedPosts) {
+						// TODO Auto-generated method stub
+						filteredPagedPosts.get(activeFilter).put(currentPage, loadedPosts);
+						Log.d("MyApp","Callback displayPosts()");
+						displayPosts();
+					}
+					public void onTaskFailed() {}
+				});
+				page.execute(this.currentPage);
+			}else{
+				displayPosts();
+				Log.d("MyApp","displayPosts()");
 			}
-		}
+
+		/*}*/
 	}
-	
-	public List<Post> filterPosts(){
-		List<Post> filtered=new ArrayList<Post>();
-		for(int i=0;i<loadedPosts.size();i++){
-			if(loadedPosts.get(i).hasCategory(activeFilter))
-				filtered.add(loadedPosts.get(i));
-		}
-		return filtered;
-	}
+
 	
 	public void setFilter(int filter){
 		this.activeFilter=filter;
 	}
 	
-	public void displayPosts(List<Post> posts){
+	public void displayPosts(){
 		adapter.clear();
 		adapter.notifyDataSetChanged();
-		for(int i=0;i<Blog.POSTS_PER_FEED;i++){
-			if(i<posts.size() && posts.get(i)!=null){
-				Log.d("MyApp","Isertanto al adaptador: "+posts.get(i).getTitle());
-				adapter.insert(posts.get(i), i);
-			}
+		List<Post> currentPosts=filteredPagedPosts.get(this.activeFilter).get(this.currentPage);
+		for(int i=0;i<currentPosts.size();i++){
+			Log.d("MyApp","Isertando al adaptador: "+currentPosts.get(i).getTitle());
+			adapter.add(currentPosts.get(i));
 		}
 		adapter.notifyDataSetChanged();
 	}
@@ -145,8 +163,8 @@ public class Blog {
 		public FeedPageLoader() {
 			// TODO Auto-generated constructor stub
 			callback=new AsyncTaskListener() {
-				@Override
-				public void onTaskComplete(Boolean result){}
+				public void onTaskComplete(List<Post> loadedPosts) {}
+				public void onTaskFailed() {}
 			};
 		}
 		
@@ -176,16 +194,10 @@ public class Blog {
 		@Override
 		protected void onPostExecute(List<Post> result) {
 			// TODO Auto-generated method stub
-			if(result!=null){
-				for(int i=0;i<result.size();i++){
-					if(loadedPosts.indexOf(result.get(i))<0){
-						//Log.d("MyApp",result.get(i).getTitle());
-						loadedPosts.add(result.get(i));
-					}
-				}
-				Log.d("MyApp","Loaded posts: "+Integer.toString(loadedPosts.size()));
-			}
-			callback.onTaskComplete(result!=null);
+			if(result!=null)
+				callback.onTaskComplete(result);
+			else
+				callback.onTaskFailed();
 			mainActivity.hideLoading();
 			super.onPostExecute(result);
 		}

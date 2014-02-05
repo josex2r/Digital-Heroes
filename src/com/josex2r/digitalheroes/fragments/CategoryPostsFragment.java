@@ -125,8 +125,9 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
 		Blog blog=mainActivity.getBlog();
 		
 		blog.setFilter(data.getInt("filter"));
+		blog.setFeedUrl(data.getString("feedUrl"));
 		blog.currentPage=1;
-		blog.loadCurrentPage();
+		
 		/*
 		Fragment newPostsFragment = new AllPostsFragment();
 		newPostsFragment.setArguments(data);
@@ -134,5 +135,6 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
 		MainActivity main=((MainActivity) getActivity());*/
 		mainActivity.getSectionsPageAdapter().changeTitle(0, data.getString("name"));
 		mainActivity.getViewPager().setCurrentItem(0);
+		//blog.loadCurrentPage(); Se llama al forzar el cambio de pestaña
 	}
 }

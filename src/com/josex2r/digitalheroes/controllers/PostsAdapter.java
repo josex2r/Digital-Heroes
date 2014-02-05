@@ -1,18 +1,17 @@
 package com.josex2r.digitalheroes.controllers;
 
-import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
-import android.R.drawable;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.josex2r.digitalheoroes.R;
+import com.josex2r.digitalheroes.MainActivity;
+import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.Post;
 import com.josex2r.digitalheroes.model.PostViewHolder;
 
@@ -69,11 +70,35 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 				viewHolder.ivImage.setImageBitmap(currPost.getImage());
 				showImage(viewHolder);
 			}else{
-				//Async task
-				hideImage(viewHolder);
-				ImageLoader downloader=new ImageLoader();
-				downloader.postHolder=viewHolder;
-				downloader.execute(currPost);
+				//Check if image exist
+				MainActivity mainActivity=(MainActivity) context;
+				Blog blog=mainActivity.getBlog();
+				SparseArray<SparseArray<List<Post>>> filteredPagedPosts=blog.getFilteredPagedPosts();
+				boolean trigger=false;
+				for(int j=0;j<filteredPagedPosts.size();j++)
+					if(filteredPagedPosts.valueAt(j)!=null)
+						for(int k=0;k<filteredPagedPosts.valueAt(j).size();k++)
+							if(filteredPagedPosts.valueAt(j).valueAt(k)!=null)
+								for(int l=0;l<filteredPagedPosts.valueAt(j).valueAt(k).size();l++)
+									if(filteredPagedPosts.valueAt(j).valueAt(k).get(l)!=null)
+										/*Log.d("MyApp","Comparando...");
+										Log.d("MyApp",filteredPagedPosts.valueAt(j).valueAt(k).get(l).getImageLink().toString());
+										Log.d("MyApp",currentPosts.get(i).getImageLink().toString());
+										Log.d("MyApp","...............");*/
+										if(filteredPagedPosts.valueAt(j).valueAt(k).get(l).getImageLink().equals(currPost.getImageLink()))
+											currPost.setImage( filteredPagedPosts.valueAt(j).valueAt(k).get(l).getImage() );
+												
+				if(trigger){
+					viewHolder.ivImage.setImageBitmap(currPost.getImage());
+					showImage(viewHolder);
+				}else{
+					//Async task
+					hideImage(viewHolder);
+					ImageLoader downloader=new ImageLoader();
+					downloader.postHolder=viewHolder;
+					downloader.execute(currPost);
+				}
+					
 			}
 		}else{
 			viewHolder.ivImage.setImageDrawable( context.getResources().getDrawable(R.drawable.no_image) );
