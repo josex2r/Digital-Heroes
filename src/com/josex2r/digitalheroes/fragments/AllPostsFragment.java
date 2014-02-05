@@ -87,7 +87,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener{
 		str.append(url).append("&android=true");
 		Toast.makeText(getActivity(), "Link: "+str.toString(), Toast.LENGTH_LONG).show();
 		
-		Intent i = new Intent("com.josex2r.digitalheroes");
+		Intent i = new Intent("com.josex2r.digitalheroes.BrowserActivity");
 		i.setData(Uri.parse(str.toString()));
 		startActivity(i);
 	}
