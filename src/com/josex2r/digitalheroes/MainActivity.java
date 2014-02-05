@@ -109,8 +109,10 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	public void hideLoading(){
-		if(dialog!=null)
+		if(dialog!=null){
 			dialog.dismiss();
+			dialog=null;
+		}
 	}
 	
 	public MainActivity getMainActivity(){

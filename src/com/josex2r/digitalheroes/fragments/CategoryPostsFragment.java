@@ -98,7 +98,7 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
 			case R.id.btnMarketing:
 			case R.id.btnMarketingIcon:
 				data.putString("feedUrl", "http://www.gobalo.es/blog/category/marketing-digital-y-social-media/feed/");
-				data.putString("name", "Marketing digital");
+				data.putString("name", "Marketing Digital");
 				data.putInt("filter", Blog.FILTER_MARKETING);
 				break;
 			case R.id.btnNegocios:
@@ -116,7 +116,7 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
 			case R.id.btnWeb:
 			case R.id.btnWebIcon:
 				data.putString("feedUrl", "http://www.gobalo.es/blog/category/web-y-programacion/feed/");
-				data.putString("name", "Web y programación");
+				data.putString("name", "Web y Programación");
 				data.putInt("filter", Blog.FILTER_WEB);
 				break;
 		}

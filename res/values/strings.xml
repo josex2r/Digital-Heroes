@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="drawer_open">Open navigation drawer</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="app_name">Digital Heroes</string>
     <string name="action_settings">Settings</string>
@@ -403,5 +404,6 @@
     <string name="icon_plus_square_o">&#xf196;</string>
     <string name="title_activity_filtered">FilteredActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_browser">BrowserActivity</string>
 
 </resources>
