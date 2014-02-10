@@ -45,9 +45,6 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		//Create blog
-		this.blog=new Blog("http://www.gobalo.es/blog/feed/");
 
 		//Init page slider
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -171,6 +168,23 @@ public class MainActivity extends FragmentActivity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+    
+    @Override
+    protected void onPause() {
+    	// TODO Auto-generated method stub
+    	Log.d("MyApp","PAUSE");
+    	super.onPause();
+    }
+    
+    @Override
+    protected void onResume() {
+    	// TODO Auto-generated method stub
+    	Log.d("MyApp","RESUME");
+    	if(this.blog==null)
+    		this.blog=new Blog("http://www.gobalo.es/blog/feed/");
+    	
+    	super.onResume();
     }
 	
 	public class SectionsPagerAdapter extends FragmentStatePagerAdapter {

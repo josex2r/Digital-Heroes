@@ -30,7 +30,6 @@
             android:label="@string/title_activity_browser" >
             <intent-filter>
                 
-                <action android:name="android.intent.action.VIEW"></action>
                 <action android:name="com.josex2r.digitalheroes.BrowserActivity"/>
                 <category android:name="android.intent.category.DEFAULT"></category>
                 <data android:scheme="http" />

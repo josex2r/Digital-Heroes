@@ -1,14 +1,13 @@
 package com.josex2r.digitalheroes.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
@@ -20,11 +19,12 @@ public class Blog {
 	//private List<Post> loadedPosts;
 	private SparseArray<SparseArray<List<Post>>> filteredPagedPosts;
 	public int currentPage;
-	private int lastLoadedPage;
+	public boolean isLoading;
 	private String feedUrl;
 	private PostsAdapter adapter;
 	private MainActivity mainActivity;
 	private int activeFilter;
+	private ProgressBar pbPostLoader;
 	
 	public static final int POSTS_PER_FEED=10;
 	public static final int MAX_ASYNC_TRIES=3;
@@ -54,10 +54,14 @@ public class Blog {
 	public Blog(String url){
 		this.feedUrl=url;
 		this.currentPage=1;
-		this.lastLoadedPage=1;
 		this.activeFilter=Blog.FILTER_ALL;
 		//this.loadedPosts=new ArrayList<Post>();
 		this.filteredPagedPosts=new SparseArray<SparseArray<List<Post>>>();
+		this.isLoading=false;
+	}
+	
+	public void setPostLoader(ProgressBar pb){
+		this.pbPostLoader=pb;
 	}
 	
 	public void setAdapter(PostsAdapter adapter){
@@ -85,6 +89,8 @@ public class Blog {
 	}
 	
 	public void setFilter(int filter){
+		adapter.clear();
+		adapter.notifyDataSetChanged();
 		this.activeFilter=filter;
 	}
 	
@@ -98,12 +104,37 @@ public class Blog {
 	
 	public void loadNextPage(){
 		currentPage++;
-		loadCurrentPage();
+		loadCurrentPage(false);
 	}
 	
-	public void loadCurrentPage(){
+	public void nextPage(){
+		if(!isLoading && filteredPagedPosts.get(this.activeFilter)!=null
+				&& filteredPagedPosts.get(this.activeFilter).get(this.currentPage)!=null){
+			this.currentPage++;
+			loadCurrentPage(true);
+		}
+	}
+	
+	public void loading(Boolean action, Boolean hideLoading){
+		//Está cargando
+		if(action){
+			if(!hideLoading)
+				mainActivity.showLoading();
+			if(pbPostLoader!=null)
+				pbPostLoader.setVisibility(View.VISIBLE);
+			isLoading=true;
+		//No está cargando
+		}else{
+			if(pbPostLoader!=null)
+				pbPostLoader.setVisibility(View.GONE);
+			isLoading=false;
+			mainActivity.hideLoading();
+		}
+	}
+	
+	public void loadCurrentPage(Boolean hideLoading){
 		Log.d("MyApp","Filter: "+Integer.toString(activeFilter));
-		mainActivity.showLoading();
+		loading(true, hideLoading);
 		
 		if(filteredPagedPosts.get(this.activeFilter)==null)
 			filteredPagedPosts.put(this.activeFilter, new SparseArray<List<Post>>());
@@ -117,7 +148,11 @@ public class Blog {
 					Log.d("MyApp","Callback displayPosts()");
 					displayPosts();
 				}
-				public void onTaskFailed() {}
+				public void onTaskFailed() {
+					//No more posts
+					loading(false, false);
+					isLoading=true;
+				}
 			});
 			page.execute(this.currentPage);
 		}else{
@@ -128,15 +163,16 @@ public class Blog {
 	}
 	
 	public void displayPosts(){
-		adapter.clear();
-		adapter.notifyDataSetChanged();
+		//adapter.clear();
+		//adapter.notifyDataSetChanged();
 		List<Post> currentPosts=filteredPagedPosts.get(this.activeFilter).get(this.currentPage);
 		for(int i=0;i<currentPosts.size();i++){
 			Log.d("MyApp","Isertando al adaptador: "+currentPosts.get(i).getTitle());
 			adapter.add(currentPosts.get(i));
 		}
+		adapter.getListView().setSelection(0);
 		adapter.notifyDataSetChanged();
-		mainActivity.hideLoading();
+		loading(false, false);
 	}
 	
 	public class FeedPageLoader extends AsyncTask<Integer, Integer, List<Post>>{

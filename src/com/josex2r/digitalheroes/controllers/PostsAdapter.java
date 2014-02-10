@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -31,13 +32,19 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 	private Context context;
 	private List<Post> news;
 	private int resource;
+	private ListView lvPosts;
 	
-	public PostsAdapter(Context context, int resource, List<Post> objects) {
+	public PostsAdapter(Context context, int resource, List<Post> objects, ListView lv) {
 		super(context, resource, objects);
 		// TODO Auto-generated constructor stub
 		this.resource=resource;
 		this.context=context;
 		this.news=objects;
+		this.lvPosts=lv;
+	}
+	
+	public ListView getListView(){
+		return lvPosts;
 	}
 	
 	@Override
