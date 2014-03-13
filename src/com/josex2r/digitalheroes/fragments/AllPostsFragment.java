@@ -73,7 +73,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		
 		
 		blog.loadCurrentPage(false);
-
+		
 		return rootView;
 	}
 	
@@ -81,8 +81,8 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
 		// TODO Auto-generated method stub
-		int filter=blog.getFilter();
-		int page=blog.getPage();
+		//int filter=blog.getFilter();
+		//int page=blog.getPage();
 		StringBuilder str=new StringBuilder();
 		String url=adapter.getItem(position).getLink();
 		str.append(url).append("&android=true");

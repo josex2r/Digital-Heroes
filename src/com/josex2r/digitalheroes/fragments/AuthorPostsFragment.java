@@ -28,6 +28,7 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 		Button btnCraft = (Button) rootView.findViewById(R.id.btnCraft);
 		Button btnCrea = (Button) rootView.findViewById(R.id.btnCrea);
 		Button btnIdea = (Button) rootView.findViewById(R.id.btnIdea);
+		Button btnNumbers = (Button) rootView.findViewById(R.id.btnNumbers);
 		Button btnPencil = (Button) rootView.findViewById(R.id.btnPencil);
 		Button btnPixel = (Button) rootView.findViewById(R.id.btnPixel);
 		Button btnSem = (Button) rootView.findViewById(R.id.btnSem);
@@ -40,6 +41,7 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 		btnCraft.setOnClickListener(this);
 		btnCrea.setOnClickListener(this);
 		btnIdea.setOnClickListener(this);
+		btnNumbers.setOnClickListener(this);
 		btnPencil.setOnClickListener(this);
 		btnPixel.setOnClickListener(this);
 		btnSem.setOnClickListener(this);
@@ -56,57 +58,62 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 		Bundle data=new Bundle();
 		switch(v.getId()){
 			case R.id.btnBinary:
-				data.putString("feedUrl", "http://www.gobalo.es/blog/author/a-vara/feed/");
+				data.putString("feedUrl", "http://blog.gobalo.es/author/a-vara/feed/");
 				data.putString("name", "Super 01101");
 				data.putInt("filter", Blog.FILTER_BINARY);
 				break;
 			case R.id.btnCode:
-				data.putString("feedUrl", "http://www.gobalo.es/blog/author/jl-represa/feed/");
+				data.putString("feedUrl", "http://blog.gobalo.es/author/jl-represa/feed/");
 				data.putString("name", "Super Code");
 				data.putInt("filter", Blog.FILTER_CODE);
 				break;
 			case R.id.btnCraft:
-				data.putString("feedUrl", "http://www.gobalo.es/blog/author/n-pastor/feed/");
+				data.putString("feedUrl", "http://blog.gobalo.es/author/n-pastor/feed/");
 				data.putString("name", "Super Craft");
 				data.putInt("filter", Blog.FILTER_CRAFT);
 				break;
 			case R.id.btnCrea:
-				data.putString("feedUrl", "http://www.gobalo.es/blog/author/g-gomez/feed/");
+				data.putString("feedUrl", "http://blog.gobalo.es/author/g-gomez/feed/");
 				data.putString("name", "Super Crea");
 				data.putInt("filter", Blog.FILTER_CREA);
 				break;
 			case R.id.btnIdea:
-				data.putString("feedUrl", "http://www.gobalo.es/blog/author/j-azpeitia/feed/");
+				data.putString("feedUrl", "http://blog.gobalo.es/author/j-azpeitia/feed/");
 				data.putString("name", "Super Idea");
 				data.putInt("filter", Blog.FILTER_IDEA);
 				break;
+			case R.id.btnNumbers:
+				data.putString("feedUrl", "http://blog.gobalo.es/author/m-becerra/feed/");
+				data.putString("name", "Super Numbers");
+				data.putInt("filter", Blog.FILTER_NUMBERS);
+				break;
 			case R.id.btnPencil:
-				data.putString("feedUrl", "http://www.gobalo.es/blog/author/a-fassi/feed/");
+				data.putString("feedUrl", "http://blog.gobalo.es/author/a-fassi/feed/");
 				data.putString("name", "Super Pencil");
 				data.putInt("filter", Blog.FILTER_PENCIL);
 				break;
 			case R.id.btnPixel:
-				data.putString("feedUrl", "http://www.gobalo.es/blog/author/f-bril/feed/");
+				data.putString("feedUrl", "http://blog.gobalo.es/author/f-bril/feed/");
 				data.putString("name", "Super Pixel");
 				data.putInt("filter", Blog.FILTER_PIXEL);
 				break;
 			case R.id.btnSem:
-				data.putString("feedUrl", "http://www.gobalo.es/blog/author/l-casado/feed/");
+				data.putString("feedUrl", "http://blog.gobalo.es/author/l-casado/feed/");
 				data.putString("name", "Super SEM");
 				data.putInt("filter", Blog.FILTER_SEM);
 				break;
 			case R.id.btnSocial:
-				data.putString("feedUrl", "http://www.gobalo.es/blog/author/bloggobalo-es/feed/");
+				data.putString("feedUrl", "http://blog.gobalo.es/author/bloggobalo-es/feed/");
 				data.putString("name", "Super Social");
 				data.putInt("filter", Blog.FILTER_SOCIAL);
 				break;
 			case R.id.btnSpeed:
-				data.putString("feedUrl", "http://www.gobalo.es/blog/author/a-gonzalez/feed/");
+				data.putString("feedUrl", "http://blog.gobalo.es/author/a-gonzalez/feed/");
 				data.putString("name", "Super Speed");
 				data.putInt("filter", Blog.FILTER_SPEED);
 				break;
 			case R.id.btnTrix:
-				data.putString("feedUrl", "http://www.gobalo.es/blog/author/cristina/feed/");
+				data.putString("feedUrl", "http://blog.gobalo.es/author/cristina/feed/");
 				data.putString("name", "Super Trix");
 				data.putInt("filter", Blog.FILTER_TRIX);
 				break;
@@ -116,16 +123,21 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 		MainActivity mainActivity=(MainActivity)getActivity();
 		Blog blog=mainActivity.getBlog();
 		
-		blog.setFilter(data.getInt("filter"));
-		blog.setFeedUrl(data.getString("feedUrl"));
-		blog.currentPage=1;
-		
-		/*
-		Fragment newPostsFragment = new AllPostsFragment();
-		newPostsFragment.setArguments(data);
+		if( blog.getFilter() != data.getInt("filter") ){
+			blog.setFilter(data.getInt("filter"));
+			blog.setFeedUrl(data.getString("feedUrl"));
+			blog.currentPage=1;
+			
+			/*
+			Fragment newPostsFragment = new AllPostsFragment();
+			newPostsFragment.setArguments(data);
 
-		MainActivity main=((MainActivity) getActivity());*/
-		mainActivity.getSectionsPageAdapter().changeTitle(0, data.getString("name"));
-		mainActivity.getViewPager().setCurrentItem(0);
+			MainActivity main=((MainActivity) getActivity());*/
+			mainActivity.getSectionsPageAdapter().changeTitle(1, data.getString("name"));
+		}
+
+		mainActivity.getViewPager().setCurrentItem(1);
+		mainActivity.getDrawerList().setItemChecked(2, true);
+		//blog.loadCurrentPage(true);
 	}
 }

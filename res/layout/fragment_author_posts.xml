@@ -70,6 +70,16 @@
 		        style="@style/btn_category" />
 		    
 		    <Button
+		        android:id="@+id/btnNumbers"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:text="@string/author_numbers"
+		        android:drawableLeft="@drawable/super_numbers"
+		        android:layout_marginTop="20dp"
+		        android:background="@drawable/btn_author_numbers"
+		        style="@style/btn_category" />
+		    
+		    <Button
 		        android:id="@+id/btnPencil"
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"

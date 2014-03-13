@@ -110,7 +110,7 @@ public class RssXmlPullParser {
                         if (tag.equals("item") && noticiaActual != null){
                             news.add(noticiaActual);
                             //Log.d("MyApp",noticiaActual.getTitle());
-                            if(noticiaActual.getImageLink()=="")
+                            if(noticiaActual.getImageLink().equals(""))
                             	noticiaActual.setImageLink("NO-IMAGE");
                             //Log.d("MyApp",noticiaActual.getImageLink());
                         }

@@ -25,6 +25,7 @@ public class Blog {
 	private MainActivity mainActivity;
 	private int activeFilter;
 	private ProgressBar pbPostLoader;
+	private int[] currentDisplaying; //0->Page, 1->Filter
 	
 	public static final int POSTS_PER_FEED=10;
 	public static final int MAX_ASYNC_TRIES=3;
@@ -44,18 +45,19 @@ public class Blog {
 	public static final int FILTER_CRAFT=22;
 	public static final int FILTER_CREA=23;
 	public static final int FILTER_IDEA=24;
-	public static final int FILTER_PENCIL=25;
-	public static final int FILTER_PIXEL=26;
-	public static final int FILTER_SEM=27;
-	public static final int FILTER_SOCIAL=28;
-	public static final int FILTER_SPEED=29;
-	public static final int FILTER_TRIX=30;
+	public static final int FILTER_NUMBERS=25;
+	public static final int FILTER_PENCIL=26;
+	public static final int FILTER_PIXEL=27;
+	public static final int FILTER_SEM=28;
+	public static final int FILTER_SOCIAL=29;
+	public static final int FILTER_SPEED=30;
+	public static final int FILTER_TRIX=31;
 	
 	public Blog(String url){
 		this.feedUrl=url;
 		this.currentPage=1;
 		this.activeFilter=Blog.FILTER_ALL;
-		//this.loadedPosts=new ArrayList<Post>();
+		this.currentDisplaying=new int[]{999999, 999999}; //Page undefined, filter unknown
 		this.filteredPagedPosts=new SparseArray<SparseArray<List<Post>>>();
 		this.isLoading=false;
 	}
@@ -133,33 +135,37 @@ public class Blog {
 	}
 	
 	public void loadCurrentPage(Boolean hideLoading){
-		Log.d("MyApp","Filter: "+Integer.toString(activeFilter));
-		loading(true, hideLoading);
 		
-		if(filteredPagedPosts.get(this.activeFilter)==null)
-			filteredPagedPosts.put(this.activeFilter, new SparseArray<List<Post>>());
-		Log.d("MyApp",Boolean.toString(filteredPagedPosts.get(this.activeFilter).get(this.currentPage)==null));
-		if(filteredPagedPosts.get(this.activeFilter).get(this.currentPage)==null){
-			FeedPageLoader page=new FeedPageLoader(new AsyncTaskListener() {
-				@Override
-				public void onTaskComplete(List<Post> loadedPosts) {
-					// TODO Auto-generated method stub
-					filteredPagedPosts.get(activeFilter).put(currentPage, loadedPosts);
-					Log.d("MyApp","Callback displayPosts()");
-					displayPosts();
-				}
-				public void onTaskFailed() {
-					//No more posts
-					loading(false, false);
-					isLoading=true;
-				}
-			});
-			page.execute(this.currentPage);
-		}else{
-			displayPosts();
-			Log.d("MyApp","displayPosts()");
+		if(currentDisplaying[0]!=this.currentPage || currentDisplaying[1]!=this.activeFilter){
+			
+			Log.d("MyApp","Filter: "+Integer.toString(activeFilter));
+			loading(true, hideLoading);
+			
+			if(filteredPagedPosts.get(this.activeFilter)==null)
+				filteredPagedPosts.put(this.activeFilter, new SparseArray<List<Post>>());
+			Log.d("MyApp",Boolean.toString(filteredPagedPosts.get(this.activeFilter).get(this.currentPage)==null));
+			if(filteredPagedPosts.get(this.activeFilter).get(this.currentPage)==null){
+				FeedPageLoader page=new FeedPageLoader(new AsyncTaskListener() {
+					@Override
+					public void onTaskComplete(List<Post> loadedPosts) {
+						// TODO Auto-generated method stub
+						filteredPagedPosts.get(activeFilter).put(currentPage, loadedPosts);
+						Log.d("MyApp","Callback displayPosts()");
+						displayPosts();
+					}
+					public void onTaskFailed() {
+						//No more posts
+						loading(false, false);
+						isLoading=true;
+					}
+				});
+				page.execute(this.currentPage);
+			}else{
+				displayPosts();
+				Log.d("MyApp","displayPosts()");
+			}
+		
 		}
-
 	}
 	
 	public void displayPosts(){
@@ -173,6 +179,8 @@ public class Blog {
 		adapter.getListView().setSelection(0);
 		adapter.notifyDataSetChanged();
 		loading(false, false);
+		currentDisplaying[0]=this.currentPage;
+		currentDisplaying[1]=this.activeFilter;
 	}
 	
 	public class FeedPageLoader extends AsyncTask<Integer, Integer, List<Post>>{

@@ -53,7 +53,7 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 		View row=convertView;
 		PostViewHolder viewHolder;
 		
-		if(row==null){
+		//if(row==null){
 			LayoutInflater inflater=((Activity) context).getLayoutInflater();
 			row=inflater.inflate(resource, null);
 			viewHolder=new PostViewHolder();
@@ -62,16 +62,17 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 			viewHolder.ivImage=(ImageView) row.findViewById(R.id.ivImage);
 			viewHolder.pbImage=(ProgressBar) row.findViewById(R.id.pbImage);
 			row.setTag(viewHolder);
-		}else{
+		/*}else{
 			viewHolder=(PostViewHolder) row.getTag();
-		}
+		}*/
 		
 		Post currPost=news.get(position);
 
 		viewHolder.lblTitle.setText( currPost.getTitle() );
 		viewHolder.lblDescription.setText( currPost.getDescription() );
 		viewHolder.pbImage.setIndeterminate(true);
-		
+		hideImage(viewHolder);
+		//Log.d("MyApp",currPost.getImageLink().toString());
 		if(!currPost.getImageLink().equals("NO-IMAGE")){
 			if(currPost.getImage()!=null){
 				viewHolder.ivImage.setImageBitmap(currPost.getImage());
@@ -82,25 +83,24 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 				Blog blog=mainActivity.getBlog();
 				SparseArray<SparseArray<List<Post>>> filteredPagedPosts=blog.getFilteredPagedPosts();
 				boolean trigger=false;
+				
 				for(int j=0;j<filteredPagedPosts.size();j++)
 					if(filteredPagedPosts.valueAt(j)!=null)
 						for(int k=0;k<filteredPagedPosts.valueAt(j).size();k++)
 							if(filteredPagedPosts.valueAt(j).valueAt(k)!=null)
 								for(int l=0;l<filteredPagedPosts.valueAt(j).valueAt(k).size();l++)
 									if(filteredPagedPosts.valueAt(j).valueAt(k).get(l)!=null)
-										/*Log.d("MyApp","Comparando...");
-										Log.d("MyApp",filteredPagedPosts.valueAt(j).valueAt(k).get(l).getImageLink().toString());
-										Log.d("MyApp",currentPosts.get(i).getImageLink().toString());
-										Log.d("MyApp","...............");*/
 										if(filteredPagedPosts.valueAt(j).valueAt(k).get(l).getImageLink().equals(currPost.getImageLink()))
-											currPost.setImage( filteredPagedPosts.valueAt(j).valueAt(k).get(l).getImage() );
-												
-				if(trigger){
+											if(filteredPagedPosts.valueAt(j).valueAt(k).get(l).getImage()!=null)
+												currPost.setImage( filteredPagedPosts.valueAt(j).valueAt(k).get(l).getImage() );
+										
+					
+				if(trigger && currPost.getImage()!=null){
+					Log.d("MyApp", "-----------> "+currPost.getImage());
 					viewHolder.ivImage.setImageBitmap(currPost.getImage());
 					showImage(viewHolder);
 				}else{
 					//Async task
-					hideImage(viewHolder);
 					ImageLoader downloader=new ImageLoader();
 					downloader.postHolder=viewHolder;
 					downloader.execute(currPost);
