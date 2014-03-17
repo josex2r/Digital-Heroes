@@ -123,21 +123,23 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 		MainActivity mainActivity=(MainActivity)getActivity();
 		Blog blog=mainActivity.getBlog();
 		
-		if( blog.getFilter() != data.getInt("filter") ){
-			blog.setFilter(data.getInt("filter"));
+		if( blog.getActiveFilter() != data.getInt("filter") ){
+		
+			blog.setActiveFilter(data.getInt("filter"));
 			blog.setFeedUrl(data.getString("feedUrl"));
-			blog.currentPage=1;
+			blog.setCurrentPage(1);
 			
 			/*
 			Fragment newPostsFragment = new AllPostsFragment();
 			newPostsFragment.setArguments(data);
-
+	
 			MainActivity main=((MainActivity) getActivity());*/
 			mainActivity.getSectionsPageAdapter().changeTitle(1, data.getString("name"));
+			mainActivity.getViewPager().setCurrentItem(1);
+			mainActivity.getDrawerList().setItemChecked(3, true);
 		}
 
-		mainActivity.getViewPager().setCurrentItem(1);
-		mainActivity.getDrawerList().setItemChecked(2, true);
+		
 		//blog.loadCurrentPage(true);
 	}
 }

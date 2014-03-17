@@ -30,5 +30,17 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#fff</item>
     </style>
+    
+    <style name="btn_drawer_list_text" parent="AppBaseTheme">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
+    
+    <style name="btn_drawer_list_icon" parent="AppBaseTheme">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
 
 </resources>

@@ -1,27 +1,36 @@
-<!--
-  Copyright 2013 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+    <LinearLayout
+        android:id="@+id/itemLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/drawer_list_selector"
+        android:orientation="horizontal" >
 
-      http://www.apache.org/licenses/LICENSE-2.0
+        <TextView
+            android:id="@+id/lblItemDrawerIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@drawable/drawer_text_selector"
+            style="@style/btn_drawer_list_icon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:text="Icon" />
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-  -->
+        <TextView
+	        android:id="@+id/lblItemDrawerText"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/author_01101"
+	        android:layout_gravity="center"
+	        android:textColor="@drawable/drawer_text_selector"
+	        style="@style/btn_drawer_list_text" />
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/text1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    android:gravity="center_vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:textColor="#fff"
-    android:background="?android:attr/activatedBackgroundIndicator"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+    </LinearLayout>
+
+</RelativeLayout>

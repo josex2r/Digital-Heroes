@@ -81,7 +81,7 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 				//Check if image exist
 				MainActivity mainActivity=(MainActivity) context;
 				Blog blog=mainActivity.getBlog();
-				SparseArray<SparseArray<List<Post>>> filteredPagedPosts=blog.getFilteredPagedPosts();
+				SparseArray<SparseArray<List<Post>>> filteredPagedPosts=blog.getPosts();
 				boolean trigger=false;
 				
 				for(int j=0;j<filteredPagedPosts.size();j++)

@@ -20,14 +20,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.josex2r.digitalheoroes.R;
+import com.josex2r.digitalheroes.controllers.DrawerAdapter;
 import com.josex2r.digitalheroes.fragments.AllPostsFragment;
 import com.josex2r.digitalheroes.fragments.AuthorPostsFragment;
 import com.josex2r.digitalheroes.fragments.CategoryPostsFragment;
 import com.josex2r.digitalheroes.model.Blog;
+import com.josex2r.digitalheroes.model.DrawerItem;
 
 
 public class MainActivity extends FragmentActivity {
@@ -79,17 +81,20 @@ public class MainActivity extends FragmentActivity {
 			mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 	        mDrawerList = (ListView) findViewById(R.id.slidingMenu);
 	        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-	        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, new ArrayList<String>(){
-	        		{
-	        			add( getString(R.string.title_section1) );
-	        			add( getString(R.string.title_section2) );
-	        			add( getString(R.string.title_section3) );
-	        		}
-	        	}
-	
-	        ));
+	        
+	        List<DrawerItem> dataList= new ArrayList<DrawerItem>();
+	        dataList.add(new DrawerItem(getString(R.string.title_section1), getString(R.string.icon_star)));
+            dataList.add(new DrawerItem(getString(R.string.title_section2), getString(R.string.icon_bookmark)));
+            dataList.add(new DrawerItem(getString(R.string.title_section3), getString(R.string.icon_user)));
+	        
+	        mDrawerList.setAdapter(new DrawerAdapter(this, R.layout.drawer_list_item, dataList));
+	        View header=getLayoutInflater().inflate(R.layout.drawer_list_header, null);
+	        mDrawerList.addHeaderView(header, new Object(), false);
+	        
 
+	        
 	        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+	        mDrawerList.setItemChecked(1, true);
 	        // enable ActionBar app icon to behave as action to toggle nav drawer
 	        getActionBar().setDisplayHomeAsUpEnabled(true);
 	        getActionBar().setHomeButtonEnabled(true);
@@ -163,34 +168,39 @@ public class MainActivity extends FragmentActivity {
          // ActionBarDrawerToggle will take care of this.
         if (mDrawerToggle.onOptionsItemSelected(item))
             return true;
-        return super.onOptionsItemSelected(item);
+        //return super.onOptionsItemSelected(item);
+        return false;
     }
     
-	
-	
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+    public class DrawerItemClickListener implements ListView.OnItemClickListener {
+    	
+
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         	
         	switch(position){
-        		case 0:
-        			if(blog.getFilter() != Blog.FILTER_ALL){
-	        			blog.setFilter( Blog.FILTER_ALL );
+        		case 1:
+        			if(blog.getActiveFilter() != Blog.FILTER_ALL){
+	        			blog.setActiveFilter( Blog.FILTER_ALL );
 	        			blog.setFeedUrl( "http://blog.gobalo.es/feed/" );
-	        			blog.currentPage=1;
+	        			blog.setCurrentPage(1);
 	        			//blog.loadCurrentPage(true);
         			}
         			mSectionsPagerAdapter.changeTitle(1, getString(R.string.title_section1));
         			mViewPager.setCurrentItem(1);
-        			break;
-        		case 1:
-        			mViewPager.setCurrentItem(0);
+        			
         			break;
         		case 2:
+        			mViewPager.setCurrentItem(0);
+        			break;
+        		case 3:
         			mViewPager.setCurrentItem(2);
         			break;
         	}
-    		
+        	
+
+        	//((TextView)view.findViewById(R.id.lblItemDrawerIcon)).setTextColor(getResources().getColor(R.color.white));
+        	//((TextView)view.findViewById(R.id.lblItemDrawerText)).setTextColor(getResources().getColor(R.color.white));
         	mDrawerList.setItemChecked(position, true);
             //setTitle(fragmentTitles.get(position));
             mDrawerLayout.closeDrawer(mDrawerList);

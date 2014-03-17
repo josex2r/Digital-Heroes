@@ -1,9 +1,11 @@
 package com.josex2r.digitalheroes.fragments;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,33 +16,39 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.josex2r.digitalheoroes.R;
 import com.josex2r.digitalheroes.MainActivity;
+import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
 import com.josex2r.digitalheroes.controllers.PostsAdapter;
+import com.josex2r.digitalheroes.controllers.RssXmlPullParser;
 import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.Post;
 
 
 public class AllPostsFragment extends Fragment implements OnItemClickListener, OnScrollListener{
-	
+	//-------------	Blog model -------------
 	private Blog blog;
+	//-------------	ListView adapter -------------
 	private PostsAdapter adapter;
+	//-------------	ListView -------------
 	private ListView lvPosts;
-	
+	//-------------	Progress bar circle -------------
+	private LinearLayout lyLoader;
+	//-------------	Load post on scrolling -------------
 	private int visibleThreshold = 5;
+	
+	//-------------	Constructor -------------
     public AllPostsFragment(){
 	}
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		
-		
-		
 		super.onActivityCreated(savedInstanceState);
 	}
 	
@@ -49,33 +57,79 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_all_posts,
 				container, false);
-		
+		//-------------	Get Activity -------------
 		MainActivity mainActivity=(MainActivity)getActivity();
-		
+		//-------------	Get static Blog -------------
 		this.blog=mainActivity.getBlog();
-		
-		if(blog.getActivity()==null){
-			blog.setActivity(getActivity());
-			blog.setPostLoader( (ProgressBar)rootView.findViewById(R.id.pbPostLoader) );
-		}
-		
+		//-------------	Get loader from View -------------
+		lyLoader = (LinearLayout)rootView.findViewById(R.id.lyLoader);
+		//-------------	Set Loading state -------------
+		loading(true);
+		//-------------	Manage ListView -------------
 		lvPosts=(ListView)rootView.findViewById(R.id.lvPosts);
-		
-		adapter=blog.getAdapter();
-		if(adapter==null){
-			adapter=new PostsAdapter(getActivity(), R.layout.blog_post, new ArrayList<Post>(), lvPosts);
-			blog.setAdapter(adapter);
-		}
-		
+		adapter=new PostsAdapter(getActivity(), R.layout.blog_post, new ArrayList<Post>(), lvPosts);
 		lvPosts.setAdapter(adapter);
 		lvPosts.setOnItemClickListener(this);
 		lvPosts.setOnScrollListener(this);
-		
-		
-		blog.loadCurrentPage(false);
+		//-------------	If post loaded from internet == 0, else show list -------------
+		List<Post> currentPosts=blog.getFilteredAllPagedPosts();
+		if( currentPosts.size()==0 ){
+			loadCurrentPage();
+		}else{
+			displayPosts();
+			loading(false);
+		}
 		
 		return rootView;
 	}
+	
+	//-------------	Add posts to ListView -------------
+	public void displayPosts(){
+		loading(true);
+		List<Post> currentPosts=blog.getFilteredPagedPosts();
+		for(int i=0;i<currentPosts.size();i++){
+			Log.d("MyApp","Isertando al adaptador: "+currentPosts.get(i).getTitle());
+			adapter.add(currentPosts.get(i));
+		}
+		adapter.getListView().setSelection(0);
+		adapter.notifyDataSetChanged();
+	}
+	
+	//-------------	Loader actions -------------
+	public void loading(boolean action){
+		if(action){
+			if(lyLoader!=null)
+				lyLoader.setVisibility(View.VISIBLE);
+			blog.setLoading(true);
+		}else{
+			if(lyLoader!=null)
+				lyLoader.setVisibility(View.GONE);
+			blog.setLoading(false);
+		}
+	}
+	
+	//-------------	Load posts from Internet -------------
+	public void loadCurrentPage(){
+		FeedPageLoader page=new FeedPageLoader(new AsyncTaskListener() {
+			@Override
+			public void onTaskComplete(List<Post> loadedPosts) {
+				blog.addPosts(blog.getActiveFilter(), blog.getCurrentPage(), loadedPosts);
+				displayPosts();
+				loading(false);
+			}
+			public void onTaskFailed() {
+				//No more posts
+				loading(false);
+				//Force loading state to prevent more loadings
+				blog.setLoading(true);
+			}
+		});
+		page.execute(blog.getCurrentPage());
+	}
+	
+	
+	
+	
 	
 
 	@Override
@@ -93,22 +147,94 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		startActivity(i);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
 		// TODO Auto-generated method stub
 	
-        if (!blog.isLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-            // I load the next page of gigs using a background task,
-            // but you can call any function here.
-            Log.d("MyApp","-------------------------------------------");
-            Log.d("MyApp","--------------- LOADING PAGE --------------");
-            Log.d("MyApp","-------------------------------------------");
+        if (!blog.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+
+            loading(true);
             
-            blog.nextPage();
+            blog.setCurrentPage(blog.getCurrentPage()+1);
+            
+        	List<Post> posts=blog.getFilteredPagedPosts();
+        	
+        	if( posts.size()>0 ){
+        		Log.d("MyApp", "Se han encontrado posts, page: "+Integer.toString(blog.getCurrentPage()));
+        		displayPosts();
+        		loading(false);
+        	}else{
+        		Log.d("MyApp", "No se han encontrado posts");
+        		loadCurrentPage();
+        	}
+            
+            //blog.nextPage();
         }
 	}
 
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {}
+	
+	
+	
+	
+	
+	
+	
+	public class FeedPageLoader extends AsyncTask<Integer, Integer, List<Post>>{
+		
+		private Integer page;
+		private AsyncTaskListener callback;
+		
+		public FeedPageLoader() {
+			// TODO Auto-generated constructor stub
+			callback=new AsyncTaskListener() {
+				public void onTaskComplete(List<Post> loadedPosts) {}
+				public void onTaskFailed() {}
+			};
+		}
+		
+		public FeedPageLoader(AsyncTaskListener onComplete) {
+			// TODO Auto-generated constructor stub
+			callback=onComplete;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			//mainActivity.showLoading();
+			super.onPreExecute();
+		}
+		
+		@Override
+		protected List<Post> doInBackground(Integer... params) {
+			// TODO Auto-generated method stub
+			page=params[0];
+			StringBuilder str=new StringBuilder();
+			str.append(blog.getFeedUrl()).append("?paged=").append(page.toString());
+			RssXmlPullParser parser=new RssXmlPullParser(str.toString());
+			List<Post> posts=parser.getNews();
+			return posts;
+		}
+		@Override
+		protected void onPostExecute(List<Post> result) {
+			// TODO Auto-generated method stub
+			if(result!=null)
+				callback.onTaskComplete(result);
+			else
+				callback.onTaskFailed();
+			super.onPostExecute(result);
+		}
+	}
+
+
 }

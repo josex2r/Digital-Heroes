@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 
-import android.util.Log;
 import android.util.Xml;
 
 import com.josex2r.digitalheroes.model.Blog;
@@ -18,10 +17,8 @@ import com.josex2r.digitalheroes.model.Post;
 public class RssXmlPullParser {
 
 	private URL rssUrl;
-	private String url;
 	
 	public RssXmlPullParser(String url){
-		this.url=url;
 		try {
 			this.rssUrl=new URL(url);
 		}catch (MalformedURLException  e) {

@@ -11,15 +11,26 @@
     <ListView
         android:id="@+id/lvPosts"
         android:layout_width="match_parent"
+        android:visibility="visible"
         android:layout_height="wrap_content" >
     </ListView>
 
-    <ProgressBar
-        android:id="@+id/pbPostLoader"
+    <LinearLayout
+        android:id="@+id/lyLoader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:visibility="gone" />
+        android:background="#fff"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="visible" >
+
+        <ProgressBar
+            android:id="@+id/pbLoader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible" />
+    </LinearLayout>
 
 </RelativeLayout>
