@@ -12,7 +12,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.josex2r.digitalheoroes.R;
-import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.model.BitmapCollection;
-import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.Post;
 import com.josex2r.digitalheroes.model.PostViewHolder;
 
@@ -88,13 +85,13 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 			Log.d("MyApp","Check if image exist");
 			
 			if(images.getBitmapFromMemCache( currPost.getImageLink() )==null){
-				currPost.setLoaded(false);
+				
 				Log.d("MyApp","currPost.getImage()==null");
 				ImageLoader downloader=new ImageLoader(viewHolder);
 		
 				downloader.execute( currPost.getImageLink() );
 				
-			}else{
+			}else if(!currPost.getLoaded()){
 			
 				viewHolder.ivImage.setImageBitmap( images.getBitmapFromMemCache(currPost.getImageLink()) );
 				showImage(viewHolder);
@@ -188,7 +185,7 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 		        
 
 		    }catch(Exception e){
-		    	bitmap=BitmapFactory.decodeResource(context.getResources(), R.drawable.no_image);
+		    	bitmap=images.getBitmapFromMemCache("NO-IMAGE");
 		    	//post.setImage( bitmap );
 		    	return null;
 		    }

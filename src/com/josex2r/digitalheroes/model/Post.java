@@ -2,8 +2,6 @@ package com.josex2r.digitalheroes.model;
 
 import java.util.ArrayList;
 
-import android.graphics.Bitmap;
-
 public class Post {
 	private String title;
 	private String link;

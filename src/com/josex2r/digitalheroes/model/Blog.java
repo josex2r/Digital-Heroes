@@ -3,8 +3,6 @@ package com.josex2r.digitalheroes.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.graphics.Bitmap;
-import android.support.v4.util.LruCache;
 import android.util.SparseArray;
 
 public class Blog {
@@ -12,7 +10,6 @@ public class Blog {
 	private static Blog INSTANCE=new Blog();
 	//-------------	Posts collection -------------
 	private SparseArray<SparseArray<List<Post>>> posts;
-	private LruCache<String, Bitmap> images;
 	//-------------	Current filter showing -------------
 	private int activeFilter;
 	//-------------	Current page showing -------------

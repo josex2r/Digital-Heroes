@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,11 +17,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.josex2r.digitalheoroes.R;
-import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
 import com.josex2r.digitalheroes.controllers.PostsAdapter;
 import com.josex2r.digitalheroes.controllers.RssXmlPullParser;
