@@ -12,6 +12,8 @@
         android:id="@+id/lvPosts"
         android:layout_width="match_parent"
         android:visibility="visible"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
         android:layout_height="wrap_content" >
     </ListView>
 
@@ -21,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="#fff"
+        android:background="@android:color/transparent"
         android:orientation="vertical"
         android:padding="10dp"
         android:visibility="visible" >

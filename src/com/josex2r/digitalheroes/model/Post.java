@@ -14,7 +14,25 @@ public class Post {
 	private String guid;
 	private String description;
 	private String imageLink;
-	private Bitmap image;
+	//private Bitmap image;
+	private boolean isBookmark=false;
+	private boolean loaded=false;
+	
+	public void setLoaded(boolean is){
+		this.loaded=is;
+	}
+	
+	public boolean getLoaded(){
+		return this.loaded;
+	}
+	
+	public void setBookmark(boolean is){
+		this.isBookmark=is;
+	}
+	
+	public boolean isBookmark(){
+		return this.isBookmark;
+	}
 	
 	public String getImageLink() {
 		return imageLink;
@@ -24,13 +42,13 @@ public class Post {
 		this.imageLink = imageLink;
 	}
 
-	public Bitmap getImage() {
+	/*public Bitmap getImage() {
 		return image;
 	}
 
 	public void setImage(Bitmap image) {
 		this.image = image;
-	}
+	}*/
 
 	public Post(){
 		this.categories=new ArrayList<Integer>();

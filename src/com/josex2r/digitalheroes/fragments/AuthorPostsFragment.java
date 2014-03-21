@@ -121,7 +121,7 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 		}
 		
 		MainActivity mainActivity=(MainActivity)getActivity();
-		Blog blog=mainActivity.getBlog();
+		Blog blog=Blog.getInstance();
 		
 		if( blog.getActiveFilter() != data.getInt("filter") ){
 		

@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.app.ProgressDialog;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -28,6 +30,7 @@ import com.josex2r.digitalheroes.controllers.DrawerAdapter;
 import com.josex2r.digitalheroes.fragments.AllPostsFragment;
 import com.josex2r.digitalheroes.fragments.AuthorPostsFragment;
 import com.josex2r.digitalheroes.fragments.CategoryPostsFragment;
+import com.josex2r.digitalheroes.model.BitmapCollection;
 import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.DrawerItem;
 
@@ -48,6 +51,8 @@ public class MainActivity extends FragmentActivity {
     private ProgressDialog dialog;
     //Blog
     private static Blog blog;
+    //Images Cache
+    private BitmapCollection images;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +88,7 @@ public class MainActivity extends FragmentActivity {
 	        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 	        
 	        List<DrawerItem> dataList= new ArrayList<DrawerItem>();
-	        dataList.add(new DrawerItem(getString(R.string.title_section1), getString(R.string.icon_star)));
+	        dataList.add(new DrawerItem(getString(R.string.title_section1), getString(R.string.icon_inbox)));
             dataList.add(new DrawerItem(getString(R.string.title_section2), getString(R.string.icon_bookmark)));
             dataList.add(new DrawerItem(getString(R.string.title_section3), getString(R.string.icon_user)));
 	        
@@ -122,6 +127,10 @@ public class MainActivity extends FragmentActivity {
 	
 	public Blog getBlog(){
 		return MainActivity.blog;
+	}
+	
+	public BitmapCollection getImages(){
+		return images;
 	}
 	
 	public void showLoading(){
@@ -234,7 +243,12 @@ public class MainActivity extends FragmentActivity {
     	// TODO Auto-generated method stub
     	Log.d("MyApp","RESUME");
     	if(MainActivity.blog==null)
-    		MainActivity.blog=new Blog("http://blog.gobalo.es/feed/");
+    		MainActivity.blog=Blog.getInstance();
+    	if(images==null){
+    		images=BitmapCollection.getInstance();
+    		Bitmap noImageBitmap=BitmapFactory.decodeResource(this.getResources(), R.drawable.no_image);
+    		images.addBitmapToMemoryCache("NO-IMAGE", noImageBitmap);
+    	}
     	mViewPager.setCurrentItem(1);
     	super.onResume();
     }

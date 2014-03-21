@@ -1,6 +1,7 @@
 package com.josex2r.digitalheroes.controllers;
 
 import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 
 import com.josex2r.digitalheoroes.R;
 import com.josex2r.digitalheroes.MainActivity;
+import com.josex2r.digitalheroes.model.BitmapCollection;
 import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.Post;
 import com.josex2r.digitalheroes.model.PostViewHolder;
@@ -33,6 +35,7 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 	private List<Post> news;
 	private int resource;
 	private ListView lvPosts;
+	private BitmapCollection images;
 	
 	public PostsAdapter(Context context, int resource, List<Post> objects, ListView lv) {
 		super(context, resource, objects);
@@ -41,6 +44,7 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 		this.context=context;
 		this.news=objects;
 		this.lvPosts=lv;
+		this.images=BitmapCollection.getInstance();
 	}
 	
 	public ListView getListView(){
@@ -52,8 +56,9 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 		// TODO Auto-generated method stub
 		View row=convertView;
 		PostViewHolder viewHolder;
+		Post currPost=news.get(position);
 		
-		//if(row==null){
+		if(row==null){
 			LayoutInflater inflater=((Activity) context).getLayoutInflater();
 			row=inflater.inflate(resource, null);
 			viewHolder=new PostViewHolder();
@@ -61,19 +66,54 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 			viewHolder.lblDescription=(TextView) row.findViewById(R.id.lblDescription);
 			viewHolder.ivImage=(ImageView) row.findViewById(R.id.ivImage);
 			viewHolder.pbImage=(ProgressBar) row.findViewById(R.id.pbImage);
+			viewHolder.ivBookmark=(ImageView)row.findViewById(R.id.ivBookmark);
 			row.setTag(viewHolder);
-		/*}else{
+		}else{
 			viewHolder=(PostViewHolder) row.getTag();
-		}*/
-		
-		Post currPost=news.get(position);
+		}
 
 		viewHolder.lblTitle.setText( currPost.getTitle() );
 		viewHolder.lblDescription.setText( currPost.getDescription() );
 		viewHolder.pbImage.setIndeterminate(true);
 		hideImage(viewHolder);
+		
+
+		if(currPost.getImageLink().equals("NO-IMAGE")){
+
+			//Log.d("MyApp","NO-IMAGE");
+			viewHolder.ivImage.setImageBitmap( images.getBitmapFromMemCache("NO-IMAGE") );
+			showImage(viewHolder);
+			
+		}else{
+			Log.d("MyApp","Check if image exist");
+			
+			if(images.getBitmapFromMemCache( currPost.getImageLink() )==null){
+				currPost.setLoaded(false);
+				Log.d("MyApp","currPost.getImage()==null");
+				ImageLoader downloader=new ImageLoader(viewHolder);
+		
+				downloader.execute( currPost.getImageLink() );
+				
+			}else{
+			
+				viewHolder.ivImage.setImageBitmap( images.getBitmapFromMemCache(currPost.getImageLink()) );
+				showImage(viewHolder);
+			
+			}
+			
+		}
+		
+			
+		
+		
 		//Log.d("MyApp",currPost.getImageLink().toString());
-		if(!currPost.getImageLink().equals("NO-IMAGE")){
+		/*
+		if(currPost.getImageLink().equals("NO-IMAGE")){
+			currPost.setImage(noImageBitmap);
+			viewHolder.ivImage.setImageBitmap( currPost.getImage() );
+			showImage(viewHolder);
+		}else{ //Exist Image link
+			//Exist Bitmap
 			if(currPost.getImage()!=null){
 				viewHolder.ivImage.setImageBitmap(currPost.getImage());
 				showImage(viewHolder);
@@ -82,7 +122,6 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 				MainActivity mainActivity=(MainActivity) context;
 				Blog blog=mainActivity.getBlog();
 				SparseArray<SparseArray<List<Post>>> filteredPagedPosts=blog.getPosts();
-				boolean trigger=false;
 				
 				for(int j=0;j<filteredPagedPosts.size();j++)
 					if(filteredPagedPosts.valueAt(j)!=null)
@@ -95,22 +134,22 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 												currPost.setImage( filteredPagedPosts.valueAt(j).valueAt(k).get(l).getImage() );
 										
 					
-				if(trigger && currPost.getImage()!=null){
-					Log.d("MyApp", "-----------> "+currPost.getImage());
+				if(currPost.getImage()!=null){
+					//Log.d("MyApp", "-----------> "+currPost.getImage());
 					viewHolder.ivImage.setImageBitmap(currPost.getImage());
 					showImage(viewHolder);
-				}else{
+				}else if(!currPost.isLoading()){
 					//Async task
+					Log.d("MyApp", "----------------------------->");
+					currPost.setLoading(true);
 					ImageLoader downloader=new ImageLoader();
 					downloader.postHolder=viewHolder;
-					downloader.execute(currPost);
+					downloader.execute(position);
 				}
 					
 			}
-		}else{
-			viewHolder.ivImage.setImageDrawable( context.getResources().getDrawable(R.drawable.no_image) );
-			showImage(viewHolder);
-		}
+		}*/
+		
 		return row;
 	}
 	
@@ -124,38 +163,48 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 		viewHolder.ivImage.setVisibility(View.VISIBLE);
 	}
 	
-	public class ImageLoader extends AsyncTask<Post, Integer, Bitmap>{
+	public class ImageLoader extends AsyncTask<String, Integer, Bitmap>{
 		
-		public PostViewHolder postHolder;
+		private final WeakReference<PostViewHolder> postHolder;
+		Bitmap bitmap=null;
+		
+		public ImageLoader(PostViewHolder holder){
+			postHolder=new WeakReference<PostViewHolder>(holder);
+		}
 
 		@Override
-		protected Bitmap doInBackground(Post... params) {
+		protected Bitmap doInBackground(String... url) {
 			// TODO Auto-generated method stub
-			Log.d("MyApp","Trying to download image");
-			Bitmap bitmap=null;
+			//Log.d("MyApp","Trying to download image");
 			URL postUrl;
 			try {
-				postUrl=new URL(params[0].getImageLink());
+				postUrl=new URL(url[0]);
 		        URLConnection conn=postUrl.openConnection();
 		        conn.connect();
 		        InputStream stream=postUrl.openStream();
 		        bitmap = BitmapFactory.decodeStream(stream);
 
-		        params[0].setImage( bitmap );
+		        //post.setImage( bitmap );
+		        
 
 		    }catch(Exception e){
+		    	bitmap=BitmapFactory.decodeResource(context.getResources(), R.drawable.no_image);
+		    	//post.setImage( bitmap );
 		    	return null;
 		    }
+			images.addBitmapToMemoryCache(url[0], bitmap);
+			
 			return bitmap;
 		}
 		@Override
 		protected void onPostExecute(Bitmap result) {
 			// TODO Auto-generated method stub
-			if(result!=null)
-				postHolder.ivImage.setImageBitmap( result );
-			else
-				postHolder.ivImage.setImageDrawable( context.getResources().getDrawable(R.drawable.no_image) );
-			showImage(postHolder);
+			//Log.d("MyApp",post.getTitle());
+			//Log.d("MyApp",postHolder.get().lblTitle.getText().toString());
+			postHolder.get().ivImage.setImageBitmap( result );
+			showImage(postHolder.get());
+
+			//postHolder.ivImage.setImageBitmap( result );
 			super.onPostExecute(result);
 		}
 	}

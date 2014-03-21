@@ -32,7 +32,7 @@
                 
                 <action android:name="com.josex2r.digitalheroes.BrowserActivity"/>
                 <category android:name="android.intent.category.DEFAULT"></category>
-                <data android:scheme="http" />
+              
                 
             </intent-filter>
         </activity>

@@ -3,12 +3,16 @@ package com.josex2r.digitalheroes.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.Bitmap;
+import android.support.v4.util.LruCache;
 import android.util.SparseArray;
 
 public class Blog {
-
+	//Singleton pattern
+	private static Blog INSTANCE=new Blog();
 	//-------------	Posts collection -------------
 	private SparseArray<SparseArray<List<Post>>> posts;
+	private LruCache<String, Bitmap> images;
 	//-------------	Current filter showing -------------
 	private int activeFilter;
 	//-------------	Current page showing -------------
@@ -22,6 +26,7 @@ public class Blog {
 	public static final int POSTS_PER_FEED=10;
 	
 	//-------------	Post Filters -------------
+	public static final String DEFAULT_FEED_URL="http://blog.gobalo.es/feed/";
 		//-------------	All -------------
 		public static final int FILTER_ALL=0;
 		//-------------	Categories -------------
@@ -47,13 +52,28 @@ public class Blog {
 		public static final int FILTER_TRIX=31;
 	
 	//-------------	Constructor -------------
-	public Blog(String url){
-		this.feedUrl=url;
+	public Blog(){
+		this.feedUrl=DEFAULT_FEED_URL;
 		this.currentPage=1;
 		this.activeFilter=Blog.FILTER_ALL;
 		this.posts=new SparseArray<SparseArray<List<Post>>>();
 		this.loading=false;
 	}
+	
+	private static void createInstance(){
+        if( INSTANCE==null ){
+            synchronized(Blog.class){
+                if( INSTANCE==null ){ 
+                    INSTANCE=new Blog();
+                }
+            }
+        }
+    }
+	
+	public static Blog getInstance(){
+        createInstance();
+        return INSTANCE;
+    }
 	
 	//-------------	Getters -------------
 	public int getCurrentPage(){
@@ -94,7 +114,9 @@ public class Blog {
 		if( posts.get(filter)==null ){
 			posts.put(filter, new SparseArray<List<Post>>());
 		}
-		posts.get(filter).put(page, postsToAdd);
+		//Never override pages
+		if(posts.get(filter).get(page)==null)
+			posts.get(filter).put(page, postsToAdd);
 	}
 	
 	//-------------	Get all post from page 1 to current page -------------

@@ -58,9 +58,9 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		View rootView = inflater.inflate(R.layout.fragment_all_posts,
 				container, false);
 		//-------------	Get Activity -------------
-		MainActivity mainActivity=(MainActivity)getActivity();
+		//MainActivity mainActivity=(MainActivity)getActivity();
 		//-------------	Get static Blog -------------
-		this.blog=mainActivity.getBlog();
+		this.blog=Blog.getInstance();
 		//-------------	Get loader from View -------------
 		lyLoader = (LinearLayout)rootView.findViewById(R.id.lyLoader);
 		//-------------	Set Loading state -------------
@@ -73,14 +73,22 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		lvPosts.setOnScrollListener(this);
 		//-------------	If post loaded from internet == 0, else show list -------------
 		List<Post> currentPosts=blog.getFilteredAllPagedPosts();
+		Log.d("MyApp", "-------- Page: "+Integer.toString(blog.getCurrentPage()) );
 		if( currentPosts.size()==0 ){
+			adapter.clear();
 			loadCurrentPage();
 		}else{
+			blog.setCurrentPage(1);
 			displayPosts();
-			loading(false);
 		}
-		
 		return rootView;
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		lvPosts.setSelection(0);
+		super.onResume();
 	}
 	
 	//-------------	Add posts to ListView -------------
@@ -88,11 +96,12 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		loading(true);
 		List<Post> currentPosts=blog.getFilteredPagedPosts();
 		for(int i=0;i<currentPosts.size();i++){
-			Log.d("MyApp","Isertando al adaptador: "+currentPosts.get(i).getTitle());
+			//Log.d("MyApp","Insertando al adaptador: "+currentPosts.get(i).getTitle());
 			adapter.add(currentPosts.get(i));
 		}
 		adapter.getListView().setSelection(0);
 		adapter.notifyDataSetChanged();
+		loading(false);
 	}
 	
 	//-------------	Loader actions -------------
@@ -130,21 +139,36 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 	
 	
 	
-	
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
 		// TODO Auto-generated method stub
-		//int filter=blog.getFilter();
-		//int page=blog.getPage();
+		Log.d("MyApp",Integer.toString(view.getId()));
+		Post selectedPost=adapter.getItem(position);
 		StringBuilder str=new StringBuilder();
-		String url=adapter.getItem(position).getLink();
+		String url=selectedPost.getLink();
 		str.append(url).append("&android=true");
-		Toast.makeText(getActivity(), "Link: "+str.toString(), Toast.LENGTH_LONG).show();
+		
+		Bundle data=new Bundle();
+		data.putString("uri", str.toString());
+		data.putString("title", selectedPost.getTitle());
 		
 		Intent i = new Intent("com.josex2r.digitalheroes.BrowserActivity");
-		i.setData(Uri.parse(str.toString()));
+		i.putExtras(data);
+		//i.setData(Uri.parse(str.toString()));
 		startActivity(i);
+		
+		// TODO Auto-generated method stub
+		
+		//Toast.makeText(getActivity(), "Link: "+str.toString(), Toast.LENGTH_LONG).show();
+		/*
+		Bundle data=new Bundle();
+		data.putString("uri", str.toString());
+		data.putString("title", selectedPost.getTitle());
+		
+		Intent i = new Intent("com.josex2r.digitalheroes.BrowserActivity");
+		i.putExtras(data);
+		startActivity(i);*/
 	}
 
 	
