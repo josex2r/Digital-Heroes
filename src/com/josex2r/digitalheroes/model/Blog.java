@@ -18,6 +18,8 @@ public class Blog {
 	private boolean loading;
 	//-------------	RSS feed URL -------------
 	private String feedUrl;
+	//-------------	Bitmap Cache -------------
+    private BitmapCollection images;
 	
 	//-------------	Amount of post per RSS feed page -------------
 	public static final int POSTS_PER_FEED=10;
@@ -140,4 +142,23 @@ public class Blog {
 		return filteredPagedPosts;
 	}
 	
+	public void addToFavourites(String title){
+		for(int i=0;i<posts.size();i++){
+			if(posts.get(i)!=null){
+				for(int j=0;j<posts.get(i).size();j++){
+					if(posts.get(i).get(j)!=null){
+						for(int k=0;k<posts.get(i).get(j).size();k++){
+							if(posts.get(i).get(j).get(k)!=null && posts.get(i).get(j).get(k).getTitle().equals(title)){
+								posts.get(i).get(j).get(k).setFavourite(true);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public void removeFromFavourites(String title){
+		
+	}
 }

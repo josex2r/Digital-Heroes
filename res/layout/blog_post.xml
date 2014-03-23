@@ -38,12 +38,11 @@
             android:layout_centerVertical="true" />
 
         <ImageView
-            android:id="@+id/ivBookmark"
+            android:id="@+id/ivFavourites"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:onClick="aaa"
             android:background="@android:color/transparent"
             android:src="@android:drawable/star_off" />
         

@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 
 import com.josex2r.digitalheoroes.R;
 import com.josex2r.digitalheroes.model.BitmapCollection;
+import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.Post;
 import com.josex2r.digitalheroes.model.PostViewHolder;
 
@@ -63,7 +65,7 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 			viewHolder.lblDescription=(TextView) row.findViewById(R.id.lblDescription);
 			viewHolder.ivImage=(ImageView) row.findViewById(R.id.ivImage);
 			viewHolder.pbImage=(ProgressBar) row.findViewById(R.id.pbImage);
-			viewHolder.ivBookmark=(ImageView)row.findViewById(R.id.ivBookmark);
+			viewHolder.ivFavourites=(ImageView)row.findViewById(R.id.ivFavourites);
 			row.setTag(viewHolder);
 		}else{
 			viewHolder=(PostViewHolder) row.getTag();
@@ -100,7 +102,25 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 			
 		}
 		
-			
+		
+		
+		
+		if(currPost.isFavourite()){
+			viewHolder.ivFavourites.setImageDrawable(context.getResources().getDrawable(android.R.drawable.star_on));
+		}
+		
+		viewHolder.ivFavourites.setTag(viewHolder);
+		
+		viewHolder.ivFavourites.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				PostViewHolder holder=(PostViewHolder) v.getTag();
+				Blog.getInstance().addToFavourites(holder.lblTitle.getText().toString());
+				
+				holder.ivFavourites.setImageDrawable(context.getResources().getDrawable(android.R.drawable.star_on));
+			}
+		});
 		
 		
 		//Log.d("MyApp",currPost.getImageLink().toString());
@@ -163,7 +183,6 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 	public class ImageLoader extends AsyncTask<String, Integer, Bitmap>{
 		
 		private final WeakReference<PostViewHolder> postHolder;
-		Bitmap bitmap=null;
 		
 		public ImageLoader(PostViewHolder holder){
 			postHolder=new WeakReference<PostViewHolder>(holder);
@@ -174,6 +193,7 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 			// TODO Auto-generated method stub
 			//Log.d("MyApp","Trying to download image");
 			URL postUrl;
+			Bitmap bitmap;
 			try {
 				postUrl=new URL(url[0]);
 		        URLConnection conn=postUrl.openConnection();
@@ -191,7 +211,7 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 		    }
 			images.addBitmapToMemoryCache(url[0], bitmap);
 			
-			return bitmap;
+			return images.getBitmapFromMemCache(url[0]);
 		}
 		@Override
 		protected void onPostExecute(Bitmap result) {

@@ -2,6 +2,7 @@ package com.josex2r.digitalheroes.model;
 
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
+import android.util.Log;
 
 public class BitmapCollection {
 	//Singleton pattern
@@ -42,8 +43,25 @@ public class BitmapCollection {
 	
 	public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
 	    if (getBitmapFromMemCache(key) == null) {
-	    	INSTANCE.mMemoryCache.put(key, bitmap);
+	    	//Resize bitmap
+	    	Bitmap resizedBitmap = resizeBitmap(bitmap, 400);
+	    	
+	    	INSTANCE.mMemoryCache.put(key, resizedBitmap);
 	    }
+	}
+	
+	private Bitmap resizeBitmap(Bitmap bitmap, int maxW){
+		double ratio=1;
+		double newW=bitmap.getWidth();
+		double newH=bitmap.getHeight();
+		
+		if( bitmap.getWidth()>maxW ){
+			ratio=maxW/newW;
+			newW=maxW;
+			newH=ratio*bitmap.getHeight();
+		}
+		
+		return Bitmap.createScaledBitmap(bitmap, ((int)newW), ((int)newH), false);
 	}
 
 	public Bitmap getBitmapFromMemCache(String key) {

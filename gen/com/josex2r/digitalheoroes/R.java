@@ -103,7 +103,7 @@ public final class R {
         public static final int drawer_layout=0x7f090002;
         public static final int imageView1=0x7f09000b;
         public static final int itemLayout=0x7f09000c;
-        public static final int ivBookmark=0x7f090009;
+        public static final int ivFavourites=0x7f090009;
         public static final int ivImage=0x7f090007;
         public static final int lblDescription=0x7f09000a;
         public static final int lblItemDrawerIcon=0x7f09000d;
@@ -123,12 +123,11 @@ public final class R {
         public static final int activity_browser=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int blog_post=0x7f030002;
-        public static final int blog_post_portrait=0x7f030003;
-        public static final int drawer_list_header=0x7f030004;
-        public static final int drawer_list_item=0x7f030005;
-        public static final int fragment_all_posts=0x7f030006;
-        public static final int fragment_author_posts=0x7f030007;
-        public static final int fragment_category_posts=0x7f030008;
+        public static final int drawer_list_header=0x7f030003;
+        public static final int drawer_list_item=0x7f030004;
+        public static final int fragment_all_posts=0x7f030005;
+        public static final int fragment_author_posts=0x7f030006;
+        public static final int fragment_category_posts=0x7f030007;
     }
     public static final class menu {
         public static final int browser=0x7f080000;

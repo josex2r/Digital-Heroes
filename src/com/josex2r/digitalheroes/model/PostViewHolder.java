@@ -8,5 +8,5 @@ public class PostViewHolder {
 	public TextView lblTitle, lblDescription;
 	public ImageView ivImage;
 	public ProgressBar pbImage;
-	public ImageView ivBookmark;
+	public ImageView ivFavourites;
 }

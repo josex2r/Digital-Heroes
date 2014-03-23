@@ -13,7 +13,7 @@ public class Post {
 	private String description;
 	private String imageLink;
 	//private Bitmap image;
-	private boolean isBookmark=false;
+	private boolean isFavourite=false;
 	private boolean loaded=false;
 	
 	public void setLoaded(boolean is){
@@ -24,12 +24,12 @@ public class Post {
 		return this.loaded;
 	}
 	
-	public void setBookmark(boolean is){
-		this.isBookmark=is;
+	public void setFavourite(boolean is){
+		this.isFavourite=is;
 	}
 	
-	public boolean isBookmark(){
-		return this.isBookmark;
+	public boolean isFavourite(){
+		return this.isFavourite;
 	}
 	
 	public String getImageLink() {
