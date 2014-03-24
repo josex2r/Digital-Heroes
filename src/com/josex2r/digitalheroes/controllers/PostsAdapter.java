@@ -108,7 +108,7 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 		
 		Blog blog=Blog.getInstance();
 		
-		if(blog.isFavourite(currPost.getTitle())){
+		if(blog.isFavourite(currPost.getLink())){
 			viewHolder.ivFavourites.setImageDrawable(context.getResources().getDrawable(android.R.drawable.star_on));
 		}else{
 			viewHolder.ivFavourites.setImageDrawable(context.getResources().getDrawable(android.R.drawable.star_off));

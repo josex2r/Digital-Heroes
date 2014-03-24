@@ -32,7 +32,7 @@ public class Blog {
     private List<String> favourites;
     
     private Context context;
-    private final static int DB_VERSION=2;
+    private final static int DB_VERSION=3;
 	
 	//-------------	Amount of post per RSS feed page -------------
 	public static final int POSTS_PER_FEED=10;
@@ -197,12 +197,37 @@ public class Blog {
 		return filteredPagedPosts;
 	}
 	
-	public boolean addRemoveFromFavourites(String title, String url, AsyncTaskListener<Boolean> task){
+	public void addRemoveFromFavourites(int position){
+		if(context!=null){
+			
+			Post selectedPost=getFilteredAllPagedPosts().get(position);
+			String title=selectedPost.getTitle();
+			String link=selectedPost.getLink();
+			
+			//Always delete
+			
+			
+			if(favourites.contains(link)){
+				
+				//Insert
+				removeFavourite(link);
+				addFavourite(link, title);
+				
+			}else
+				removeFavourite(link);
+			
+		}
+		
+		/*
 		int found=-1;
 		int initSize=favourites.size();
+		Post selectedPost=getFilteredAllPagedPosts().get(position);
+		String title=selectedPost.getTitle();
+		String link=selectedPost.getLink();
+		
 		List<Integer> toRemove=new ArrayList<Integer>();
 		for(int i=0;i<initSize;i++){
-			if(favourites.get(i).equals(title)){
+			if(favourites.get(i).equals( selectedPost.getLink() )){
 				found=i;
 				toRemove.add(i);
 			}
@@ -216,18 +241,21 @@ public class Blog {
 					FavouritesSQLiteHelper conexionDB=new FavouritesSQLiteHelper(context, "DBFavourites", null, DB_VERSION);
 					db=conexionDB.getWritableDatabase();
 					
-					Cursor select=db.rawQuery("SELECT COUNT(title) FROM favourites WHERE url=?", new String[]{url});
+					Cursor select=db.rawQuery("SELECT COUNT(title) FROM favourites WHERE url=?", new String[]{link});
 					
 					select.moveToFirst();
 					if(select.getCount()==1 && select.getInt(0)==0){
 						ContentValues insertSQL = new ContentValues();
 						insertSQL.put("title", title);
-						insertSQL.put("url", url);
+						insertSQL.put("url", link);
 						db.insert("favourites", null, insertSQL);
+						favourites.add( link );
+						task.onTaskComplete(true);
+					}else{
+						task.onTaskFailed();
 					}
 					select.close();
-					favourites.add(title);
-					task.onTaskComplete(true);
+					
 				}catch(Exception e){
 					task.onTaskFailed();
 					throw new RuntimeException(e);
@@ -240,36 +268,84 @@ public class Blog {
 		}else{
 			//Removed from favourites
 			Log.d("MyApp", "Eliminando de favoritos: "+title);
+			if(context!=null){
+				SQLiteDatabase db=null;
+				try {
+					FavouritesSQLiteHelper conexionDB=new FavouritesSQLiteHelper(context, "DBFavourites", null, DB_VERSION);
+					db=conexionDB.getWritableDatabase();
+					
+					db.delete("favourites", "url=?", new String[]{link});
+					
+					task.onTaskComplete(true);
+				}catch(Exception e){
+					task.onTaskFailed();
+					throw new RuntimeException(e);
+				}finally{
+					db.close();	
+				}				
+			}
 			for(int i=0;i<toRemove.size();i++){
-				if(context!=null){
-					SQLiteDatabase db=null;
-					try {
-						FavouritesSQLiteHelper conexionDB=new FavouritesSQLiteHelper(context, "DBFavourites", null, DB_VERSION);
-						db=conexionDB.getWritableDatabase();
-						
-						db.delete("favourites", "url=?", new String[]{url});
-						favourites.remove(i);
-						task.onTaskComplete(true);
-					}catch(Exception e){
-						task.onTaskFailed();
-						throw new RuntimeException(e);
-					}finally{
-						db.close();	
-					}
-					
-					
-				}
+				favourites.remove(i);
 			}
 			return false;
-		}
+		}*/
 	}
 	
-	public boolean isFavourite(String title){
-		//Log.d("MyApp", "favourites-> "+favourites.toString());
-		return favourites.contains(title);
+	private boolean removeFavourite(String link){
+		Log.d("MyApp", "Eliminando de favoritos: "+link);
+		if(context!=null){
+			SQLiteDatabase db=null;
+			try {
+				FavouritesSQLiteHelper conexionDB=new FavouritesSQLiteHelper(context, "DBFavourites", null, DB_VERSION);
+				db=conexionDB.getWritableDatabase();
+				
+				db.delete("favourites", "url=?", new String[]{link});
+				
+				for(int i=0;i<favourites.size();i++){
+					if( favourites.get(i).equals(link) )
+						favourites.remove(i);
+				}
+				
+				return true;
+				
+			}catch(Exception e){
+				return false;
+			}finally{
+				db.close();	
+			}
+		}else
+			return false;
 	}
 	
-	public void removeFromFavourites(String title){
+	private boolean addFavourite(String link, String title){
+		Log.d("MyApp", "Añadiendo a favoritos: "+title);
+		if(context!=null){
+			SQLiteDatabase db=null;
+			try {
+				FavouritesSQLiteHelper conexionDB=new FavouritesSQLiteHelper(context, "DBFavourites", null, DB_VERSION);
+				db=conexionDB.getWritableDatabase();
+				
+				ContentValues insertSQL = new ContentValues();
+				insertSQL.put("title", title);
+				insertSQL.put("url", link);
+				db.insert("favourites", null, insertSQL);
+				
+				favourites.add( link );
+				
+				return true;
+				
+			}catch(Exception e){
+				return false;
+			}finally{
+				db.close();	
+			}
+		}else
+			return false;
+	}
+	
+	public boolean isFavourite(String link){
 		
+		return favourites.contains(link);
 	}
+	
 }

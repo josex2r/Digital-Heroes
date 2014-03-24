@@ -271,13 +271,8 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		Log.d("MyApp","Has clickado en la estrella nº:"+Integer.toString(position));
 		Log.d("MyApp","Título: "+currentPosts.get(position).getTitle());
 		
-		Blog.getInstance().addRemoveFromFavourites( currentPosts.get(position).getTitle(), currentPosts.get(position).getLink(), new AsyncTaskListener<Boolean>() {
-			public void onTaskComplete(Boolean param) {
-				adapter.notifyDataSetChanged();
-			}
-			public void onTaskFailed() {}
-		} );
-		
+		Blog.getInstance().addRemoveFromFavourites( 0 );
+		adapter.notifyDataSetChanged();
 	}
 
 
