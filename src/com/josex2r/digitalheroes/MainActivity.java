@@ -23,14 +23,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.josex2r.digitalheoroes.R;
 import com.josex2r.digitalheroes.controllers.DrawerAdapter;
 import com.josex2r.digitalheroes.fragments.AllPostsFragment;
 import com.josex2r.digitalheroes.fragments.AuthorPostsFragment;
 import com.josex2r.digitalheroes.fragments.CategoryPostsFragment;
-import com.josex2r.digitalheroes.model.BitmapCollection;
 import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.DrawerItem;
 
@@ -51,8 +49,6 @@ public class MainActivity extends FragmentActivity {
     private ProgressDialog dialog;
     //Blog
     private static Blog blog;
-    //Images Cache
-    private BitmapCollection images;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -127,10 +123,6 @@ public class MainActivity extends FragmentActivity {
 	
 	public Blog getBlog(){
 		return MainActivity.blog;
-	}
-	
-	public BitmapCollection getImages(){
-		return images;
 	}
 	
 	public void showLoading(){
@@ -242,12 +234,12 @@ public class MainActivity extends FragmentActivity {
     protected void onResume() {
     	// TODO Auto-generated method stub
     	Log.d("MyApp","RESUME");
-    	if(MainActivity.blog==null)
+    	if(MainActivity.blog==null){
     		MainActivity.blog=Blog.getInstance();
-    	if(images==null){
-    		images=BitmapCollection.getInstance();
+    		MainActivity.blog.setContext(this.getApplicationContext());
+    		MainActivity.blog.loadFavouritesFromDB();
     		Bitmap noImageBitmap=BitmapFactory.decodeResource(this.getResources(), R.drawable.no_image);
-    		images.addBitmapToMemoryCache("NO-IMAGE", noImageBitmap);
+    		blog.getImages().addBitmapToMemoryCache("NO-IMAGE", noImageBitmap);
     	}
     	mViewPager.setCurrentItem(1);
     	super.onResume();

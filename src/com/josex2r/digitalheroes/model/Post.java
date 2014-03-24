@@ -13,9 +13,9 @@ public class Post {
 	private String description;
 	private String imageLink;
 	//private Bitmap image;
-	private boolean isFavourite=false;
-	private boolean loaded=false;
-	
+	//private boolean isFavourite=false;
+	//private boolean loaded=false;
+	/*
 	public void setLoaded(boolean is){
 		this.loaded=is;
 	}
@@ -31,7 +31,7 @@ public class Post {
 	public boolean isFavourite(){
 		return this.isFavourite;
 	}
-	
+	*/
 	public String getImageLink() {
 		return imageLink;
 	}

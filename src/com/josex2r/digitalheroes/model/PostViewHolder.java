@@ -9,4 +9,5 @@ public class PostViewHolder {
 	public ImageView ivImage;
 	public ProgressBar pbImage;
 	public ImageView ivFavourites;
+	public int position;
 }

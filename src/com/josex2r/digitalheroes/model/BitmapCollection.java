@@ -2,7 +2,6 @@ package com.josex2r.digitalheroes.model;
 
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
-import android.util.Log;
 
 public class BitmapCollection {
 	//Singleton pattern
@@ -67,8 +66,6 @@ public class BitmapCollection {
 	public Bitmap getBitmapFromMemCache(String key) {
 	    return INSTANCE.mMemoryCache.get(key);
 	}
+
 	
-	public void addBitmapFromUrl(){
-		
-	}
 }

@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -26,7 +27,7 @@ import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.Post;
 
 
-public class AllPostsFragment extends Fragment implements OnItemClickListener, OnScrollListener{
+public class AllPostsFragment extends Fragment implements OnItemClickListener, OnScrollListener, OnClickListener{
 	//-------------	Blog model -------------
 	private Blog blog;
 	//-------------	ListView adapter -------------
@@ -63,7 +64,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		loading(true);
 		//-------------	Manage ListView -------------
 		lvPosts=(ListView)rootView.findViewById(R.id.lvPosts);
-		adapter=new PostsAdapter(getActivity(), R.layout.blog_post, new ArrayList<Post>(), lvPosts);
+		adapter=new PostsAdapter(getActivity(), R.layout.blog_post, new ArrayList<Post>(), lvPosts, this);
 		lvPosts.setAdapter(adapter);
 		lvPosts.setOnItemClickListener(this);
 		lvPosts.setOnScrollListener(this);
@@ -115,7 +116,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 	
 	//-------------	Load posts from Internet -------------
 	public void loadCurrentPage(){
-		FeedPageLoader page=new FeedPageLoader(new AsyncTaskListener() {
+		FeedPageLoader page=new FeedPageLoader(new AsyncTaskListener<List<Post>>() {
 			@Override
 			public void onTaskComplete(List<Post> loadedPosts) {
 				blog.addPosts(blog.getActiveFilter(), blog.getCurrentPage(), loadedPosts);
@@ -189,11 +190,11 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
         	List<Post> posts=blog.getFilteredPagedPosts();
         	
         	if( posts.size()>0 ){
-        		Log.d("MyApp", "Se han encontrado posts, page: "+Integer.toString(blog.getCurrentPage()));
+        		//Log.d("MyApp", "Se han encontrado posts, page: "+Integer.toString(blog.getCurrentPage()));
         		displayPosts();
         		loading(false);
         	}else{
-        		Log.d("MyApp", "No se han encontrado posts");
+        		//Log.d("MyApp", "No se han encontrado posts");
         		loadCurrentPage();
         	}
             
@@ -213,17 +214,17 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 	public class FeedPageLoader extends AsyncTask<Integer, Integer, List<Post>>{
 		
 		private Integer page;
-		private AsyncTaskListener callback;
+		private AsyncTaskListener<List<Post>> callback;
 		
 		public FeedPageLoader() {
 			// TODO Auto-generated constructor stub
-			callback=new AsyncTaskListener() {
+			callback=new AsyncTaskListener<List<Post>>() {
 				public void onTaskComplete(List<Post> loadedPosts) {}
 				public void onTaskFailed() {}
 			};
 		}
 		
-		public FeedPageLoader(AsyncTaskListener onComplete) {
+		public FeedPageLoader(AsyncTaskListener<List<Post>> onComplete) {
 			// TODO Auto-generated constructor stub
 			callback=onComplete;
 		}
@@ -254,6 +255,29 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 				callback.onTaskFailed();
 			super.onPostExecute(result);
 		}
+	}
+
+
+
+
+
+
+
+	@Override
+	public void onClick(View v) {
+		Integer position=(Integer) v.getTag();
+		List<Post> currentPosts=blog.getFilteredAllPagedPosts();
+		
+		Log.d("MyApp","Has clickado en la estrella nº:"+Integer.toString(position));
+		Log.d("MyApp","Título: "+currentPosts.get(position).getTitle());
+		
+		Blog.getInstance().addRemoveFromFavourites( currentPosts.get(position).getTitle(), currentPosts.get(position).getLink(), new AsyncTaskListener<Boolean>() {
+			public void onTaskComplete(Boolean param) {
+				adapter.notifyDataSetChanged();
+			}
+			public void onTaskFailed() {}
+		} );
+		
 	}
 
 
