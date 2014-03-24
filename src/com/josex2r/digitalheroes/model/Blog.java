@@ -7,11 +7,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap.CompressFormat;
 import android.util.Log;
 import android.util.SparseArray;
 
-import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
 import com.josex2r.digitalheroes.controllers.FavouritesSQLiteHelper;
+import com.josex2r.digitalheroes.utils.DiskLruImageCache;
 
 public class Blog {
 	//Singleton pattern
@@ -27,7 +28,7 @@ public class Blog {
 	//-------------	RSS feed URL -------------
 	private String feedUrl;
 	//-------------	Bitmap Cache -------------
-    private BitmapCollection images;
+    private DiskLruImageCache images;
 	//------------- Favourites collection -------------
     private List<String> favourites;
     
@@ -70,8 +71,7 @@ public class Blog {
 		this.activeFilter=Blog.FILTER_ALL;
 		this.posts=new SparseArray<SparseArray<List<Post>>>();
 		this.loading=false;
-		this.images=BitmapCollection.getInstance();
-		loadFavouritesFromDB();
+		//loadFavouritesFromDB();
 	}
 	
 	private static void createInstance(){
@@ -108,7 +108,7 @@ public class Blog {
 	public int getPage(){
 		return currentPage;
 	}
-	public BitmapCollection getImages(){
+	public DiskLruImageCache getImages(){
 		return images;
 	}
 	
@@ -128,6 +128,7 @@ public class Blog {
 	}
 	public void setContext(Context context){
 		this.context=context;
+		this.images=new DiskLruImageCache(this.context, "postCache", 600, CompressFormat.JPEG, 60);
 	}
 	
 	public void loadFavouritesFromDB(){
@@ -144,7 +145,7 @@ public class Blog {
 				
 				FavouritesSQLiteHelper conexionDB=new FavouritesSQLiteHelper(context, "DBFavourites", null, DB_VERSION);
 				db=conexionDB.getReadableDatabase();
-				Cursor i=db.rawQuery("SELECT title FROM favourites WHERE 1", null);
+				Cursor i=db.rawQuery("SELECT url FROM favourites WHERE 1", null);
 				
 				if(i.getCount()>0){
 					i.moveToFirst();
@@ -199,15 +200,18 @@ public class Blog {
 	
 	public void addRemoveFromFavourites(int position){
 		if(context!=null){
+			Log.d("MyApp", "addRemoveFromFavourites:"+Integer.toString(position));
 			
 			Post selectedPost=getFilteredAllPagedPosts().get(position);
 			String title=selectedPost.getTitle();
 			String link=selectedPost.getLink();
 			
+			Log.d("MyApp", title);
+			
 			//Always delete
 			
 			
-			if(favourites.contains(link)){
+			if(!favourites.contains(link)){
 				
 				//Insert
 				removeFavourite(link);

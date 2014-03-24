@@ -25,6 +25,7 @@ import com.josex2r.digitalheroes.model.BitmapCollection;
 import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.Post;
 import com.josex2r.digitalheroes.model.PostViewHolder;
+import com.josex2r.digitalheroes.utils.DiskLruImageCache;
 
 public class PostsAdapter extends ArrayAdapter<Post>{
 
@@ -32,7 +33,7 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 	private List<Post> news;
 	private int resource;
 	private ListView lvPosts;
-	private BitmapCollection images;
+	private DiskLruImageCache images;
 	private OnClickListener listener;
 	
 	public PostsAdapter(Context context, int resource, List<Post> objects, ListView lv, OnClickListener li) {
@@ -82,13 +83,15 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 
 			//Log.d("MyApp","NO-IMAGE");
 			//Log.d("MyApp",images.getBitmapFromMemCache("NO-IMAGE").toString());
-			viewHolder.ivImage.setImageBitmap( images.getBitmapFromMemCache("NO-IMAGE") );
+			if(images.getBitmap("empty")==null)
+				images.put("empty", BitmapFactory.decodeResource(context.getResources(), R.drawable.no_image));
+			viewHolder.ivImage.setImageBitmap( images.getBitmap("empty") );
 			showImage(viewHolder);
 			
 		}else{
 			//Log.d("MyApp","Check if image exist");
 			
-			if(images.getBitmapFromMemCache( currPost.getImageLink() )==null){
+			if(images.getBitmap( currPost.getImageLink() )==null){
 				
 				//Log.d("MyApp","currPost.getImage()==null");
 				ImageLoader downloader=new ImageLoader(position);
@@ -98,7 +101,7 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 				
 			}else{
 			
-				viewHolder.ivImage.setImageBitmap( images.getBitmapFromMemCache(currPost.getImageLink()) );
+				viewHolder.ivImage.setImageBitmap( images.getBitmap(currPost.getImageLink()) );
 				showImage(viewHolder);
 			
 			}
@@ -156,16 +159,19 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 		        bitmap = BitmapFactory.decodeStream(stream);
 
 		        //post.setImage( bitmap );
-		        
+		        images.put(url[0], bitmap);
+		        bitmap=images.getBitmap(url[0]);
 
 		    }catch(Exception e){
-		    	bitmap=images.getBitmapFromMemCache("NO-IMAGE");
+		    	if(images.getBitmap("empty")==null)
+					images.put("empty", BitmapFactory.decodeResource(context.getResources(), R.drawable.no_image));
+		    	bitmap=images.getBitmap("empty");
 		    	//post.setImage( bitmap );
 		    	return null;
 		    }
-			images.addBitmapToMemoryCache(url[0], bitmap);
 			
-			return images.getBitmapFromMemCache(url[0]);
+			
+			return bitmap;
 			
 		}
 		@Override

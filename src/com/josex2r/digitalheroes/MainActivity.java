@@ -238,8 +238,8 @@ public class MainActivity extends FragmentActivity {
     		MainActivity.blog=Blog.getInstance();
     		MainActivity.blog.setContext(this.getApplicationContext());
     		MainActivity.blog.loadFavouritesFromDB();
-    		Bitmap noImageBitmap=BitmapFactory.decodeResource(this.getResources(), R.drawable.no_image);
-    		blog.getImages().addBitmapToMemoryCache("NO-IMAGE", noImageBitmap);
+    		//Bitmap noImageBitmap=BitmapFactory.decodeResource(this.getResources(), R.drawable.no_image);
+    		//blog.getImages().put("empty", noImageBitmap);
     	}
     	mViewPager.setCurrentItem(1);
     	super.onResume();
