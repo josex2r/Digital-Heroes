@@ -83,7 +83,7 @@ public class DiskLruImageCache {
     public void put( String key, Bitmap data ) {
     	key=Utils.sha1(key).toLowerCase();
     	
-    	data = resizeBitmap(data, 600);
+    	data = resizeBitmap(data, 800);
 
         DiskLruCache.Editor editor = null;
         try {

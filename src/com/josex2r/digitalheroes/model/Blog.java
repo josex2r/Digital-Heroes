@@ -29,11 +29,9 @@ public class Blog {
 	private String feedUrl;
 	//-------------	Bitmap Cache -------------
     private DiskLruImageCache images;
-	//------------- Favourites collection -------------
-    private List<String> favourites;
     
     private Context context;
-    private final static int DB_VERSION=3;
+    private final static int DB_VERSION=1;
 	
 	//-------------	Amount of post per RSS feed page -------------
 	public static final int POSTS_PER_FEED=10;
@@ -63,6 +61,8 @@ public class Blog {
 		public static final int FILTER_SOCIAL=29;
 		public static final int FILTER_SPEED=30;
 		public static final int FILTER_TRIX=31;
+		//-------------	Favourites -------------
+		public static final int FILTER_FAVOURITES=99;
 	
 	//-------------	Constructor -------------
 	public Blog(){
@@ -128,11 +128,11 @@ public class Blog {
 	}
 	public void setContext(Context context){
 		this.context=context;
-		this.images=new DiskLruImageCache(this.context, "postCache", 600, CompressFormat.JPEG, 60);
+		this.images=new DiskLruImageCache(this.context, "postCache", 500000, CompressFormat.JPEG, 80); //1Mb memory cache
 	}
 	
 	public void loadFavouritesFromDB(){
-		List<String> loadedPosts=new ArrayList<String>();
+		List<Post> loadedPosts=new ArrayList<Post>();
 		
 		Log.d("MyApp", "is context!=null????? -> "+Boolean.toString(context!=null));
 		if(context!=null){
@@ -145,13 +145,23 @@ public class Blog {
 				
 				FavouritesSQLiteHelper conexionDB=new FavouritesSQLiteHelper(context, "DBFavourites", null, DB_VERSION);
 				db=conexionDB.getReadableDatabase();
-				Cursor i=db.rawQuery("SELECT url FROM favourites WHERE 1", null);
+				Cursor i=db.rawQuery("SELECT title, link, comments, date, creator, guid, description, imageLink FROM favourites WHERE 1", null);
 				
 				if(i.getCount()>0){
 					i.moveToFirst();
 					do{
 						Log.d("MyApp", "LOADED FROM BBDD: "+i.getString(0));
-						loadedPosts.add( i.getString(0) );
+						Post post=new Post();
+						post.setTitle( i.getString(0) );
+						post.setLink( i.getString(1) );
+						post.setComments( i.getString(2) );
+						post.setDate( i.getString(3) );
+						post.setCreator( i.getString(4) );
+						post.setGuid( i.getString(5) );
+						post.setDescription( i.getString(6) );
+						post.setImageLink( i.getString(7) );
+						
+						loadedPosts.add( post );
 					}while(i.moveToNext());
 				}
 			}catch(Exception e){
@@ -161,7 +171,7 @@ public class Blog {
 				db.close();	
 			}
 		}
-		this.favourites=loadedPosts;
+		this.addPosts(Blog.FILTER_FAVOURITES, 1, loadedPosts);
 	}
 	
 	//-------------	Add posts to posts collection -------------
@@ -189,13 +199,23 @@ public class Blog {
 	
 	//-------------	Get all post from current page -------------
 	public List<Post> getFilteredPagedPosts(){
-		List<Post> filteredPagedPosts=new ArrayList<Post>();
-		if( this.posts.get(this.activeFilter)!=null ){
-			if( this.posts.get(this.activeFilter).get(this.currentPage)!=null ){
-				filteredPagedPosts.addAll( this.posts.get(this.activeFilter).get(this.currentPage) );
+		
+		if(this.activeFilter==Blog.FILTER_FAVOURITES){
+			
+			return this.posts.get(Blog.FILTER_FAVOURITES).get(1);
+			
+		}else{
+			
+			List<Post> filteredPagedPosts=new ArrayList<Post>();
+			if( this.posts.get(this.activeFilter)!=null ){
+				if( this.posts.get(this.activeFilter).get(this.currentPage)!=null ){
+					filteredPagedPosts.addAll( this.posts.get(this.activeFilter).get(this.currentPage) );
+				}
 			}
+			return filteredPagedPosts;
+		
 		}
-		return filteredPagedPosts;
+		
 	}
 	
 	public void addRemoveFromFavourites(int position){
@@ -203,96 +223,21 @@ public class Blog {
 			Log.d("MyApp", "addRemoveFromFavourites:"+Integer.toString(position));
 			
 			Post selectedPost=getFilteredAllPagedPosts().get(position);
-			String title=selectedPost.getTitle();
 			String link=selectedPost.getLink();
-			
-			Log.d("MyApp", title);
 			
 			//Always delete
 			
 			
-			if(!favourites.contains(link)){
+			if(!isFavourite(link)){
 				
 				//Insert
 				removeFavourite(link);
-				addFavourite(link, title);
+				addFavourite(selectedPost);
 				
 			}else
 				removeFavourite(link);
 			
 		}
-		
-		/*
-		int found=-1;
-		int initSize=favourites.size();
-		Post selectedPost=getFilteredAllPagedPosts().get(position);
-		String title=selectedPost.getTitle();
-		String link=selectedPost.getLink();
-		
-		List<Integer> toRemove=new ArrayList<Integer>();
-		for(int i=0;i<initSize;i++){
-			if(favourites.get(i).equals( selectedPost.getLink() )){
-				found=i;
-				toRemove.add(i);
-			}
-		}
-		if(found==-1){
-			//Added to favourites
-			Log.d("MyApp", "Añadiendo a favoritos: "+title);
-			if(context!=null){
-				SQLiteDatabase db=null;
-				try {
-					FavouritesSQLiteHelper conexionDB=new FavouritesSQLiteHelper(context, "DBFavourites", null, DB_VERSION);
-					db=conexionDB.getWritableDatabase();
-					
-					Cursor select=db.rawQuery("SELECT COUNT(title) FROM favourites WHERE url=?", new String[]{link});
-					
-					select.moveToFirst();
-					if(select.getCount()==1 && select.getInt(0)==0){
-						ContentValues insertSQL = new ContentValues();
-						insertSQL.put("title", title);
-						insertSQL.put("url", link);
-						db.insert("favourites", null, insertSQL);
-						favourites.add( link );
-						task.onTaskComplete(true);
-					}else{
-						task.onTaskFailed();
-					}
-					select.close();
-					
-				}catch(Exception e){
-					task.onTaskFailed();
-					throw new RuntimeException(e);
-				}finally{
-					db.close();	
-				}
-			}
-			
-			return true;
-		}else{
-			//Removed from favourites
-			Log.d("MyApp", "Eliminando de favoritos: "+title);
-			if(context!=null){
-				SQLiteDatabase db=null;
-				try {
-					FavouritesSQLiteHelper conexionDB=new FavouritesSQLiteHelper(context, "DBFavourites", null, DB_VERSION);
-					db=conexionDB.getWritableDatabase();
-					
-					db.delete("favourites", "url=?", new String[]{link});
-					
-					task.onTaskComplete(true);
-				}catch(Exception e){
-					task.onTaskFailed();
-					throw new RuntimeException(e);
-				}finally{
-					db.close();	
-				}				
-			}
-			for(int i=0;i<toRemove.size();i++){
-				favourites.remove(i);
-			}
-			return false;
-		}*/
 	}
 	
 	private boolean removeFavourite(String link){
@@ -303,10 +248,11 @@ public class Blog {
 				FavouritesSQLiteHelper conexionDB=new FavouritesSQLiteHelper(context, "DBFavourites", null, DB_VERSION);
 				db=conexionDB.getWritableDatabase();
 				
-				db.delete("favourites", "url=?", new String[]{link});
+				db.delete("favourites", "link=?", new String[]{link});
 				
+				List<Post> favourites=this.posts.get(Blog.FILTER_FAVOURITES).get(1);
 				for(int i=0;i<favourites.size();i++){
-					if( favourites.get(i).equals(link) )
+					if( favourites.get(i).getLink().equals(link) )
 						favourites.remove(i);
 				}
 				
@@ -321,8 +267,8 @@ public class Blog {
 			return false;
 	}
 	
-	private boolean addFavourite(String link, String title){
-		Log.d("MyApp", "Añadiendo a favoritos: "+title);
+	private boolean addFavourite(Post post){
+		Log.d("MyApp", "Añadiendo a favoritos: "+post.getTitle());
 		if(context!=null){
 			SQLiteDatabase db=null;
 			try {
@@ -330,11 +276,17 @@ public class Blog {
 				db=conexionDB.getWritableDatabase();
 				
 				ContentValues insertSQL = new ContentValues();
-				insertSQL.put("title", title);
-				insertSQL.put("url", link);
+				insertSQL.put("title", post.getTitle());
+				insertSQL.put("link", post.getLink());
+				insertSQL.put("comments", post.getComments());
+				insertSQL.put("date", post.getDate());
+				insertSQL.put("creator", post.getCreator());
+				insertSQL.put("guid", post.getGuid());
+				insertSQL.put("description", post.getDescription());
+				insertSQL.put("imageLink", post.getImageLink());
 				db.insert("favourites", null, insertSQL);
 				
-				favourites.add( link );
+				this.posts.get(Blog.FILTER_FAVOURITES).get(1).add( post );
 				
 				return true;
 				
@@ -348,8 +300,13 @@ public class Blog {
 	}
 	
 	public boolean isFavourite(String link){
-		
-		return favourites.contains(link);
+		boolean found=false;
+		List<Post> favourites=this.posts.get(Blog.FILTER_FAVOURITES).get(1);
+		for(int i=0;i<favourites.size();i++){
+			if(favourites.get(i).getLink().equals(link))
+				found=true;
+		}
+		return found;
 	}
 	
 }

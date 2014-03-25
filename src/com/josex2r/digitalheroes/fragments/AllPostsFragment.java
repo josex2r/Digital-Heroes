@@ -181,7 +181,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 			int visibleItemCount, int totalItemCount) {
 		// TODO Auto-generated method stub
 	
-        if (!blog.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+        if (!blog.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold) && blog.getActiveFilter()!=Blog.FILTER_FAVOURITES ) {
 
             loading(true);
             
@@ -271,7 +271,13 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		Log.d("MyApp","Has clickado en la estrella nº:"+Integer.toString(position));
 		Log.d("MyApp","Título: "+currentPosts.get(position).getTitle());
 		
-		Blog.getInstance().addRemoveFromFavourites( position );
+		blog.addRemoveFromFavourites( position );
+		
+		if(blog.getActiveFilter()==Blog.FILTER_FAVOURITES){
+			adapter.clear();
+			adapter.addAll( blog.getFilteredPagedPosts() );
+		}
+		
 		adapter.notifyDataSetChanged();
 	}
 

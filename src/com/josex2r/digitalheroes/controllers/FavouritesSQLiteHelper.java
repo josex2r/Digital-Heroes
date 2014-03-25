@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class FavouritesSQLiteHelper extends SQLiteOpenHelper{
 	
-	String sqlCreate = "CREATE TABLE favourites (title TEXT, url TEXT)";
+	String sqlCreate = "CREATE TABLE favourites (title TEXT, link TEXT, comments TEXT, date TEXT, creator TEXT, guid TEXT, description TEXT, imageLink TEXT)";
 	
 	public FavouritesSQLiteHelper(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);

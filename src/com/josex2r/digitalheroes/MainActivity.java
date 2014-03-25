@@ -5,8 +5,6 @@ import java.util.List;
 
 import android.app.ProgressDialog;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -87,6 +85,7 @@ public class MainActivity extends FragmentActivity {
 	        dataList.add(new DrawerItem(getString(R.string.title_section1), getString(R.string.icon_inbox)));
             dataList.add(new DrawerItem(getString(R.string.title_section2), getString(R.string.icon_bookmark)));
             dataList.add(new DrawerItem(getString(R.string.title_section3), getString(R.string.icon_user)));
+            dataList.add(new DrawerItem(getString(R.string.title_section4), getString(R.string.icon_star)));
 	        
 	        mDrawerList.setAdapter(new DrawerAdapter(this, R.layout.drawer_list_item, dataList));
 	        View header=getLayoutInflater().inflate(R.layout.drawer_list_header, null);
@@ -196,6 +195,14 @@ public class MainActivity extends FragmentActivity {
         			break;
         		case 3:
         			mViewPager.setCurrentItem(2);
+        			break;
+        		case 4:
+        			if(blog.getActiveFilter() != Blog.FILTER_FAVOURITES){
+	        			blog.setActiveFilter( Blog.FILTER_FAVOURITES );
+	        			blog.setCurrentPage(1);
+        			}
+        			mSectionsPagerAdapter.changeTitle(1, getString(R.string.title_section4));
+        			mViewPager.setCurrentItem(1);
         			break;
         	}
         	
