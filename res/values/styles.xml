@@ -25,10 +25,24 @@
         <item name="android:textColor">#fff</item>
     </style>
     
+    <style name="btn_category_icon_big" parent="AppBaseTheme">
+        <item name="android:textSize">45sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:minHeight">150dp</item>
+    </style>
+    
     <style name="btn_category" parent="AppBaseTheme">
         <item name="android:textSize">25sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#fff</item>
+    </style>
+    
+    <style name="btn_category_big" parent="AppBaseTheme">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:minHeight">100dp</item>
     </style>
     
     <style name="btn_drawer_list_text" parent="AppBaseTheme">
