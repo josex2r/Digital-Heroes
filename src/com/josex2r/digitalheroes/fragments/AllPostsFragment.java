@@ -77,9 +77,11 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 			adapter.clear();
 			loadCurrentPage();
 			
-			//Start loading screen
-			Intent intent = new Intent(mainActivity, LoaderActivity.class);
-			startActivityForResult(intent, Blog.REQUEST_LOAD);
+			//Start loading screen if first time
+			if( blog.getPosts().get(0)==null ){
+				Intent intent = new Intent(mainActivity, LoaderActivity.class);
+				startActivityForResult(intent, Blog.REQUEST_LOAD);
+			}
 		}else{
 			blog.setCurrentPage(1);
 			displayPosts();
