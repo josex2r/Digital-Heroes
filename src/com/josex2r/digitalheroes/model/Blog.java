@@ -11,6 +11,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.util.Log;
 import android.util.SparseArray;
 
+import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
 import com.josex2r.digitalheroes.controllers.FavouritesSQLiteHelper;
 import com.josex2r.digitalheroes.utils.DiskLruImageCache;
 
@@ -35,6 +36,12 @@ public class Blog {
 	
 	//-------------	Amount of post per RSS feed page -------------
 	public static final int POSTS_PER_FEED=10;
+	
+	//-------------	Loading -------------
+	private AsyncTaskListener<Boolean> onLoadCallback;
+	public static final int REQUEST_LOAD = 999;
+	public static final int REQUEST_LOADED = 200;
+	public static final int REQUEST_FAILED = 500;
 	
 	//-------------	Post Filters -------------
 	public static final String DEFAULT_FEED_URL="http://blog.gobalo.es/feed/";
@@ -132,6 +139,29 @@ public class Blog {
 		this.images=new DiskLruImageCache(this.context, "postCache", 500000, CompressFormat.JPEG, 80); //1Mb memory cache
 	}
 	
+	public void setOnLoadListener(AsyncTaskListener<Boolean> callback){
+		Log.d("MyApp", "Setting onLoadListener");
+		int postCount = (getFilteredPagedPosts()).size();
+		if( postCount>0 ){
+			//Post have been loaded, dispatch callback
+			callback.onTaskComplete(true);
+			onLoadCallback = null;
+		}else{
+			//Wait load to dispatch callback
+			onLoadCallback = callback;
+		}
+	}
+	public void dispatchLoadListener(Boolean result){
+		Log.d("MyApp", "Dispatching onLoadListener");
+		if( onLoadCallback!=null ){
+			if( result ){
+				onLoadCallback.onTaskComplete(result);
+			}else{
+				onLoadCallback.onTaskFailed();
+			}
+			onLoadCallback = null;
+		}
+	}
 	
 	public void loadFavouritesFromDB(){
 		List<Post> loadedPosts=new ArrayList<Post>();

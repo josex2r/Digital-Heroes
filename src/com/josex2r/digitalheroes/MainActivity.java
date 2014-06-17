@@ -63,9 +63,6 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 		//ActionBar ab=getActionBar(); 
         //ab.setBackgroundDrawable( new ColorDrawable(Color.parseColor("#fefefe")) );
-		
-		Intent intent = new Intent(this, LoaderActivity.class);
-		startActivity(intent);
         
 		//Init view pager
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -130,6 +127,7 @@ public class MainActivity extends FragmentActivity {
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 		
+        
 	}
 	
 	public Blog getBlog(){
@@ -172,6 +170,20 @@ public class MainActivity extends FragmentActivity {
 		return true;
 	}
 	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		if( requestCode==Blog.REQUEST_LOAD ){
+			switch (resultCode) {
+				case Blog.REQUEST_LOADED:
+					break;
+				case Blog.REQUEST_FAILED:
+					break;
+			}
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 	
 	
 	@Override

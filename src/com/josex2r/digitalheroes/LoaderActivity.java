@@ -1,9 +1,13 @@
 package com.josex2r.digitalheroes;
 
+import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
+import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,6 +52,7 @@ public class LoaderActivity extends Activity {
 	 * The instance of the {@link SystemUiHider} for this activity.
 	 */
 	private SystemUiHider mSystemUiHider;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +63,34 @@ public class LoaderActivity extends Activity {
 		final View controlsView = findViewById(R.id.fullscreen_content_controls);
 		final View contentView = findViewById(R.id.fullscreen_content);
 		
+		//Logo animation
 		ImageView imageView = (ImageView) findViewById(R.id.iv_logo_blank);
 		Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse_animation);
 		imageView.startAnimation(pulse);
 		
+		//Pulse oval animation
 		FrameLayout ovalFrame = (FrameLayout) findViewById(R.id.fl_oval);
 		Animation pulseFade = AnimationUtils.loadAnimation(this, R.anim.pulse_fade_animation);
 		ovalFrame.startAnimation(pulseFade);
+		
+		//Blog intent result
+		//-------------	Get static Blog -------------
+		Blog blog=Blog.getInstance();
+		final Intent responseIntent = new Intent(this, MainActivity.class);
+		blog.setOnLoadListener(new AsyncTaskListener<Boolean>() {
+			@Override
+			public void onTaskFailed() {
+				// TODO Auto-generated method stub
+				setResult(Blog.REQUEST_LOADED, responseIntent);
+				finish();
+			}
+			@Override
+			public void onTaskComplete(Boolean param) {
+				// TODO Auto-generated method stub
+				setResult(Blog.REQUEST_FAILED, responseIntent);
+				finish();
+			}
+		});
 
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.

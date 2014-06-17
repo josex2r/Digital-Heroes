@@ -19,6 +19,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.josex2r.digitalheroes.LoaderActivity;
+import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
 import com.josex2r.digitalheroes.controllers.PostsAdapter;
@@ -55,7 +57,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		View rootView = inflater.inflate(R.layout.fragment_all_posts,
 				container, false);
 		//-------------	Get Activity -------------
-		//MainActivity mainActivity=(MainActivity)getActivity();
+		MainActivity mainActivity=(MainActivity)getActivity();
 		//-------------	Get static Blog -------------
 		this.blog=Blog.getInstance();
 		//-------------	Get loader from View -------------
@@ -74,6 +76,10 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		if( currentPosts.size()==0 ){
 			adapter.clear();
 			loadCurrentPage();
+			
+			//Start loading screen
+			Intent intent = new Intent(mainActivity, LoaderActivity.class);
+			startActivityForResult(intent, Blog.REQUEST_LOAD);
 		}else{
 			blog.setCurrentPage(1);
 			displayPosts();
@@ -121,6 +127,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 			public void onTaskComplete(List<Post> loadedPosts) {
 				blog.addPosts(blog.getActiveFilter(), blog.getCurrentPage(), loadedPosts);
 				displayPosts();
+				blog.dispatchLoadListener(true);
 				loading(false);
 			}
 			public void onTaskFailed() {
@@ -128,6 +135,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 				loading(false);
 				//Force loading state to prevent more loadings
 				blog.setLoading(true);
+				blog.dispatchLoadListener(false);
 			}
 		});
 		page.execute(blog.getCurrentPage());
