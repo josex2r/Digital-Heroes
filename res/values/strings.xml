@@ -9,6 +9,7 @@
     <string name="title_section2">Categorías</string>
     <string name="title_section3">Autores</string>
     <string name="title_section4">Favoritos</string>
+    <string name="title_section5">Contacta</string>
     <string name="loading">Cargando...</string>
     <string name="description">Descripción</string>
     <string name="title">Título</string>
@@ -24,7 +25,7 @@
     <string name="author_01101">Super 01101</string>
     <string name="author_code">Super Code</string>
     <string name="author_craft">Super Craft</string>
-    <string name="author_crea">Inside Crea</string>
+    <string name="author_crea">Super Crea</string>
     <string name="author_idea">Super Idea</string>
     <string name="author_numbers">Super Numbers</string>
     <string name="author_pencil">Super Pencil</string>
@@ -404,8 +405,5 @@
     <string name="icon_vimeo_square">&#xf194;</string>
     <string name="icon_try">&#xf195;</string>
     <string name="icon_plus_square_o">&#xf196;</string>
-    <string name="title_activity_filtered">FilteredActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_browser">BrowserActivity</string>
 
 </resources>
