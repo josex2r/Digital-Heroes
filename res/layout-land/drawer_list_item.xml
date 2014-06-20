@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:textColor="@drawable/drawer_text_selector"
             style="@style/btn_drawer_list_icon"
+            android:textSize="25dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:text="Icon" />
@@ -29,7 +30,8 @@
 	        android:text="@string/author_01101"
 	        android:layout_gravity="center"
 	        android:textColor="@drawable/drawer_text_selector"
-	        style="@style/btn_drawer_list_text" />
+	        style="@style/btn_drawer_list_text"
+	        android:textSize="20dp" />
 
     </LinearLayout>
 

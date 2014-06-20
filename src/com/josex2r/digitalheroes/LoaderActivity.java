@@ -1,12 +1,7 @@
 package com.josex2r.digitalheroes;
 
-import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
-import com.josex2r.digitalheroes.model.Blog;
-import com.josex2r.digitalheroes.util.SystemUiHider;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +12,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
+import com.josex2r.digitalheroes.model.Blog;
+import com.josex2r.digitalheroes.util.SystemUiHider;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
