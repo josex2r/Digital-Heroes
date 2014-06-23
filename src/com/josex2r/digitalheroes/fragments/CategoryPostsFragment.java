@@ -76,49 +76,42 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		Bundle data=new Bundle();
-		switch(v.getId()){
-			case R.id.btnAdversiting:
-			case R.id.btnAdversitingIcon:
-				data.putString("feedUrl", "http://blog.gobalo.es/category/advertising-2/feed/");
-				data.putString("name", "Advertising");
-				data.putInt("filter", Blog.FILTER_ADVERSITING);
-				break;
-			case R.id.btnCreatividad:
-			case R.id.btnCreatividadIcon:
-				data.putString("feedUrl", "http://blog.gobalo.es/category/creatividad/feed/");
-				data.putString("name", "Creatividad");
-				data.putInt("filter", Blog.FILTER_CREATIVIDAD);
-				break;
-			case R.id.btnInside:
-			case R.id.btnInsideIcon:
-				data.putString("feedUrl", "http://blog.gobalo.es/category/inside-gobalo/feed/");
-				data.putString("name", "Inside Góbalo");
-				data.putInt("filter", Blog.FILTER_INSIDE);
-				break;
-			case R.id.btnMarketing:
-			case R.id.btnMarketingIcon:
-				data.putString("feedUrl", "http://blog.gobalo.es/category/marketing-digital-y-social-media/feed/");
-				data.putString("name", "Marketing Digital");
-				data.putInt("filter", Blog.FILTER_MARKETING);
-				break;
-			case R.id.btnNegocios:
-			case R.id.btnNegociosIcon:
-				data.putString("feedUrl", "http://blog.gobalo.es/category/negocios/feed/");
-				data.putString("name", "Negocios");
-				data.putInt("filter", Blog.FILTER_NEGOCIOS);
-				break;
-			case R.id.btnSeo:
-			case R.id.btnSeoIcon:
-				data.putString("feedUrl", "http://blog.gobalo.es/category/seo-y-sem/feed/");
-				data.putString("name", "SEO y SEM");
-				data.putInt("filter", Blog.FILTER_SEO);
-				break;
-			case R.id.btnWeb:
-			case R.id.btnWebIcon:
-				data.putString("feedUrl", "http://blog.gobalo.es/category/web-y-programacion/feed/");
-				data.putString("name", "Web y Programación");
-				data.putInt("filter", Blog.FILTER_WEB);
-				break;
+		int id = v.getId();
+		if (id == R.id.btnAdversiting
+				|| id == R.id.btnAdversitingIcon) {
+			data.putString("feedUrl", "http://blog.gobalo.es/category/advertising-2/feed/");
+			data.putString("name", "Advertising");
+			data.putInt("filter", Blog.FILTER_ADVERSITING);
+		} else if (id == R.id.btnCreatividad
+				|| id == R.id.btnCreatividadIcon) {
+			data.putString("feedUrl", "http://blog.gobalo.es/category/creatividad/feed/");
+			data.putString("name", "Creatividad");
+			data.putInt("filter", Blog.FILTER_CREATIVIDAD);
+		} else if (id == R.id.btnInside
+				|| id == R.id.btnInsideIcon) {
+			data.putString("feedUrl", "http://blog.gobalo.es/category/inside-gobalo/feed/");
+			data.putString("name", "Inside Góbalo");
+			data.putInt("filter", Blog.FILTER_INSIDE);
+		} else if (id == R.id.btnMarketing
+				|| id == R.id.btnMarketingIcon) {
+			data.putString("feedUrl", "http://blog.gobalo.es/category/marketing-digital-y-social-media/feed/");
+			data.putString("name", "Marketing Digital");
+			data.putInt("filter", Blog.FILTER_MARKETING);
+		} else if (id == R.id.btnNegocios
+				|| id == R.id.btnNegociosIcon) {
+			data.putString("feedUrl", "http://blog.gobalo.es/category/negocios/feed/");
+			data.putString("name", "Negocios");
+			data.putInt("filter", Blog.FILTER_NEGOCIOS);
+		} else if (id == R.id.btnSeo
+				|| id == R.id.btnSeoIcon) {
+			data.putString("feedUrl", "http://blog.gobalo.es/category/seo-y-sem/feed/");
+			data.putString("name", "SEO y SEM");
+			data.putInt("filter", Blog.FILTER_SEO);
+		} else if (id == R.id.btnWeb
+				|| id == R.id.btnWebIcon) {
+			data.putString("feedUrl", "http://blog.gobalo.es/category/web-y-programacion/feed/");
+			data.putString("name", "Web y Programación");
+			data.putInt("filter", Blog.FILTER_WEB);
 		}
 		
 		MainActivity mainActivity=(MainActivity)getActivity();

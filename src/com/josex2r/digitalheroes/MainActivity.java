@@ -69,6 +69,7 @@ public class MainActivity extends FragmentActivity {
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		mViewPager.getChildAt(0).setBackgroundResource(R.color.red);
+		
 		//Create fragments
 		fragmentList=new ArrayList<Fragment>();
 		fragmentList.add(new CategoryPostsFragment());

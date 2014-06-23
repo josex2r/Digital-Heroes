@@ -46,7 +46,7 @@
 				        android:layout_width="0dp"
 				        android:layout_height="match_parent"
 				        android:layout_weight="3"
-				        android:text="@string/category_adversiting"
+				        android:text="@string/category_advertising"
 				        android:background="@drawable/btn_category_advertising"
 				        style="@style/btn_category" />
 	                

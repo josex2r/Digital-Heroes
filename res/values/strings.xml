@@ -15,7 +15,7 @@
     <string name="title">Título</string>
     <string name="image">Imagen</string>
     <string name="no_image">La imagen no se pudo cargar</string>
-    <string name="category_adversiting">Adversiting</string>
+    <string name="category_advertising">Advertising</string>
     <string name="category_creatividad">Creatividad</string>
     <string name="category_inside">Inside Góbalo</string>
     <string name="category_marketing">Marketing Digital y Social Media</string>

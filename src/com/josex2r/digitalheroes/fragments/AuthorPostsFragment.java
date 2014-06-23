@@ -56,68 +56,55 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		Bundle data=new Bundle();
-		switch(v.getId()){
-			case R.id.btnBinary:
-				data.putString("feedUrl", "http://blog.gobalo.es/author/a-vara/feed/");
-				data.putString("name", "Super 01101");
-				data.putInt("filter", Blog.FILTER_BINARY);
-				break;
-			case R.id.btnCode:
-				data.putString("feedUrl", "http://blog.gobalo.es/author/jl-represa/feed/");
-				data.putString("name", "Super Code");
-				data.putInt("filter", Blog.FILTER_CODE);
-				break;
-			case R.id.btnCraft:
-				data.putString("feedUrl", "http://blog.gobalo.es/author/n-pastor/feed/");
-				data.putString("name", "Super Craft");
-				data.putInt("filter", Blog.FILTER_CRAFT);
-				break;
-			case R.id.btnCrea:
-				data.putString("feedUrl", "http://blog.gobalo.es/author/g-gomez/feed/");
-				data.putString("name", "Super Crea");
-				data.putInt("filter", Blog.FILTER_CREA);
-				break;
-			case R.id.btnIdea:
-				data.putString("feedUrl", "http://blog.gobalo.es/author/j-azpeitia/feed/");
-				data.putString("name", "Super Idea");
-				data.putInt("filter", Blog.FILTER_IDEA);
-				break;
-			case R.id.btnNumbers:
-				data.putString("feedUrl", "http://blog.gobalo.es/author/m-becerra/feed/");
-				data.putString("name", "Super Numbers");
-				data.putInt("filter", Blog.FILTER_NUMBERS);
-				break;
-			case R.id.btnPencil:
-				data.putString("feedUrl", "http://blog.gobalo.es/author/a-fassi/feed/");
-				data.putString("name", "Super Pencil");
-				data.putInt("filter", Blog.FILTER_PENCIL);
-				break;
-			case R.id.btnPixel:
-				data.putString("feedUrl", "http://blog.gobalo.es/author/f-bril/feed/");
-				data.putString("name", "Super Pixel");
-				data.putInt("filter", Blog.FILTER_PIXEL);
-				break;
-			case R.id.btnSem:
-				data.putString("feedUrl", "http://blog.gobalo.es/author/l-casado/feed/");
-				data.putString("name", "Super SEM");
-				data.putInt("filter", Blog.FILTER_SEM);
-				break;
-			case R.id.btnSocial:
-				data.putString("feedUrl", "http://blog.gobalo.es/author/bloggobalo-es/feed/");
-				data.putString("name", "Super Social");
-				data.putInt("filter", Blog.FILTER_SOCIAL);
-				break;
-			case R.id.btnSpeed:
-				data.putString("feedUrl", "http://blog.gobalo.es/author/a-gonzalez/feed/");
-				data.putString("name", "Super Speed");
-				data.putInt("filter", Blog.FILTER_SPEED);
-				break;
-			case R.id.btnTrix:
-				data.putString("feedUrl", "http://blog.gobalo.es/author/cristina/feed/");
-				data.putString("name", "Super Trix");
-				data.putInt("filter", Blog.FILTER_TRIX);
-				break;
-			
+		int id = v.getId();
+		if (id == R.id.btnBinary) {
+			data.putString("feedUrl", "http://blog.gobalo.es/author/a-vara/feed/");
+			data.putString("name", "Super 01101");
+			data.putInt("filter", Blog.FILTER_BINARY);
+		} else if (id == R.id.btnCode) {
+			data.putString("feedUrl", "http://blog.gobalo.es/author/jl-represa/feed/");
+			data.putString("name", "Super Code");
+			data.putInt("filter", Blog.FILTER_CODE);
+		} else if (id == R.id.btnCraft) {
+			data.putString("feedUrl", "http://blog.gobalo.es/author/n-pastor/feed/");
+			data.putString("name", "Super Craft");
+			data.putInt("filter", Blog.FILTER_CRAFT);
+		} else if (id == R.id.btnCrea) {
+			data.putString("feedUrl", "http://blog.gobalo.es/author/g-gomez/feed/");
+			data.putString("name", "Super Crea");
+			data.putInt("filter", Blog.FILTER_CREA);
+		} else if (id == R.id.btnIdea) {
+			data.putString("feedUrl", "http://blog.gobalo.es/author/j-azpeitia/feed/");
+			data.putString("name", "Super Idea");
+			data.putInt("filter", Blog.FILTER_IDEA);
+		} else if (id == R.id.btnNumbers) {
+			data.putString("feedUrl", "http://blog.gobalo.es/author/m-becerra/feed/");
+			data.putString("name", "Super Numbers");
+			data.putInt("filter", Blog.FILTER_NUMBERS);
+		} else if (id == R.id.btnPencil) {
+			data.putString("feedUrl", "http://blog.gobalo.es/author/a-fassi/feed/");
+			data.putString("name", "Super Pencil");
+			data.putInt("filter", Blog.FILTER_PENCIL);
+		} else if (id == R.id.btnPixel) {
+			data.putString("feedUrl", "http://blog.gobalo.es/author/f-bril/feed/");
+			data.putString("name", "Super Pixel");
+			data.putInt("filter", Blog.FILTER_PIXEL);
+		} else if (id == R.id.btnSem) {
+			data.putString("feedUrl", "http://blog.gobalo.es/author/l-casado/feed/");
+			data.putString("name", "Super SEM");
+			data.putInt("filter", Blog.FILTER_SEM);
+		} else if (id == R.id.btnSocial) {
+			data.putString("feedUrl", "http://blog.gobalo.es/author/bloggobalo-es/feed/");
+			data.putString("name", "Super Social");
+			data.putInt("filter", Blog.FILTER_SOCIAL);
+		} else if (id == R.id.btnSpeed) {
+			data.putString("feedUrl", "http://blog.gobalo.es/author/a-gonzalez/feed/");
+			data.putString("name", "Super Speed");
+			data.putInt("filter", Blog.FILTER_SPEED);
+		} else if (id == R.id.btnTrix) {
+			data.putString("feedUrl", "http://blog.gobalo.es/author/cristina/feed/");
+			data.putString("name", "Super Trix");
+			data.putInt("filter", Blog.FILTER_TRIX);
 		}
 		
 		MainActivity mainActivity=(MainActivity)getActivity();
