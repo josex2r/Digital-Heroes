@@ -23,6 +23,9 @@ public class BrowserActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		overridePendingTransition(R.anim.activity_slide_in, R.anim.no_anim);
+		
 		setContentView(R.layout.activity_browser);
 		
 		pbWebLoader = (ProgressBar) findViewById(R.id.pbWebLoader);
@@ -69,6 +72,13 @@ public class BrowserActivity extends Activity {
 		}
 		
 		
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		overridePendingTransition(R.anim.no_anim, R.anim.activity_slide_out);
+		super.onPause();
 	}
 
 }

@@ -72,7 +72,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		lvPosts.setOnScrollListener(this);
 		//-------------	If post loaded from internet == 0, else show list -------------
 		List<Post> currentPosts=blog.getFilteredAllPagedPosts();
-		Log.d("MyApp", "-------- Page: "+Integer.toString(blog.getCurrentPage()) );
+		//Log.d("MyApp", "-------- Page: "+Integer.toString(blog.getCurrentPage()) );
 		if( currentPosts.size()==0 ){
 			adapter.clear();
 			loadCurrentPage();
@@ -177,8 +177,6 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		i.putExtras(data);
 		startActivity(i);*/
 	}
-
-	
 	
 	
 	
@@ -278,8 +276,8 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		Integer position=(Integer) v.getTag();
 		List<Post> currentPosts=blog.getFilteredAllPagedPosts();
 		
-		Log.d("MyApp","Has clickado en la estrella nº:"+Integer.toString(position));
-		Log.d("MyApp","Título: "+currentPosts.get(position).getTitle());
+		//Log.d("MyApp","Has clickado en la estrella nº:"+Integer.toString(position));
+		//Log.d("MyApp","Título: "+currentPosts.get(position).getTitle());
 		
 		blog.addRemoveFromFavourites( position );
 		

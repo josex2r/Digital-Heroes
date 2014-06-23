@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
@@ -180,6 +181,7 @@ public class MainActivity extends FragmentActivity {
 				case Blog.REQUEST_LOADED:
 					break;
 				case Blog.REQUEST_FAILED:
+					Toast.makeText(getApplicationContext(), "No se han podido cargar las noticias", Toast.LENGTH_LONG).show();
 					break;
 			}
 		}
