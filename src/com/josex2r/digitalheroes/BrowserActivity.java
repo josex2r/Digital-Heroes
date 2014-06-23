@@ -3,6 +3,7 @@ package com.josex2r.digitalheroes;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -27,6 +28,9 @@ public class BrowserActivity extends Activity {
 		overridePendingTransition(R.anim.activity_slide_in, R.anim.no_anim);
 		
 		setContentView(R.layout.activity_browser);
+		 
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		pbWebLoader = (ProgressBar) findViewById(R.id.pbWebLoader);
 		pbWebLoader.setVisibility(View.VISIBLE);
