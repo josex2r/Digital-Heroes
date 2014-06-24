@@ -1,10 +1,16 @@
 package com.josex2r.digitalheroes.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap.CompressFormat;
@@ -42,6 +48,11 @@ public class Blog {
 	public static final int REQUEST_LOAD = 999;
 	public static final int REQUEST_LOADED = 200;
 	public static final int REQUEST_FAILED = 500;
+	
+	//-------------	Preferences -------------
+	public static final String PREFS_NAMESPACE = "DigitalHeroes";
+		public static final String PREFS_NOTIFICATIONS = "notifications";
+		public static final String PREFS_LAST_UPDATE = "lastUpdate";
 	
 	//-------------	Post Filters -------------
 	public static final String DEFAULT_FEED_URL="http://blog.gobalo.es/feed/";
@@ -339,6 +350,39 @@ public class Blog {
 				found=true;
 		}
 		return found;
+	}
+	
+	
+	public boolean checkNewPost(String newUpdate){
+		SharedPreferences prefs = this.context.getSharedPreferences(Blog.PREFS_NAMESPACE ,Context.MODE_PRIVATE);
+		boolean enabled = prefs.getBoolean(Blog.PREFS_NOTIFICATIONS, false);
+		if( enabled ){
+			String lastUpdate = prefs.getString(Blog.PREFS_LAST_UPDATE, "");
+			DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH);
+			try {
+				Date lastDate = formatter.parse(lastUpdate);
+				Date newDate = formatter.parse(newUpdate);
+				if( newDate.after(lastDate) ){
+					enabled = false;
+				}
+			}catch(ParseException e){
+				e.printStackTrace();
+				enabled = false;
+			}
+		}
+		return enabled;
+	}
+	
+	public String getLastUpdate(){
+		SharedPreferences prefs = this.context.getSharedPreferences(Blog.PREFS_NAMESPACE ,Context.MODE_PRIVATE);
+		return prefs.getString(Blog.PREFS_LAST_UPDATE, "");
+	}
+	
+	public void setLastUpdate(String date){
+		SharedPreferences prefs = this.context.getSharedPreferences(Blog.PREFS_NAMESPACE ,Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(Blog.PREFS_LAST_UPDATE, date);
+		editor.commit();
 	}
 	
 }
