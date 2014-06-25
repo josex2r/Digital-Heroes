@@ -9,82 +9,71 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity$DummySectionFragment" >
-
-    <ScrollView
-        android:id="@+id/scrollView1"
+    
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal" >
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnAdversitingIcon"
+                style="@style/btn_category_icon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_category_advertising"
+                android:text="@string/icon_bullhorn" />
+
+            <Button
+                android:id="@+id/btnAdversiting"
+                style="@style/btn_category"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@drawable/btn_category_advertising"
+                android:text="@string/category_advertising" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnCreatividadIcon"
+                style="@style/btn_category_icon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_category_creatividad"
+                android:text="@string/icon_pencil" />
+
+            <Button
+                android:id="@+id/btnCreatividad"
+                style="@style/btn_category"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@drawable/btn_category_creatividad"
+                android:text="@string/category_creatividad" />
+        </LinearLayout>
+    </LinearLayout>
             
             <LinearLayout
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
-		        android:orientation="horizontal" >
-		        
-	            <LinearLayout
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_weight="1"
-			        android:layout_margin="5dp"
-			        android:orientation="horizontal" >
-			        
-	                <Button
-				        android:id="@+id/btnAdversitingIcon"
-				        android:layout_width="0dp"
-				        android:layout_height="wrap_content"
-				        android:layout_weight="1"
-				        android:text="@string/icon_bullhorn"
-				        android:background="@drawable/btn_category_advertising"
-				        style="@style/btn_category_icon" />
-	                
-	                <Button
-				        android:id="@+id/btnAdversiting"
-				        android:layout_width="0dp"
-				        android:layout_height="match_parent"
-				        android:layout_weight="3"
-				        android:text="@string/category_advertising"
-				        android:background="@drawable/btn_category_advertising"
-				        style="@style/btn_category" />
-	                
-			    </LinearLayout>
-			    
-	            <LinearLayout
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_weight="1"
-			        android:layout_margin="5dp"
-			        android:layout_marginTop="20dp"
-			        android:orientation="horizontal" >
-			        
-	                <Button
-				        android:id="@+id/btnCreatividadIcon"
-				        android:layout_width="0dp"
-				        android:layout_height="wrap_content"
-				        android:layout_weight="1"
-				        android:text="@string/icon_pencil"
-				        android:background="@drawable/btn_category_creatividad"
-				        style="@style/btn_category_icon" />
-	                
-	                <Button
-				        android:id="@+id/btnCreatividad"
-				        android:layout_width="0dp"
-				        android:layout_height="match_parent"
-				        android:layout_weight="3"
-				        android:text="@string/category_creatividad"
-				        android:background="@drawable/btn_category_creatividad"
-				        style="@style/btn_category" />
-	                
-			    </LinearLayout>
-			    
-            </LinearLayout>
-            
-            <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
+        		android:baselineAligned="false"
 		        android:orientation="horizontal" >
             
 			    <LinearLayout
@@ -148,6 +137,7 @@
             <LinearLayout
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
+        		android:baselineAligned="false"
 		        android:orientation="horizontal" >
 		    
 			    <LinearLayout
@@ -211,6 +201,7 @@
             <LinearLayout
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
+        		android:baselineAligned="false"
 		        android:orientation="horizontal" >
 
 			    <LinearLayout
@@ -243,7 +234,5 @@
 			
 			</LinearLayout>
             
-        </LinearLayout>
-    </ScrollView>
 
 </LinearLayout>

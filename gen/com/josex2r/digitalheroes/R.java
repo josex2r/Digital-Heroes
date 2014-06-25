@@ -1124,10 +1124,10 @@ containing a value of this type.
     
          */
         public static final int WalletFragmentDefaultStyle=0x7f0a0003;
-        public static final int btn_category=0x7f0a0008;
-        public static final int btn_category_big=0x7f0a0009;
+        public static final int btn_author=0x7f0a0008;
+        public static final int btn_author_big=0x7f0a0009;
+        public static final int btn_category=0x7f0a0007;
         public static final int btn_category_icon=0x7f0a0006;
-        public static final int btn_category_icon_big=0x7f0a0007;
         public static final int btn_drawer_list_icon=0x7f0a000b;
         public static final int btn_drawer_list_text=0x7f0a000a;
     }

@@ -22,17 +22,13 @@
         -->
     </style>
 
+    
+    
     <style name="btn_category_icon" parent="AppBaseTheme">
         <item name="android:textSize">45sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#fff</item>
-    </style>
-
-    <style name="btn_category_icon_big" parent="AppBaseTheme">
-        <item name="android:textSize">45sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">#fff</item>
-        <item name="android:minHeight">150dp</item>
+        <item name="android:paddingLeft">15dp</item>
     </style>
 
     <style name="btn_category" parent="AppBaseTheme">
@@ -40,18 +36,32 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#fff</item>
         <item name="android:gravity">left|center_vertical</item>
-        <item name="android:drawablePadding">15dp</item>
     </style>
-
-    <style name="btn_category_big" parent="AppBaseTheme">
+    
+    
+    
+    <style name="btn_author" parent="AppBaseTheme">
+        <item name="android:paddingLeft">10dp</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#fff</item>
-        <item name="android:minHeight">100dp</item>
         <item name="android:gravity">left|center_vertical</item>
-        <item name="android:drawablePadding">15dp</item>
+        <item name="android:drawablePadding">5dp</item>
     </style>
-
+	
+    
+    
+    <style name="btn_author_big" parent="AppBaseTheme">
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+    
+    
+    
     <style name="btn_drawer_list_text" parent="AppBaseTheme">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
@@ -64,6 +74,8 @@
         <item name="android:textColor">@color/red</item>
     </style>
 
+    
+    
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@null</item>
@@ -71,6 +83,8 @@
         <item name="metaButtonBarButtonStyle">@style/ButtonBarButton</item>
     </style>
 
+    
+    
     <style name="ButtonBar">
         <item name="android:paddingLeft">2dp</item>
         <item name="android:paddingTop">5dp</item>

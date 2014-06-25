@@ -10,15 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity$DummySectionFragment" >
 
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
             
             <LinearLayout
 	            android:layout_width="match_parent"
@@ -35,7 +26,7 @@
 			        android:text="@string/author_01101"
 			        android:drawableLeft="@drawable/ic_super_01101"
 			        android:background="@drawable/btn_author_01101"
-			        style="@style/btn_category" />
+			        style="@style/btn_author_big" />
 			    
 			    <Button
 			        android:id="@+id/btnCode"
@@ -48,7 +39,7 @@
 			        android:drawableLeft="@drawable/ic_super_code"
 			        android:layout_marginTop="20dp"
 			        android:background="@drawable/btn_author_code"
-			        style="@style/btn_category" />
+			        style="@style/btn_author_big" />
 			    
 			    <Button
 			        android:id="@+id/btnCraft"
@@ -61,7 +52,7 @@
 			        android:drawableLeft="@drawable/ic_super_craft"
 			        android:layout_marginTop="20dp"
 			        android:background="@drawable/btn_author_craft"
-			        style="@style/btn_category" />
+			        style="@style/btn_author_big" />
 		    
 			</LinearLayout>
 			
@@ -81,7 +72,7 @@
 			        android:drawableLeft="@drawable/ic_super_crea"
 			        android:layout_marginTop="20dp"
 			        android:background="@drawable/btn_author_crea"
-			        style="@style/btn_category" />
+			        style="@style/btn_author_big" />
 			    
 			    <Button
 			        android:id="@+id/btnIdea"
@@ -94,7 +85,7 @@
 			        android:drawableLeft="@drawable/ic_super_idea"
 			        android:layout_marginTop="20dp"
 			        android:background="@drawable/btn_author_idea"
-			        style="@style/btn_category" />
+			        style="@style/btn_author_big" />
 			    
 			    <Button
 			        android:id="@+id/btnNumbers"
@@ -107,7 +98,7 @@
 			        android:drawableLeft="@drawable/ic_super_numbers"
 			        android:layout_marginTop="20dp"
 			        android:background="@drawable/btn_author_numbers"
-			        style="@style/btn_category" />
+			        style="@style/btn_author_big" />
 		    
 			</LinearLayout>
 			
@@ -127,7 +118,7 @@
 			        android:drawableLeft="@drawable/ic_super_pencil"
 			        android:layout_marginTop="20dp"
 			        android:background="@drawable/btn_author_pencil"
-			        style="@style/btn_category" />
+			        style="@style/btn_author_big" />
 			    
 			    <Button
 			        android:id="@+id/btnPixel"
@@ -140,7 +131,7 @@
 			        android:drawableLeft="@drawable/ic_super_pixel"
 			        android:layout_marginTop="20dp"
 			        android:background="@drawable/btn_author_pixel"
-			        style="@style/btn_category" />
+			        style="@style/btn_author_big" />
 			    
 			    <Button
 			        android:id="@+id/btnSem"
@@ -153,7 +144,7 @@
 			        android:drawableLeft="@drawable/ic_super_sem"
 			        android:layout_marginTop="20dp"
 			        android:background="@drawable/btn_author_sem"
-			        style="@style/btn_category" />
+			        style="@style/btn_author_big" />
 			    
 			</LinearLayout>
 			
@@ -173,7 +164,7 @@
 			        android:drawableLeft="@drawable/ic_super_social"
 			        android:layout_marginTop="20dp"
 			        android:background="@drawable/btn_author_social"
-			        style="@style/btn_category" />
+			        style="@style/btn_author_big" />
 			    
 			    <Button
 			        android:id="@+id/btnSpeed"
@@ -186,7 +177,7 @@
 			        android:drawableLeft="@drawable/ic_super_speed"
 			        android:layout_marginTop="20dp"
 			        android:background="@drawable/btn_author_speed"
-			        style="@style/btn_category" />
+			        style="@style/btn_author_big" />
 			    
 			    <Button
 			        android:id="@+id/btnTrix"
@@ -199,9 +190,7 @@
 			        android:drawableLeft="@drawable/ic_super_trix"
 			        android:layout_marginTop="20dp"
 			        android:background="@drawable/btn_author_trix"
-			        style="@style/btn_category" />
+			        style="@style/btn_author_big" />
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
 
 </LinearLayout>
