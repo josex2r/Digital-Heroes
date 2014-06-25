@@ -18,6 +18,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap.CompressFormat;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.util.SparseArray;
@@ -362,7 +363,8 @@ public class Blog {
 	
 	
 	public void checkNewPost(final Context ctx){
-		SharedPreferences prefs = ctx.getSharedPreferences(Blog.PREFS_NAMESPACE ,Context.MODE_PRIVATE);
+		//final Context ctx = context;
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx.getApplicationContext());
 		
 		if( prefs.getBoolean(Blog.PREFS_NOTIFICATIONS, true) ){
 			
@@ -383,7 +385,6 @@ public class Blog {
 								//Check dates
 								if( newLastDate.after(lastDate) ){
 									
-									SharedPreferences prefs = ctx.getSharedPreferences(Blog.PREFS_NAMESPACE, Context.MODE_PRIVATE);
 									SharedPreferences.Editor editor = prefs.edit();
 									editor.putString(Blog.PREFS_LAST_UPDATE, lastPost.getDate());
 									editor.commit();
@@ -422,10 +423,4 @@ public class Blog {
 		}
 	}
 	
-	public void setLastUpdate(String newLastDate){
-		SharedPreferences prefs = this.context.getSharedPreferences(Blog.PREFS_NAMESPACE, Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.putString(Blog.PREFS_LAST_UPDATE, newLastDate);
-		editor.commit();
-	}
 }

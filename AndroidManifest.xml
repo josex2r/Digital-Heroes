@@ -57,7 +57,7 @@
             android:name="com.josex2r.digitalheroes.SettingsActivity"
             android:label="@string/action_settings" >
         </activity>
-        <receiver android:process=":remote" android:name="com.josex2r.digitalheroes.controllers.NewPostAlarm">
+        <receiver android:name="com.josex2r.digitalheroes.controllers.NewPostAlarm">
 		    <intent-filter>
 		        <action android:name="android.intent.action.BOOT_COMPLETED"></action>
 		    </intent-filter>

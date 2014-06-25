@@ -28,13 +28,6 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
 		// TODO Auto-generated method stub
-		
-		if( key.equals(Blog.PREFS_NOTIFICATIONS) ){
-			SharedPreferences prefs = this.getApplicationContext().getSharedPreferences(Blog.PREFS_NAMESPACE, Context.MODE_PRIVATE);
-			SharedPreferences.Editor editor = prefs.edit();
-			editor.putBoolean(Blog.PREFS_NOTIFICATIONS, sharedPreferences.getBoolean(Blog.PREFS_NOTIFICATIONS, true));
-			editor.commit();
-		}
 	}
 
 	@Override
