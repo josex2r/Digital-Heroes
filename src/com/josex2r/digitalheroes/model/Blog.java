@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
@@ -23,7 +21,6 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.util.SparseArray;
-import android.widget.Toast;
 
 import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.R;
@@ -385,11 +382,11 @@ public class Blog {
 								Date newLastDate = formatter.parse(lastPost.getDate());
 								//Check dates
 								if( newLastDate.after(lastDate) ){
-									/*
+									
 									SharedPreferences prefs = ctx.getSharedPreferences(Blog.PREFS_NAMESPACE, Context.MODE_PRIVATE);
 									SharedPreferences.Editor editor = prefs.edit();
 									editor.putString(Blog.PREFS_LAST_UPDATE, lastPost.getDate());
-									editor.commit();*/
+									editor.commit();
 
 									PowerManager pm = (PowerManager) ctx.getSystemService(Context.POWER_SERVICE);
 							        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
