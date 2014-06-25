@@ -100,7 +100,7 @@
 				        android:layout_width="0dp"
 				        android:layout_height="match_parent"
 				        android:layout_weight="1"
-				        android:text="@string/icon_thumbs_o_up"
+				        android:text="@string/icon_eye_open"
 				        android:background="@drawable/btn_category_inside"
 				        style="@style/btn_category_icon" />
 	                
@@ -191,7 +191,7 @@
 				        android:layout_width="0dp"
 				        android:layout_height="wrap_content"
 				        android:layout_weight="1"
-				        android:text="@string/icon_coffee"
+				        android:text="@string/icon_thumbs_o_up"
 				        android:background="@drawable/btn_category_seo"
 				        style="@style/btn_category_icon" />
 	                
@@ -226,7 +226,7 @@
 				        android:layout_width="0dp"
 				        android:layout_height="wrap_content"
 				        android:layout_weight="1"
-				        android:text="@string/icon_sitemap"
+				        android:text="@string/icon_code"
 				        android:background="@drawable/btn_category_web"
 				        style="@style/btn_category_icon" />
 	                

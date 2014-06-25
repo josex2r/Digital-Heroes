@@ -46,8 +46,7 @@ public class BrowserActivity extends Activity {
 			WebView navegador = (WebView)findViewById(R.id.wvPost);
 			
 			WebSettings settings = navegador.getSettings();
-			settings.setJavaScriptEnabled(true);
-
+			settings.setJavaScriptEnabled(true);//
 			
 			navegador.setHorizontalScrollBarEnabled(false);
 			

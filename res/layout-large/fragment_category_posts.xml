@@ -91,7 +91,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/btn_category_inside"
-                android:text="@string/icon_thumbs_o_up" />
+                android:text="@string/icon_eye_open" />
 
             <Button
                 android:id="@+id/btnInside"
@@ -179,7 +179,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/btn_category_seo"
-                android:text="@string/icon_coffee" />
+                android:text="@string/icon_thumbs_o_up" />
 
             <Button
                 android:id="@+id/btnSeo"
@@ -213,7 +213,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/btn_category_web"
-                android:text="@string/icon_sitemap" />
+                android:text="@string/icon_code" />
 
             <Button
                 android:id="@+id/btnWeb"
