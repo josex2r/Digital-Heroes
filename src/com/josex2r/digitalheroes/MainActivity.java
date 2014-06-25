@@ -171,11 +171,11 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		/*
+		
 		getMenuInflater().inflate(R.menu.main, menu);
 		return super.onCreateOptionsMenu(menu);
-		*/
-		return true;
+		
+		//return true;
 	}
 	
 	
@@ -199,9 +199,13 @@ public class MainActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
          // The action bar home/up action should open or close the drawer.
          // ActionBarDrawerToggle will take care of this.
-        if (mDrawerToggle.onOptionsItemSelected(item))
+		
+        if(mDrawerToggle.onOptionsItemSelected(item))
             return true;
-        //return super.onOptionsItemSelected(item);
+        
+        Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivityForResult(i, 0);
+        
         return false;
     }
     

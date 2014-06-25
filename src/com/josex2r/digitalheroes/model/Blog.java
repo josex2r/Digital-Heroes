@@ -387,10 +387,6 @@ public class Blog {
 									SharedPreferences.Editor editor = prefs.edit();
 									editor.putString(Blog.PREFS_LAST_UPDATE, lastPost.getDate());
 									editor.commit();
-
-									PowerManager pm = (PowerManager) ctx.getSystemService(Context.POWER_SERVICE);
-							        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
-							        wl.acquire();
 									
 									NotificationCompat.Builder mBuilder =
 										    new NotificationCompat.Builder(ctx)
@@ -405,7 +401,6 @@ public class Blog {
 									NotificationManager mNotifyMgr = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
 									mNotifyMgr.notify(0, mBuilder.build());
 									
-									wl.release();
 								}
 							} catch (ParseException e) {
 								e.printStackTrace();

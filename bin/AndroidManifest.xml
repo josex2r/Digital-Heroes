@@ -15,7 +15,6 @@
     <!-- ANALYTICS -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!--  ALARM -->
-    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
 
     <application
@@ -53,6 +52,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name="com.josex2r.digitalheroes.SettingsActivity"
+            android:label="@string/action_settings" >
         </activity>
         <receiver android:process=":remote" android:name="com.josex2r.digitalheroes.controllers.NewPostAlarm">
 		    <intent-filter>
