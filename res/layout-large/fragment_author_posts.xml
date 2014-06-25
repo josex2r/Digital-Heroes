@@ -104,7 +104,6 @@
 			        android:layout_height="wrap_content"
 			        android:layout_weight="1"
 			        android:layout_margin="5dp"
-			        android:textSize="20sp"
 			        android:text="@string/author_numbers"
 			        android:drawableLeft="@drawable/ic_super_numbers"
 			        android:layout_marginTop="20dp"

@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -27,6 +31,8 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
+import com.josex2r.digitalheroes.controllers.NewPostAlarm;
 import com.josex2r.digitalheroes.controllers.ScrollableMenuAdapter;
 import com.josex2r.digitalheroes.fragments.AllPostsFragment;
 import com.josex2r.digitalheroes.fragments.AuthorPostsFragment;
@@ -38,6 +44,8 @@ import com.josex2r.digitalheroes.utils.Utils;
 
 
 public class MainActivity extends FragmentActivity {
+	//New post alarm
+	private static NewPostAlarm newPostAlarm;
 	//ViewPager
 	private SectionsPagerAdapter mSectionsPagerAdapter;
 	private ViewPager mViewPager;
@@ -288,6 +296,13 @@ public class MainActivity extends FragmentActivity {
     		//blog.getImages().put("empty", noImageBitmap);
     	}
     	mViewPager.setCurrentItem(1);
+    	
+    	if( MainActivity.newPostAlarm!=null ){
+    		MainActivity.newPostAlarm.cancelAlarm(this);
+    	}else{
+    		MainActivity.newPostAlarm = new NewPostAlarm();
+    	}
+		MainActivity.newPostAlarm.setAlarm(this);
     	
     	//Analytics
     	if( Utils.checkPlayServices(this) ){

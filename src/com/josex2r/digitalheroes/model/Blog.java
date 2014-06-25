@@ -8,17 +8,28 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap.CompressFormat;
+import android.os.PowerManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.util.SparseArray;
+import android.widget.Toast;
 
+import com.josex2r.digitalheroes.MainActivity;
+import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
 import com.josex2r.digitalheroes.controllers.FavouritesSQLiteHelper;
+import com.josex2r.digitalheroes.controllers.FeedPageLoader;
 import com.josex2r.digitalheroes.utils.DiskLruImageCache;
 
 public class Blog {
@@ -353,36 +364,76 @@ public class Blog {
 	}
 	
 	
-	public boolean checkNewPost(String newUpdate){
-		SharedPreferences prefs = this.context.getSharedPreferences(Blog.PREFS_NAMESPACE ,Context.MODE_PRIVATE);
-		boolean enabled = prefs.getBoolean(Blog.PREFS_NOTIFICATIONS, false);
-		if( enabled ){
-			String lastUpdate = prefs.getString(Blog.PREFS_LAST_UPDATE, "");
-			DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH);
+	public void checkNewPost(final Context ctx){
+		SharedPreferences prefs = ctx.getSharedPreferences(Blog.PREFS_NAMESPACE ,Context.MODE_PRIVATE);
+		
+		if( prefs.getBoolean(Blog.PREFS_NOTIFICATIONS, true) ){
+			
+			String lastUpdate = prefs.getString(Blog.PREFS_LAST_UPDATE, "Wed, 18 Jun 2014 08:38:57 +0000");
+			
+			final DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH);
 			try {
-				Date lastDate = formatter.parse(lastUpdate);
-				Date newDate = formatter.parse(newUpdate);
-				if( newDate.after(lastDate) ){
-					enabled = false;
-				}
+				final Date lastDate = formatter.parse(lastUpdate);
+				
+				FeedPageLoader lastPosts=new FeedPageLoader(new AsyncTaskListener<List<Post>>() {
+					@Override
+					public void onTaskComplete(List<Post> loadedPosts) {
+						//Display notification
+						if( loadedPosts!=null && loadedPosts.size()>0 ){
+							Post lastPost = loadedPosts.get(0);
+							try {
+								Date newLastDate = formatter.parse(lastPost.getDate());
+								//Check dates
+								if( newLastDate.after(lastDate) ){
+									/*
+									SharedPreferences prefs = ctx.getSharedPreferences(Blog.PREFS_NAMESPACE, Context.MODE_PRIVATE);
+									SharedPreferences.Editor editor = prefs.edit();
+									editor.putString(Blog.PREFS_LAST_UPDATE, lastPost.getDate());
+									editor.commit();*/
+
+									PowerManager pm = (PowerManager) ctx.getSystemService(Context.POWER_SERVICE);
+							        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
+							        wl.acquire();
+									
+									NotificationCompat.Builder mBuilder =
+										    new NotificationCompat.Builder(ctx)
+										    .setContentTitle("Digital Heroes")
+										    .setContentText(lastPost.getTitle())
+										    .setSmallIcon(R.drawable.ic_notification);
+									
+									Intent resultIntent = new Intent(ctx, MainActivity.class);
+									PendingIntent resultPendingIntent =	PendingIntent.getActivity(ctx, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+									mBuilder.setContentIntent(resultPendingIntent);
+									
+									NotificationManager mNotifyMgr = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+									mNotifyMgr.notify(0, mBuilder.build());
+									
+									wl.release();
+								}
+							} catch (ParseException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+					public void onTaskFailed() {
+						//Do nothing
+					}
+				});
+				//Get firsts posts and execute callback if not updated
+				lastPosts.execute(1);
+				
 			}catch(ParseException e){
 				e.printStackTrace();
-				enabled = false;
+				return;
 			}
+						
 		}
-		return enabled;
 	}
 	
-	public String getLastUpdate(){
-		SharedPreferences prefs = this.context.getSharedPreferences(Blog.PREFS_NAMESPACE ,Context.MODE_PRIVATE);
-		return prefs.getString(Blog.PREFS_LAST_UPDATE, "");
-	}
-	
-	public void setLastUpdate(String date){
-		SharedPreferences prefs = this.context.getSharedPreferences(Blog.PREFS_NAMESPACE ,Context.MODE_PRIVATE);
+	public void setLastUpdate(String newLastDate){
+		SharedPreferences prefs = this.context.getSharedPreferences(Blog.PREFS_NAMESPACE, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
-		editor.putString(Blog.PREFS_LAST_UPDATE, date);
+		editor.putString(Blog.PREFS_LAST_UPDATE, newLastDate);
 		editor.commit();
 	}
-	
 }

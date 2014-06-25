@@ -109,7 +109,7 @@
 	                    style="@style/btn_category"
 	                    android:layout_width="0dp"
 	                    android:layout_height="match_parent"
-	                    android:layout_weight="3.00"
+	                    android:layout_weight="3"
 	                    android:background="@drawable/btn_category_inside"
 	                    android:text="@string/category_inside" />
 	                
@@ -130,7 +130,6 @@
 				        android:layout_weight="1"
 				        android:text="@string/icon_shopping_cart"
 				        android:background="@drawable/btn_category_marketing"
-				        android:minHeight="100dp"
 				        style="@style/btn_category_icon" />
 	                
 	                <Button
@@ -138,7 +137,6 @@
 				        android:layout_width="0dp"
 				        android:layout_height="match_parent"
 				        android:layout_weight="3"
-				        android:textSize="20dp"
 				        android:text="@string/category_marketing"
 				        android:background="@drawable/btn_category_marketing"
 				        style="@style/btn_category" />
@@ -229,7 +227,6 @@
 				        android:layout_height="wrap_content"
 				        android:layout_weight="1"
 				        android:text="@string/icon_sitemap"
-				        android:minHeight="100dp"
 				        android:background="@drawable/btn_category_web"
 				        style="@style/btn_category_icon" />
 	                
