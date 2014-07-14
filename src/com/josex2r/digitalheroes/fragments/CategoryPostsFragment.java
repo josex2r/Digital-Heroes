@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.model.Blog;
+import com.josex2r.digitalheroes.model.BlogFilter;
 import com.josex2r.digitalheroes.model.Typefaces;
 
 
@@ -75,52 +76,31 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		Bundle data=new Bundle();
-		int id = v.getId();
-		if (id == R.id.btnAdversiting
-				|| id == R.id.btnAdversitingIcon) {
-			data.putString("feedUrl", "http://blog.gobalo.es/category/advertising-2/feed/");
-			data.putString("name", "Advertising");
-			data.putInt("filter", Blog.FILTER_ADVERSITING);
-		} else if (id == R.id.btnCreatividad
-				|| id == R.id.btnCreatividadIcon) {
-			data.putString("feedUrl", "http://blog.gobalo.es/category/creatividad/feed/");
-			data.putString("name", "Creatividad");
-			data.putInt("filter", Blog.FILTER_CREATIVIDAD);
-		} else if (id == R.id.btnInside
-				|| id == R.id.btnInsideIcon) {
-			data.putString("feedUrl", "http://blog.gobalo.es/category/inside-gobalo/feed/");
-			data.putString("name", "Inside Góbalo");
-			data.putInt("filter", Blog.FILTER_INSIDE);
-		} else if (id == R.id.btnMarketing
-				|| id == R.id.btnMarketingIcon) {
-			data.putString("feedUrl", "http://blog.gobalo.es/category/marketing-digital-y-social-media/feed/");
-			data.putString("name", "Marketing Digital");
-			data.putInt("filter", Blog.FILTER_MARKETING);
-		} else if (id == R.id.btnNegocios
-				|| id == R.id.btnNegociosIcon) {
-			data.putString("feedUrl", "http://blog.gobalo.es/category/negocios/feed/");
-			data.putString("name", "Negocios");
-			data.putInt("filter", Blog.FILTER_NEGOCIOS);
-		} else if (id == R.id.btnSeo
-				|| id == R.id.btnSeoIcon) {
-			data.putString("feedUrl", "http://blog.gobalo.es/category/seo-y-sem/feed/");
-			data.putString("name", "SEO y SEM");
-			data.putInt("filter", Blog.FILTER_SEO);
-		} else if (id == R.id.btnWeb
-				|| id == R.id.btnWebIcon) {
-			data.putString("feedUrl", "http://blog.gobalo.es/category/web-y-programacion/feed/");
-			data.putString("name", "Web y Programación");
-			data.putInt("filter", Blog.FILTER_WEB);
-		}
-		
 		MainActivity mainActivity=(MainActivity)getActivity();
 		Blog blog=Blog.getInstance();
 		
-		if( blog.getActiveFilter() != data.getInt("filter") ){
+		BlogFilter selectedFilter = blog.getActiveFilter();
 		
-			blog.setActiveFilter(data.getInt("filter"));
-			blog.setFeedUrl(data.getString("feedUrl"));
+		int id = v.getId();
+		if (id == R.id.btnAdversiting || id == R.id.btnAdversitingIcon) {
+			selectedFilter = Blog.FILTER_ADVERSITING;
+		} else if (id == R.id.btnCreatividad || id == R.id.btnCreatividadIcon) {
+			selectedFilter = Blog.FILTER_CREATIVIDAD;
+		} else if (id == R.id.btnInside || id == R.id.btnInsideIcon) {
+			selectedFilter = Blog.FILTER_INSIDE;
+		} else if (id == R.id.btnMarketing || id == R.id.btnMarketingIcon) {
+			selectedFilter = Blog.FILTER_MARKETING;
+		} else if (id == R.id.btnNegocios || id == R.id.btnNegociosIcon) {
+			selectedFilter = Blog.FILTER_NEGOCIOS;
+		} else if (id == R.id.btnSeo || id == R.id.btnSeoIcon) {
+			selectedFilter = Blog.FILTER_SEO;
+		} else if (id == R.id.btnWeb || id == R.id.btnWebIcon) {
+			selectedFilter = Blog.FILTER_WEB;
+		}
+		
+		if( !blog.getActiveFilter().equals(selectedFilter) ){
+		
+			blog.setActiveFilter(selectedFilter);
 			blog.setCurrentPage(1);
 			
 			/*
@@ -128,7 +108,7 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
 			newPostsFragment.setArguments(data);
 	
 			MainActivity main=((MainActivity) getActivity());*/
-			mainActivity.getSectionsPageAdapter().changeTitle(1, data.getString("name"));
+			mainActivity.getSectionsPageAdapter().changeTitle(1, selectedFilter.getName());
 			mainActivity.getViewPager().setCurrentItem(1);
 			mainActivity.getDrawerList().setItemChecked(2, true);
 		}

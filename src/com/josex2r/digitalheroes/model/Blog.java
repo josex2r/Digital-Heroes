@@ -17,7 +17,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap.CompressFormat;
-import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -36,13 +35,11 @@ public class Blog {
 	//-------------	Posts collection -------------
 	private SparseArray<SparseArray<List<Post>>> posts;
 	//-------------	Current filter showing -------------
-	private int activeFilter;
+	private BlogFilter activeFilter;
 	//-------------	Current page showing -------------
 	private int currentPage;
 	//-------------	¿Loading posts? -------------
 	private boolean loading;
-	//-------------	RSS feed URL -------------
-	private String feedUrl;
 	//-------------	Bitmap Cache -------------
     private DiskLruImageCache images;
     
@@ -66,39 +63,37 @@ public class Blog {
 	//-------------	Post Filters -------------
 	public static final String DEFAULT_FEED_URL="http://blog.gobalo.es/feed/";
 		//-------------	All -------------
-		public static final int FILTER_ALL=0;
+		public static final BlogFilter FILTER_ALL = new BlogFilter(0, "Todos", "http://blog.gobalo.es/feed/");
 		//-------------	Categories -------------
-		public static final int FILTER_ADVERSITING=1;
-		public static final int FILTER_CREATIVIDAD=2;
-		public static final int FILTER_INSIDE=3;
-		public static final int FILTER_MARKETING=4;
-		public static final int FILTER_NEGOCIOS=5;
-		public static final int FILTER_SEO=6;
-		public static final int FILTER_WEB=7;
+		public static final BlogFilter FILTER_ADVERSITING = new BlogFilter(1, "Adversiting", "http://blog.gobalo.es/category/advertising-2/feed/");
+		public static final BlogFilter FILTER_CREATIVIDAD = new BlogFilter(2, "Creatividad", "http://blog.gobalo.es/category/creatividad/feed/");
+		public static final BlogFilter FILTER_INSIDE = new BlogFilter(3, "Inside Góbalo", "http://blog.gobalo.es/category/inside-gobalo/feed/");
+		public static final BlogFilter FILTER_MARKETING = new BlogFilter(4, "Marketing", "http://blog.gobalo.es/category/marketing-digital-y-social-media/feed/");
+		public static final BlogFilter FILTER_NEGOCIOS = new BlogFilter(5, "Negocios", "http://blog.gobalo.es/category/negocios/feed/");
+		public static final BlogFilter FILTER_SEO = new BlogFilter(6, "SEO", "http://blog.gobalo.es/category/seo-y-sem/feed/");
+		public static final BlogFilter FILTER_WEB = new BlogFilter(7, "WEB", "http://blog.gobalo.es/category/web-y-programacion/feed/");
 		//-------------	Authors -------------
-		public static final int FILTER_BINARY=20;
-		public static final int FILTER_CODE=21;
-		public static final int FILTER_CRAFT=22;
-		public static final int FILTER_CREA=23;
-		public static final int FILTER_IDEA=24;
-		public static final int FILTER_NUMBERS=25;
-		public static final int FILTER_PENCIL=26;
-		public static final int FILTER_PIXEL=27;
-		public static final int FILTER_SEM=28;
-		public static final int FILTER_SOCIAL=29;
-		public static final int FILTER_SPEED=30;
-		public static final int FILTER_TRIX=31;
+		public static final BlogFilter FILTER_BINARY = new BlogFilter(20, "Super 01101", "http://blog.gobalo.es/author/a-vara/feed/");
+		public static final BlogFilter FILTER_CODE = new BlogFilter(21, "Super Code", "http://blog.gobalo.es/author/jl-represa/feed/");
+		public static final BlogFilter FILTER_CRAFT = new BlogFilter(22, "Super Craft", "http://blog.gobalo.es/author/n-pastor/feed/");
+		public static final BlogFilter FILTER_CREA = new BlogFilter(23, "Super Crea", "http://blog.gobalo.es/author/g-gomez/feed/");
+		public static final BlogFilter FILTER_IDEA = new BlogFilter(24, "Super Idea", "http://blog.gobalo.es/author/j-azpeitia/feed/");
+		public static final BlogFilter FILTER_NUMBERS = new BlogFilter(25, "Super Numbers", "http://blog.gobalo.es/author/m-becerra/feed/");
+		public static final BlogFilter FILTER_PENCIL = new BlogFilter(26, "Super Pencil", "http://blog.gobalo.es/author/a-fassi/feed/");
+		public static final BlogFilter FILTER_PIXEL = new BlogFilter(27, "Super Pixel", "http://blog.gobalo.es/author/f-bril/feed/");
+		public static final BlogFilter FILTER_SEM = new BlogFilter(28, "Super SEM", "http://blog.gobalo.es/author/l-casado/feed/");
+		public static final BlogFilter FILTER_SOCIAL = new BlogFilter(29, "Super Social", "http://blog.gobalo.es/author/bloggobalo-es/feed/");
+		public static final BlogFilter FILTER_SPEED = new BlogFilter(30, "Super Speed", "http://blog.gobalo.es/author/a-gonzalez/feed/");
+		public static final BlogFilter FILTER_TRIX = new BlogFilter(31, "Super Trix", "http://blog.gobalo.es/author/cristina/feed/");
 		//-------------	Favourites -------------
-		public static final int FILTER_FAVOURITES=99;
+		public static final BlogFilter FILTER_FAVOURITES = new BlogFilter(99, "Favoritos", null);
 	
 	//-------------	Constructor -------------
 	public Blog(){
-		this.feedUrl=DEFAULT_FEED_URL;
-		this.currentPage=1;
-		this.activeFilter=Blog.FILTER_ALL;
-		this.posts=new SparseArray<SparseArray<List<Post>>>();
-		this.loading=false;
-		//loadFavouritesFromDB();
+		this.currentPage = 1;
+		this.activeFilter = new BlogFilter(0, "Todos", "http://blog.gobalo.es/feed/"); //FILTER_ALL
+		this.posts = new SparseArray<SparseArray<List<Post>>>();
+		this.loading = false;
 	}
 	
 	//------------- Singleton Pattern -------------
@@ -106,7 +101,7 @@ public class Blog {
         if( INSTANCE==null ){
             synchronized(Blog.class){
                 if( INSTANCE==null ){ 
-                    INSTANCE=new Blog();
+                    INSTANCE = new Blog();
                 }
             }
         }
@@ -127,11 +122,8 @@ public class Blog {
 	public SparseArray<SparseArray<List<Post>>> getPosts(){
 		return this.posts;
 	}
-	public int getActiveFilter(){
+	public BlogFilter getActiveFilter(){
 		return activeFilter;
-	}
-	public String getFeedUrl(){
-		return feedUrl;
 	}
 	public int getPage(){
 		return currentPage;
@@ -148,11 +140,8 @@ public class Blog {
 	public void setLoading(boolean l){
 		this.loading=l;
 	}
-	public void setFeedUrl(String url){
-		this.feedUrl=url;
-	}
-	public void setActiveFilter(int filter){
-		this.activeFilter=filter;
+	public void setActiveFilter(BlogFilter filter){
+		this.activeFilter = filter;
 	}
 	public void setContext(Context context){
 		this.context=context;
@@ -223,22 +212,23 @@ public class Blog {
 	}
 	
 	//-------------	Add posts to posts collection -------------
-	public void addPosts(int filter, int page, List<Post> postsToAdd){
-		if( posts.get(filter)==null ){
-			posts.put(filter, new SparseArray<List<Post>>());
+	public void addPosts(BlogFilter filter, int page, List<Post> postsToAdd){
+		if( posts.get(filter.getId())==null ){
+			posts.put(filter.getId(), new SparseArray<List<Post>>());
 		}
 		//Never override pages
-		if(posts.get(filter).get(page)==null)
-			posts.get(filter).put(page, postsToAdd);
+		if( posts.get(filter.getId()).get(page)==null ){
+			posts.get(filter.getId()).put(page, postsToAdd);
+		}
 	}
 	
 	//-------------	Get all post from page 1 to current page -------------
 	public List<Post> getFilteredAllPagedPosts(){
-		List<Post> filteredPagedPosts=new ArrayList<Post>();
-		if( this.posts.get(this.activeFilter)!=null ){
+		List<Post> filteredPagedPosts = new ArrayList<Post>();
+		if( this.posts.get(this.activeFilter.getId())!=null ){
 			for(int i=1; i<this.currentPage+1; i++){
-				if( this.posts.get(this.activeFilter).get(i)!=null ){
-					filteredPagedPosts.addAll( this.posts.get(this.activeFilter).get(i) );
+				if( this.posts.get(this.activeFilter.getId()).get(i)!=null ){
+					filteredPagedPosts.addAll( this.posts.get(this.activeFilter.getId()).get(i) );
 				}
 			}
 		}
@@ -248,16 +238,16 @@ public class Blog {
 	//-------------	Get all post from current page -------------
 	public List<Post> getFilteredPagedPosts(){
 		
-		if(this.activeFilter==Blog.FILTER_FAVOURITES){
+		if( this.activeFilter.equals(Blog.FILTER_FAVOURITES) ){
 			
-			return this.posts.get(Blog.FILTER_FAVOURITES).get(1);
+			return this.posts.get(Blog.FILTER_FAVOURITES.getId()).get(1);
 			
 		}else{
 			
 			List<Post> filteredPagedPosts=new ArrayList<Post>();
-			if( this.posts.get(this.activeFilter)!=null ){
-				if( this.posts.get(this.activeFilter).get(this.currentPage)!=null ){
-					filteredPagedPosts.addAll( this.posts.get(this.activeFilter).get(this.currentPage) );
+			if( this.posts.get(this.activeFilter.getId())!=null ){
+				if( this.posts.get(this.activeFilter.getId()).get(this.currentPage)!=null ){
+					filteredPagedPosts.addAll( this.posts.get(this.activeFilter.getId()).get(this.currentPage) );
 				}
 			}
 			return filteredPagedPosts;
@@ -300,7 +290,7 @@ public class Blog {
 				
 				db.delete("favourites", "link=?", new String[]{link});
 				
-				List<Post> favourites=this.posts.get(Blog.FILTER_FAVOURITES).get(1);
+				List<Post> favourites=this.posts.get(Blog.FILTER_FAVOURITES.getId()).get(1);
 				for(int i=0;i<favourites.size();i++){
 					if( favourites.get(i).getLink().equals(link) )
 						favourites.remove(i);
@@ -337,7 +327,7 @@ public class Blog {
 				insertSQL.put("imageLink", post.getImageLink());
 				db.insert("favourites", null, insertSQL);
 				
-				this.posts.get(Blog.FILTER_FAVOURITES).get(1).add( post );
+				this.posts.get(Blog.FILTER_FAVOURITES.getId()).get(1).add( post );
 				
 				return true;
 				
@@ -353,7 +343,7 @@ public class Blog {
 	//-------------	check if post is favourite -------------
 	public boolean isFavourite(String link){
 		boolean found=false;
-		List<Post> favourites=this.posts.get(Blog.FILTER_FAVOURITES).get(1);
+		List<Post> favourites=this.posts.get(Blog.FILTER_FAVOURITES.getId()).get(1);
 		for(int i=0;i<favourites.size();i++){
 			if(favourites.get(i).getLink().equals(link))
 				found=true;

@@ -70,9 +70,9 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		lvPosts.setOnItemClickListener(this);
 		lvPosts.setOnScrollListener(this);
 		//-------------	If post loaded from internet == 0, else show list -------------
-		List<Post> currentPosts=blog.getFilteredAllPagedPosts();
+		List<Post> currentPosts = blog.getFilteredAllPagedPosts();
 		//Log.d("MyApp", "-------- Page: "+Integer.toString(blog.getCurrentPage()) );
-		if( currentPosts.size()==0 ){
+		if( currentPosts==null || currentPosts.size()==0 && !blog.getActiveFilter().equals(Blog.FILTER_FAVOURITES) ){
 			adapter.clear();
 			loadCurrentPage();
 			
@@ -162,23 +162,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		i.putExtras(data);
 		//i.setData(Uri.parse(str.toString()));
 		startActivity(i);
-		
-		// TODO Auto-generated method stub
-		
-		//Toast.makeText(getActivity(), "Link: "+str.toString(), Toast.LENGTH_LONG).show();
-		/*
-		Bundle data=new Bundle();
-		data.putString("uri", str.toString());
-		data.putString("title", selectedPost.getTitle());
-		
-		Intent i = new Intent("com.josex2r.digitalheroes.BrowserActivity");
-		i.putExtras(data);
-		startActivity(i);*/
 	}
-	
-	
-	
-	
 	
 	
 	
@@ -186,8 +170,12 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
 		// TODO Auto-generated method stub
-	
-        if (!blog.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold) && blog.getActiveFilter()!=Blog.FILTER_FAVOURITES ) {
+
+		if( blog.getActiveFilter().equals(Blog.FILTER_FAVOURITES) ){
+			return;
+		}
+		
+        if (!blog.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold) ) {
 
             loading(true);
             
@@ -223,7 +211,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		
 		blog.addRemoveFromFavourites( position );
 		
-		if(blog.getActiveFilter()==Blog.FILTER_FAVOURITES){
+		if( blog.getActiveFilter().equals(Blog.FILTER_FAVOURITES) ){
 			adapter.clear();
 			adapter.addAll( blog.getFilteredPagedPosts() );
 		}

@@ -38,7 +38,7 @@ public class FeedPageLoader extends AsyncTask<Integer, Integer, List<Post>>{
 		// TODO Auto-generated method stub
 		page=params[0];
 		StringBuilder str=new StringBuilder();
-		str.append(Blog.getInstance().getFeedUrl()).append("?paged=").append(page.toString());
+		str.append(Blog.getInstance().getActiveFilter().getFeedURl()).append("?paged=").append(page.toString());
 		RssXmlPullParser parser=new RssXmlPullParser(str.toString());
 		List<Post> posts=parser.getNews();
 		return posts;

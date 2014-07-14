@@ -83,19 +83,19 @@ public class RssXmlPullParser {
                             	String categoryName=parser.nextText();
                             	
                             	if(categoryName.equals("Advertising")){
-                            		noticiaActual.setCategory(Blog.FILTER_ADVERSITING);
+                            		noticiaActual.setCategory(Blog.FILTER_ADVERSITING.getId());
                             	}else if(categoryName.equals("Creatividad")){
-                            		noticiaActual.setCategory(Blog.FILTER_CREATIVIDAD);
+                            		noticiaActual.setCategory(Blog.FILTER_CREATIVIDAD.getId());
                             	}else if(categoryName.equals("Inside Góbalo")){
-                            		noticiaActual.setCategory(Blog.FILTER_INSIDE);
+                            		noticiaActual.setCategory(Blog.FILTER_INSIDE.getId());
                             	}else if(categoryName.equals("Marketing Digital y Social Media")){
-                            		noticiaActual.setCategory(Blog.FILTER_MARKETING);
+                            		noticiaActual.setCategory(Blog.FILTER_MARKETING.getId());
                             	}else if(categoryName.equals("Negocios")){
-                            		noticiaActual.setCategory(Blog.FILTER_NEGOCIOS);
+                            		noticiaActual.setCategory(Blog.FILTER_NEGOCIOS.getId());
                             	}else if(categoryName.equals("SEO y SEM")){
-                            		noticiaActual.setCategory(Blog.FILTER_SEO);
+                            		noticiaActual.setCategory(Blog.FILTER_SEO.getId());
                             	}else if(categoryName.equals("Web y Programación")){
-                            		noticiaActual.setCategory(Blog.FILTER_WEB);
+                            		noticiaActual.setCategory(Blog.FILTER_WEB.getId());
                             	}
                                 
                             }else if (tag.equals("image"))

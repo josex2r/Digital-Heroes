@@ -216,9 +216,8 @@ public class MainActivity extends FragmentActivity {
         	Log.d("MyApp", Integer.toString(mDrawerList.getCheckedItemPosition()));
         	switch(position){
         		case 1:
-        			if(blog.getActiveFilter() != Blog.FILTER_ALL){
+        			if( !blog.getActiveFilter().equals(Blog.FILTER_ALL) ){
 	        			blog.setActiveFilter( Blog.FILTER_ALL );
-	        			blog.setFeedUrl( "http://blog.gobalo.es/feed/" );
 	        			blog.setCurrentPage(1);
 	        			//blog.loadCurrentPage(true);
         			}
@@ -233,7 +232,7 @@ public class MainActivity extends FragmentActivity {
         			mViewPager.setCurrentItem(2);
         			break;
         		case 4:
-        			if(blog.getActiveFilter() != Blog.FILTER_FAVOURITES){
+        			if( !blog.getActiveFilter().equals(Blog.FILTER_FAVOURITES) ){
 	        			blog.setActiveFilter( Blog.FILTER_FAVOURITES );
 	        			blog.setCurrentPage(1);
         			}

@@ -3,21 +3,19 @@ package com.josex2r.digitalheroes;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.josex2r.digitalheroes.R;
-
-public class BrowserActivity extends Activity {
+@SuppressLint("SetJavaScriptEnabled") public class BrowserActivity extends Activity {
 	
 	private ProgressBar pbWebLoader;
 
@@ -46,7 +44,7 @@ public class BrowserActivity extends Activity {
 			WebView navegador = (WebView)findViewById(R.id.wvPost);
 			
 			WebSettings settings = navegador.getSettings();
-			settings.setJavaScriptEnabled(true);//
+			settings.setJavaScriptEnabled(true);
 			
 			navegador.setHorizontalScrollBarEnabled(false);
 			
