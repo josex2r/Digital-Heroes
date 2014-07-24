@@ -2,23 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10dp" >
-    
-    <TextView
-        android:id="@+id/lblTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title"
-        android:textColor="@color/red"
-        android:textStyle="bold"
-        android:layout_marginBottom="5dp"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_height="150dp"
 	    android:background="@drawable/post_image_shadow" >
         
         <ImageView
@@ -26,9 +14,24 @@
 	        android:visibility="gone"
 	        android:scaleType="centerCrop"
 	        android:layout_width="match_parent"
-	        android:layout_height="130dp"
+	        android:layout_height="match_parent"
 	        android:contentDescription="@string/no_image"
 	        android:src="@drawable/no_image" />
+        
+        <TextView
+	        android:id="@+id/lblTitle"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/title"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignRight="@+id/ivImage"
+	        android:background="@android:color/black"
+	        android:alpha="0.8"
+	        android:padding="5dp"
+	        android:gravity="bottom"
+	        android:textAppearance="?android:attr/textAppearanceSmall"
+	        android:textColor="@color/white" />
 
         <ProgressBar
             android:id="@+id/pbImage"
@@ -55,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:visibility="gone"
         android:text="@string/description"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 

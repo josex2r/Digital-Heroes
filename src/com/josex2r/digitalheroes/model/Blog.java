@@ -145,7 +145,7 @@ public class Blog {
 	}
 	public void setContext(Context context){
 		this.context=context;
-		this.images=new DiskLruImageCache(this.context, "postCache", 500000, CompressFormat.JPEG, 80); //1Mb memory cache
+		this.images=new DiskLruImageCache(this.context, "postCache", 700000, CompressFormat.JPEG, 80); //1Mb memory cache
 	}
 	
 	public void setOnLoadListener(AsyncTaskListener<Boolean> callback){
