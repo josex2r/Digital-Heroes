@@ -28,9 +28,9 @@
 	        android:layout_alignRight="@+id/ivImage"
 	        android:background="@android:color/black"
 	        android:alpha="0.8"
-	        android:padding="5dp"
+	        android:padding="8dp"
 	        android:gravity="bottom"
-	        android:textAppearance="?android:attr/textAppearanceSmall"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
 	        android:textColor="@color/white" />
 
         <ProgressBar
