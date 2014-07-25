@@ -111,6 +111,7 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
 			mainActivity.getSectionsPageAdapter().changeTitle(1, selectedFilter.getName());
 			mainActivity.getViewPager().setCurrentItem(1);
 			mainActivity.getDrawerList().setItemChecked(2, true);
+			mainActivity.getActionBar().setTitle(selectedFilter.getName());
 		}
 		
 		//blog.loadCurrentPage(true);

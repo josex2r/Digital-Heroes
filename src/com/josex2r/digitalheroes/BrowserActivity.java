@@ -37,7 +37,7 @@ import android.widget.ProgressBar;
 
 		try {
 			String title = data.getString("title");
-			this.getActionBar().setTitle(title);
+			actionBar.setTitle(title);
 			
 			URL link = new URL( data.getString("uri") );
 			

@@ -65,7 +65,7 @@ public class Blog {
 		//-------------	All -------------
 		public static final BlogFilter FILTER_ALL = new BlogFilter(0, "Todos", "http://blog.gobalo.es/feed/");
 		//-------------	Categories -------------
-		public static final BlogFilter FILTER_ADVERSITING = new BlogFilter(1, "Adversiting", "http://blog.gobalo.es/category/advertising-2/feed/");
+		public static final BlogFilter FILTER_ADVERSITING = new BlogFilter(1, "Advertising", "http://blog.gobalo.es/category/advertising-2/feed/");
 		public static final BlogFilter FILTER_CREATIVIDAD = new BlogFilter(2, "Creatividad", "http://blog.gobalo.es/category/creatividad/feed/");
 		public static final BlogFilter FILTER_INSIDE = new BlogFilter(3, "Inside Góbalo", "http://blog.gobalo.es/category/inside-gobalo/feed/");
 		public static final BlogFilter FILTER_MARKETING = new BlogFilter(4, "Marketing", "http://blog.gobalo.es/category/marketing-digital-y-social-media/feed/");
@@ -383,7 +383,8 @@ public class Blog {
 										    new NotificationCompat.Builder(ctx)
 										    .setContentTitle("Digital Heroes")
 										    .setContentText(lastPost.getTitle())
-										    .setSmallIcon(R.drawable.ic_notification);
+										    .setSmallIcon(R.drawable.ic_notification)
+										    .setAutoCancel(true);
 									
 									Intent resultIntent = new Intent(ctx, MainActivity.class);
 									PendingIntent resultPendingIntent =	PendingIntent.getActivity(ctx, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);

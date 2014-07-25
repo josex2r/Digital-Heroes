@@ -97,6 +97,7 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 			mainActivity.getSectionsPageAdapter().changeTitle(1, selectedFilter.getName());
 			mainActivity.getViewPager().setCurrentItem(1);
 			mainActivity.getDrawerList().setItemChecked(3, true);
+			mainActivity.getActionBar().setTitle(selectedFilter.getName());
 		}
 	}
 }

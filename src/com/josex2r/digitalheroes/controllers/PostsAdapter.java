@@ -79,37 +79,30 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 		
 		
 		if(currPost.getImageLink().equals("NO-IMAGE")){
-
-			//Log.d("MyApp","NO-IMAGE");
-			//Log.d("MyApp",images.getBitmapFromMemCache("NO-IMAGE").toString());
-			if(images.getBitmap("empty")==null)
+			//No post image, must set "no_image.jpg"
+			if( images.getBitmap("empty")==null ){
 				images.put("empty", BitmapFactory.decodeResource(context.getResources(), R.drawable.no_image));
+			}
 			viewHolder.ivImage.setImageBitmap( images.getBitmap("empty") );
 			showImage(viewHolder);
-			
 		}else{
-			//Log.d("MyApp","Check if image exist");
-			
-			if(images.getBitmap( currPost.getImageLink() )==null){
-				
-				//Log.d("MyApp","currPost.getImage()==null");
+			//Check if image exist
+			if( images.getBitmap(currPost.getImageLink())==null ){
+				//Image is not stored on disk cache, must download it
 				ImageLoader downloader=new ImageLoader(position);
 				downloader.postHolder=viewHolder;
-		
 				downloader.execute( currPost.getImageLink() );
-				
 			}else{
-			
+				//Image is stored on disk cache
 				viewHolder.ivImage.setImageBitmap( images.getBitmap(currPost.getImageLink()) );
 				showImage(viewHolder);
-			
 			}
-			
 		}
 		
+		//Get blog instance
+		Blog blog = Blog.getInstance();
 		
-		Blog blog=Blog.getInstance();
-		
+		//Check if this post is marked as favourite
 		if(blog.isFavourite(currPost.getLink())){
 			viewHolder.ivFavourites.setImageDrawable(context.getResources().getDrawable(android.R.drawable.star_on));
 		}else{
@@ -144,7 +137,6 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 		@Override
 		protected Bitmap doInBackground(String... url) {
 			// TODO Auto-generated method stub
-			//Log.d("MyApp","Trying to download image");
 			URL postUrl;
 			Bitmap bitmap;
 			try {
