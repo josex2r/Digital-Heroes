@@ -7,13 +7,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -39,6 +44,9 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 	private LinearLayout lyLoader;
 	//-------------	Load post on scrolling -------------
 	private int visibleThreshold = 5;
+	//Context menu actions
+	public static final int CONTEXT_MENU_SHOW_POST = 0;
+	public static final int CONTEXT_MENU_TOGGLE_FAVOURITE = 1;
 	
 	//-------------	Constructor -------------
     public AllPostsFragment(){
@@ -69,6 +77,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		lvPosts.setAdapter(adapter);
 		lvPosts.setOnItemClickListener(this);
 		lvPosts.setOnScrollListener(this);
+		registerForContextMenu(lvPosts);
 		//-------------	If post loaded from internet == 0, else show list -------------
 		List<Post> currentPosts = blog.getFilteredAllPagedPosts();
 		//Log.d("MyApp", "-------- Page: "+Integer.toString(blog.getCurrentPage()) );
@@ -144,11 +153,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 	
 	
 	
-
-	@Override
-	public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-		// TODO Auto-generated method stub
-		Log.d("MyApp",Integer.toString(view.getId()));
+	private void selectPost(int position){
 		Post selectedPost=adapter.getItem(position);
 		StringBuilder str=new StringBuilder();
 		String url=selectedPost.getLink();
@@ -162,6 +167,13 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		i.putExtras(data);
 		//i.setData(Uri.parse(str.toString()));
 		startActivity(i);
+	}
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+		// TODO Auto-generated method stub
+		//Log.d("MyApp",Integer.toString(view.getId()));
+		selectPost(position);
+		
 	}
 	
 	
@@ -200,15 +212,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 	public void onScrollStateChanged(AbsListView view, int scrollState) {}
 
 
-
-	@Override
-	public void onClick(View v) {
-		Integer position=(Integer) v.getTag();
-		//List<Post> currentPosts=blog.getFilteredAllPagedPosts();
-		
-		//Log.d("MyApp","Has clickado en la estrella nº:"+Integer.toString(position));
-		//Log.d("MyApp","Título: "+currentPosts.get(position).getTitle());
-		
+	private void toggleFavourite(int position){
 		blog.addRemoveFromFavourites( position );
 		
 		if( blog.getActiveFilter().equals(Blog.FILTER_FAVOURITES) ){
@@ -218,6 +222,48 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 		
 		adapter.notifyDataSetChanged();
 	}
+	@Override
+	public void onClick(View v) {
+		Integer position=(Integer) v.getTag();
+		//List<Post> currentPosts=blog.getFilteredAllPagedPosts();
+		
+		//Log.d("MyApp","Has clickado en la estrella nº:"+Integer.toString(position));
+		//Log.d("MyApp","Título: "+currentPosts.get(position).getTitle());
+		
+		toggleFavourite( position );
+	}
+	
+	
+	
 
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		// TODO Auto-generated method stub
+		if( v.getId()==R.id.lvPosts ) {
+		    AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+		    String title = blog.getFilteredAllPagedPosts().get(info.position).getTitle();
+		    menu.setHeaderTitle(title);
+		    menu.add(Menu.NONE, CONTEXT_MENU_SHOW_POST, Menu.NONE, "Ver");
+		    menu.add(Menu.NONE, CONTEXT_MENU_TOGGLE_FAVOURITE, Menu.NONE, "Añadir/Eliminar de favoritos");
+		}
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		switch( item.getItemId() ){
+	    	case CONTEXT_MENU_SHOW_POST:
+	    		selectPost(info.position);
+		        return true;
+	    	case CONTEXT_MENU_TOGGLE_FAVOURITE:
+	    		toggleFavourite( info.position );
+	    		return true;
+	    	default:
+	    		return super.onContextItemSelected(item);
+	    }
+	}
+	
 
 }

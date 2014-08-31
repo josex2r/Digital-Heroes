@@ -18,9 +18,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -381,6 +383,7 @@ public class MainActivity extends FragmentActivity {
 		}
 		
 	}	
+	
 	
 
 }
