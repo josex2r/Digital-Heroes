@@ -18,7 +18,7 @@ import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
 import com.josex2r.digitalheroes.controllers.FavouritesSQLiteHelper;
-import com.josex2r.digitalheroes.controllers.RSSBlogPostLoader;
+import com.josex2r.digitalheroes.controllers.RsBlogPostLoader;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -431,7 +431,7 @@ public class Blog {
             try {
                 final Date lastDate = formatter.parse(lastUpdate);
 
-                RSSBlogPostLoader lastPosts=new RSSBlogPostLoader(new AsyncTaskListener<List<Post>>() {
+                RsBlogPostLoader lastPosts=new RsBlogPostLoader(new AsyncTaskListener<List<Post>>() {
                     @Override
                     public void onTaskComplete(List<Post> loadedPosts) {
                         //Display notification

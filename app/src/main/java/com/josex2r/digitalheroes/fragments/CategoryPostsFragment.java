@@ -109,8 +109,8 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
             //Perform Main Activity stuff
 			mainActivity.getViewPager().setCurrentItem(1);
 			mainActivity.getActionBar().setTitle(selectedFilter.getName());
-            //Force to refresh by changing the title
-            mainActivity.getSectionsPageAdapter().changeTitle(1, selectedFilter.getName());
+            //Force refresh
+            mainActivity.getSectionsPageAdapter().notifyDataSetChanged();
 		}
 	}
 }

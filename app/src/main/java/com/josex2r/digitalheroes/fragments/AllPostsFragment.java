@@ -24,7 +24,7 @@ import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.controllers.AllPostsFragmentAdapter;
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
-import com.josex2r.digitalheroes.controllers.RSSBlogPostLoader;
+import com.josex2r.digitalheroes.controllers.RsBlogPostLoader;
 import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.Post;
 
@@ -130,7 +130,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 
     //-------------	Load posts from Internet -------------
     public void loadCurrentPage(){
-        RSSBlogPostLoader page=new RSSBlogPostLoader(new AsyncTaskListener<List<Post>>() {
+        RsBlogPostLoader page=new RsBlogPostLoader(new AsyncTaskListener<List<Post>>() {
             @Override
             public void onTaskComplete(List<Post> loadedPosts) {
                 blog.addPosts(blog.getActiveFilter(), blog.getCurrentPage(), loadedPosts);
