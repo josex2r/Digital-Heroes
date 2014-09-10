@@ -8,6 +8,9 @@
 
     <string name="failed_loading_feed">No se han podido cargar las noticias</string>
 
+    <string name="context_menu_show">Ver contenido</string>
+    <string name="context_menu_toggle_favourites">Añadir/Eliminar favorito</string>
+
     <string name="navigation_drawer_section1">Todos</string>
     <string name="navigation_drawer_section2">Categorías</string>
     <string name="navigation_drawer_section3">Autores</string>

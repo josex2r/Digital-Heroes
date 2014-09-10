@@ -1,6 +1,7 @@
 package com.josex2r.digitalheroes.fragments;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
@@ -24,8 +25,9 @@ import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.controllers.AllPostsFragmentAdapter;
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
-import com.josex2r.digitalheroes.controllers.RsBlogPostLoader;
+import com.josex2r.digitalheroes.controllers.RssBlogPostLoader;
 import com.josex2r.digitalheroes.model.Blog;
+import com.josex2r.digitalheroes.model.BlogFilter;
 import com.josex2r.digitalheroes.model.Post;
 
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
     //-------------	Progress bar circle -------------
     private LinearLayout lyLoader;
     //-------------	Load post on scrolling -------------
-    private int visibleThreshold = 5;
+    private static final int VISIBLE_THRESHOLD = 5;
     //Context menu actions
     public static final int CONTEXT_MENU_SHOW_POST = 0;
     public static final int CONTEXT_MENU_TOGGLE_FAVOURITE = 1;
@@ -106,13 +108,26 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
     //-------------	Add posts to ListView -------------
     public void displayPosts(){
         loading(true);
-        List<Post> currentPosts=blog.getFilteredPagedPosts();
-        for(int i=0;i<currentPosts.size();i++){
-            adapter.add(currentPosts.get(i));
-        }
-        adapter.getListView().setSelection(0);
-        adapter.notifyDataSetChanged();
-        loading(false);
+        AsyncTask<Integer, Integer, List<Post>> displayAsync = new AsyncTask<Integer, Integer, List<Post>>() {
+            @Override
+            protected List<Post> doInBackground(Integer... integers) {
+                List<Post> currentPosts=blog.getFilteredPagedPosts();
+                return currentPosts;
+            }
+
+            @Override
+            protected void onPostExecute(List<Post> currentPosts) {
+                super.onPostExecute(currentPosts);
+                for(Post currentPost : currentPosts){
+                    adapter.add(currentPost);
+                }
+                adapter.getListView().setSelection(0);
+                adapter.notifyDataSetChanged();
+                loading(false);
+            }
+        };
+
+        displayAsync.execute(0);
     }
 
     //-------------	Loader actions -------------
@@ -130,10 +145,12 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 
     //-------------	Load posts from Internet -------------
     public void loadCurrentPage(){
-        RsBlogPostLoader page=new RsBlogPostLoader(new AsyncTaskListener<List<Post>>() {
+        final BlogFilter currentFilter = blog.getActiveFilter();
+        final int currentPage = blog.getCurrentPage();
+        RssBlogPostLoader page=new RssBlogPostLoader(new AsyncTaskListener<List<Post>>() {
             @Override
             public void onTaskComplete(List<Post> loadedPosts) {
-                blog.addPosts(blog.getActiveFilter(), blog.getCurrentPage(), loadedPosts);
+                blog.addPosts(currentFilter, currentPage, loadedPosts);
                 displayPosts();
                 blog.dispatchLoadListener(true);
                 loading(false);
@@ -167,6 +184,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
         //i.setData(Uri.parse(str.toString()));
         startActivity(i);
     }
+
     @Override
     public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
         // TODO Auto-generated method stub
@@ -174,8 +192,6 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
         selectPost(position);
 
     }
-
-
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem,
@@ -186,7 +202,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
             return;
         }
 
-        if (!blog.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold) ) {
+        if (!blog.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + VISIBLE_THRESHOLD) ) {
 
             loading(true);
 
@@ -213,22 +229,17 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 
     private void toggleFavourite(int position){
         blog.addRemoveFromFavourites( position );
-
+        //If favourites filter, reload the data set
         if( blog.getActiveFilter().equals(Blog.FILTER_FAVOURITES) ){
             adapter.clear();
-            adapter.addAll( blog.getFilteredPagedPosts() );
+            adapter.addAll(blog.getFilteredPagedPosts());
         }
-
         adapter.notifyDataSetChanged();
     }
+
     @Override
     public void onClick(View v) {
         Integer position=(Integer) v.getTag();
-        //List<Post> currentPosts=blog.getFilteredAllPagedPosts();
-
-        //Log.d("MyApp","Has clickado en la estrella n�:"+Integer.toString(position));
-        //Log.d("MyApp","T�tulo: "+currentPosts.get(position).getTitle());
-
         toggleFavourite( position );
     }
 
@@ -243,8 +254,8 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
             String title = blog.getFilteredAllPagedPosts().get(info.position).getTitle();
             menu.setHeaderTitle(title);
-            menu.add(Menu.NONE, CONTEXT_MENU_SHOW_POST, Menu.NONE, "Ver");
-            menu.add(Menu.NONE, CONTEXT_MENU_TOGGLE_FAVOURITE, Menu.NONE, "A�adir/Eliminar de favoritos");
+            menu.add(Menu.NONE, CONTEXT_MENU_SHOW_POST, Menu.NONE, getResources().getString(R.string.context_menu_show));
+            menu.add(Menu.NONE, CONTEXT_MENU_TOGGLE_FAVOURITE, Menu.NONE, getResources().getString(R.string.context_menu_toggle_favourites));
         }
     }
 

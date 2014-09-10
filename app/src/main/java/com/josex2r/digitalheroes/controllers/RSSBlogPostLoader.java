@@ -1,19 +1,19 @@
 package com.josex2r.digitalheroes.controllers;
 
-import java.util.List;
-
 import android.os.AsyncTask;
 
 import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.Post;
 import com.josex2r.digitalheroes.util.RssXmlPullParser;
 
-public class RSSBlogPostLoader extends AsyncTask<Integer, Integer, List<Post>>{
+import java.util.List;
+
+public class RssBlogPostLoader extends AsyncTask<Integer, Integer, List<Post>>{
 	
 	private Integer page;
 	private AsyncTaskListener<List<Post>> callback;
 	
-	public RSSBlogPostLoader() {
+	public RssBlogPostLoader() {
 		// TODO Auto-generated constructor stub
 		callback=new AsyncTaskListener<List<Post>>() {
 			public void onTaskComplete(List<Post> loadedPosts) {}
@@ -21,7 +21,7 @@ public class RSSBlogPostLoader extends AsyncTask<Integer, Integer, List<Post>>{
 		};
 	}
 	
-	public RSSBlogPostLoader(AsyncTaskListener<List<Post>> onComplete) {
+	public RssBlogPostLoader(AsyncTaskListener<List<Post>> onComplete) {
 		// TODO Auto-generated constructor stub
 		callback=onComplete;
 	}

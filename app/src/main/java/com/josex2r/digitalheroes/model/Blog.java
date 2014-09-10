@@ -18,7 +18,7 @@ import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
 import com.josex2r.digitalheroes.controllers.FavouritesSQLiteHelper;
-import com.josex2r.digitalheroes.controllers.RsBlogPostLoader;
+import com.josex2r.digitalheroes.controllers.RssBlogPostLoader;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -210,7 +210,6 @@ public class Blog {
     }
 
     public void setOnLoadListener(AsyncTaskListener<Boolean> callback){
-        Log.d("MyApp", "Setting onLoadListener");
         int postCount = (getFilteredPagedPosts()).size();
         if( postCount>0 ){
             //Post have been loaded, dispatch callback
@@ -222,7 +221,6 @@ public class Blog {
         }
     }
     public void dispatchLoadListener(Boolean result){
-        Log.d("MyApp", "Dispatching onLoadListener");
         if( onLoadCallback!=null ){
             if( result ){
                 onLoadCallback.onTaskComplete(true);
@@ -234,13 +232,13 @@ public class Blog {
     }
 
     public void loadFavouritesFromDB(){
-        List<Post> loadedPosts=new ArrayList<Post>();
+        List<Post> loadedPosts = new ArrayList<Post>();
 
         if(context!=null){
             SQLiteDatabase db=null;
             try {
 
-                FavouritesSQLiteHelper conexionDB=new FavouritesSQLiteHelper(context, "DBFavourites", null, DB_VERSION);
+                FavouritesSQLiteHelper conexionDB = new FavouritesSQLiteHelper(context, "DBFavourites", null, DB_VERSION);
                 db=conexionDB.getReadableDatabase();
                 Cursor i=db.rawQuery("SELECT title, link, comments, date, creator, guid, description, imageLink FROM favourites WHERE 1", null);
 
@@ -270,8 +268,8 @@ public class Blog {
                 }
             }
         }
+         this.addPosts(Blog.FILTER_FAVOURITES, 1, loadedPosts);
 
-        this.addPosts(Blog.FILTER_FAVOURITES, 1, loadedPosts);
     }
 
     //-------------	Add posts to posts collection -------------
@@ -431,7 +429,7 @@ public class Blog {
             try {
                 final Date lastDate = formatter.parse(lastUpdate);
 
-                RsBlogPostLoader lastPosts=new RsBlogPostLoader(new AsyncTaskListener<List<Post>>() {
+                RssBlogPostLoader lastPosts=new RssBlogPostLoader(new AsyncTaskListener<List<Post>>() {
                     @Override
                     public void onTaskComplete(List<Post> loadedPosts) {
                         //Display notification

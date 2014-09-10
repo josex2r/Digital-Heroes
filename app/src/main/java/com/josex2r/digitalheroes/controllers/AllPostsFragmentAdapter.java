@@ -80,6 +80,7 @@ public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
 		viewHolder.pbImage.setIndeterminate(true);
         //Handle image view
 		hideImage(viewHolder);
+
 		if(currPost.getImageLink().toUpperCase().equals("NO-IMAGE")){
 			//No post image, must set "no_image.jpg"
 			viewHolder.ivImage.setImageBitmap( imagesCache.getNoImage() );
