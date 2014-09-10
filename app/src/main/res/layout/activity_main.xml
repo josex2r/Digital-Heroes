@@ -14,7 +14,7 @@
 	    android:id="@+id/pager"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    tools:context=".MainActivity" >
+	    tools:context=".MainActivity">
 		
 	    <android.support.v4.view.PagerTabStrip
 	        android:id="@+id/pager_title_strip"
@@ -34,7 +34,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:name="com.josex2r.digitalheroes.fragments.NavigationDrawerFragment"
-        tools:layout="@layout/fragment_navigation_drawer" />
+        tools:layout="@layout/fragment_navigation_drawer"
+        android:layout_marginTop="?android:attr/actionBarSize" />
 	
 
 </android.support.v4.widget.DrawerLayout>

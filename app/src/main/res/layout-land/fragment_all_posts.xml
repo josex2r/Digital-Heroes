@@ -2,30 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity$DummySectionFragment" >
+    tools:context=".MainActivity$DummySectionFragment">
 
     <ListView
         android:id="@+id/lvPosts"
-        android:layout_width="match_parent"
         android:visibility="visible"
-        android:layout_height="wrap_content" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/orange"
+        android:clipToPadding="false"
+        android:paddingTop="?android:attr/actionBarSize">
     </ListView>
-
-    <LinearLayout
-        android:id="@+id/lyLoader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@android:color/transparent"
-        android:orientation="vertical"
-        android:visibility="visible" >
-
-        <ProgressBar
-            android:id="@+id/pbLoader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible" />
-    </LinearLayout>
 
 </RelativeLayout>

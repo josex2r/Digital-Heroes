@@ -4,5 +4,7 @@
     <color name="grey">#F9F9F7</color>
     <color name="white">#FEFEFE</color>
     <color name="black">#000000</color>
+    <color name="orange">#ff4844</color>
+    <color name="orange_overlay">#AAff4844</color>
     <color name="black_overlay">#66000000</color>
 </resources>

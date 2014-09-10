@@ -14,8 +14,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
+import com.josex2r.digitalheroes.controllers.RssBlogPostLoader;
 import com.josex2r.digitalheroes.model.Blog;
+import com.josex2r.digitalheroes.model.Post;
 import com.josex2r.digitalheroes.util.SystemUiHider;
+
+import java.util.List;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -73,23 +77,24 @@ public class LoaderActivity extends Activity {
 		ovalFrame.startAnimation(pulseFade);
 		
 		//Blog intent result
+        final Intent responseIntent = new Intent(this, MainActivity.class);
 		//-------------	Get static Blog -------------
 		Blog blog = Blog.getInstance();
-		final Intent responseIntent = new Intent(this, MainActivity.class);
-		blog.setOnLoadListener(new AsyncTaskListener<Boolean>() {
-			@Override
-			public void onTaskFailed() {
-				// TODO Auto-generated method stub
-				setResult(Blog.REQUEST_LOADED, responseIntent);
-				finish();
-			}
-			@Override
-			public void onTaskComplete(Boolean param) {
-				// TODO Auto-generated method stub
-				setResult(Blog.REQUEST_FAILED, responseIntent);
-				finish();
-			}
-		});
+
+        RssBlogPostLoader firstFeed = new RssBlogPostLoader(new AsyncTaskListener<List<Post>>() {
+            @Override
+            public void onTaskComplete(List<Post> loadedPosts) {
+                Blog blog = Blog.getInstance();
+                blog.addPosts(blog.getActiveFilter(), blog.getCurrentPage(), loadedPosts);
+                setResult(Blog.REQUEST_LOADED, responseIntent);
+                finish();
+            }
+            public void onTaskFailed() {
+                setResult(Blog.REQUEST_FAILED, responseIntent);
+                finish();
+            }
+        });
+        firstFeed.execute(blog.getCurrentPage());
 
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.

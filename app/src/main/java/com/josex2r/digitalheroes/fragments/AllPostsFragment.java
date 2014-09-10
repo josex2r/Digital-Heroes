@@ -1,7 +1,6 @@
 package com.josex2r.digitalheroes.fragments;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
@@ -17,7 +16,6 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.josex2r.digitalheroes.LoaderActivity;
@@ -27,7 +25,6 @@ import com.josex2r.digitalheroes.controllers.AllPostsFragmentAdapter;
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
 import com.josex2r.digitalheroes.controllers.RssBlogPostLoader;
 import com.josex2r.digitalheroes.model.Blog;
-import com.josex2r.digitalheroes.model.BlogFilter;
 import com.josex2r.digitalheroes.model.Post;
 
 import java.util.ArrayList;
@@ -41,8 +38,6 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
     private AllPostsFragmentAdapter adapter;
     //-------------	ListView -------------
     private ListView lvPosts;
-    //-------------	Progress bar circle -------------
-    private LinearLayout lyLoader;
     //-------------	Load post on scrolling -------------
     private static final int VISIBLE_THRESHOLD = 5;
     //Context menu actions
@@ -68,8 +63,6 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
         MainActivity mainActivity = (MainActivity)getActivity();
         //-------------	Get static Blog -------------
         this.blog = Blog.getInstance();
-        //-------------	Get loader from View -------------
-        lyLoader = (LinearLayout)rootView.findViewById(R.id.lyLoader);
         //-------------	Set Loading state -------------
         loading(true);
         //-------------	Manage ListView -------------
@@ -81,16 +74,16 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
         registerForContextMenu(lvPosts);
         //-------------	If post loaded from internet == 0, else show list -------------
         List<Post> currentPosts = blog.getFilteredAllPagedPosts();
-        //Log.d("MyApp", "-------- Page: "+Integer.toString(blog.getCurrentPage()) );
+        //Generic post list
         if( currentPosts==null || currentPosts.size()==0 && !blog.getActiveFilter().equals(Blog.FILTER_FAVOURITES) ){
-            adapter.clear();
-            loadCurrentPage();
-
             //Start loading screen if first time
             if( blog.getPosts().get(0)==null ){
                 Intent intent = new Intent(mainActivity, LoaderActivity.class);
                 startActivityForResult(intent, Blog.REQUEST_LOAD);
             }
+            adapter.clear();
+            loadCurrentPage();
+        //Favourites list
         }else{
             blog.setCurrentPage(1);
             displayPosts();
@@ -108,49 +101,33 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
     //-------------	Add posts to ListView -------------
     public void displayPosts(){
         loading(true);
-        AsyncTask<Integer, Integer, List<Post>> displayAsync = new AsyncTask<Integer, Integer, List<Post>>() {
-            @Override
-            protected List<Post> doInBackground(Integer... integers) {
-                List<Post> currentPosts=blog.getFilteredPagedPosts();
-                return currentPosts;
-            }
-
-            @Override
-            protected void onPostExecute(List<Post> currentPosts) {
-                super.onPostExecute(currentPosts);
-                for(Post currentPost : currentPosts){
-                    adapter.add(currentPost);
-                }
-                adapter.getListView().setSelection(0);
-                adapter.notifyDataSetChanged();
-                loading(false);
-            }
-        };
-
-        displayAsync.execute(0);
+        List<Post> currentPosts=blog.getFilteredPagedPosts();
+        for(Post currentPost : currentPosts){
+            adapter.add(currentPost);
+        }
+        adapter.getListView().setSelection(0);
+        adapter.notifyDataSetChanged();
+        loading(false);
     }
 
     //-------------	Loader actions -------------
     public void loading(boolean action){
+        getActivity().setProgressBarIndeterminateVisibility(true);
         if(action){
-            if(lyLoader!=null)
-                lyLoader.setVisibility(View.VISIBLE);
+            getActivity().setProgressBarIndeterminateVisibility(true);
             blog.setLoading(true);
         }else{
-            if(lyLoader!=null)
-                lyLoader.setVisibility(View.GONE);
+            getActivity().setProgressBarIndeterminateVisibility(false);
             blog.setLoading(false);
         }
     }
 
     //-------------	Load posts from Internet -------------
     public void loadCurrentPage(){
-        final BlogFilter currentFilter = blog.getActiveFilter();
-        final int currentPage = blog.getCurrentPage();
         RssBlogPostLoader page=new RssBlogPostLoader(new AsyncTaskListener<List<Post>>() {
             @Override
             public void onTaskComplete(List<Post> loadedPosts) {
-                blog.addPosts(currentFilter, currentPage, loadedPosts);
+                blog.addPosts(blog.getActiveFilter(), blog.getCurrentPage(), loadedPosts);
                 displayPosts();
                 blog.dispatchLoadListener(true);
                 loading(false);

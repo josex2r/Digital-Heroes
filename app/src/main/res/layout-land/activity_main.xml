@@ -34,7 +34,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:name="com.josex2r.digitalheroes.fragments.NavigationDrawerFragment"
-        tools:layout="@layout/fragment_navigation_drawer" />
+        tools:layout="@layout/fragment_navigation_drawer"
+        android:layout_marginTop="?android:attr/actionBarSize" />
 
 
 </android.support.v4.widget.DrawerLayout>

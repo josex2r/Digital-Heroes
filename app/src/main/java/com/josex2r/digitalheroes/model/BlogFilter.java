@@ -55,4 +55,8 @@ public class BlogFilter {
         ALL,
         FAVOURITES
     }
+
+    public BlogFilter clone() {
+        return new BlogFilter(this.id, this.name, this.feedURl, this.type);
+    }
 }

@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -19,6 +21,7 @@ import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.CustomDiskLruImageCache;
 import com.josex2r.digitalheroes.model.Post;
+import com.josex2r.digitalheroes.model.Typefaces;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -68,7 +71,8 @@ public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
 			viewHolder.lblDescription = (TextView) row.findViewById(R.id.lblDescription);
 			viewHolder.ivImage = (ImageView) row.findViewById(R.id.ivImage);
 			viewHolder.pbImage = (ProgressBar) row.findViewById(R.id.pbImage);
-			viewHolder.ivFavourites = (ImageView)row.findViewById(R.id.ivFavourites);
+			//viewHolder.ivFavourites = (ImageView)row.findViewById(R.id.ivFavourites);
+            viewHolder.btnFavourites = (Button)row.findViewById(R.id.btnFavourites);
 			row.setTag(viewHolder);
 		}else{
 			viewHolder = (PostViewHolder) row.getTag();
@@ -78,6 +82,8 @@ public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
 		viewHolder.lblTitle.setText( currPost.getTitle() );
 		viewHolder.lblDescription.setText( currPost.getDescription() );
 		viewHolder.pbImage.setIndeterminate(true);
+        Typeface font = Typefaces.get(context, "font/fontawesome-webfont.ttf");
+        viewHolder.btnFavourites.setTypeface(font);
         //Handle image view
 		hideImage(viewHolder);
 
@@ -100,12 +106,16 @@ public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
 		}
 		//Check if this post is marked as favourite
 		if( blog.isFavourite(currPost) ){
-			viewHolder.ivFavourites.setImageDrawable(context.getResources().getDrawable(android.R.drawable.star_on));
+			//viewHolder.ivFavourites.setImageDrawable(context.getResources().getDrawable(android.R.drawable.star_on));
+            viewHolder.btnFavourites.setText(context.getString(R.string.icon_star));
 		}else{
-			viewHolder.ivFavourites.setImageDrawable(context.getResources().getDrawable(android.R.drawable.star_off));
+			//viewHolder.ivFavourites.setImageDrawable(context.getResources().getDrawable(android.R.drawable.star_off));
+            viewHolder.btnFavourites.setText(context.getString(R.string.icon_star_half_empty));
 		}
-		viewHolder.ivFavourites.setTag(position);
-		viewHolder.ivFavourites.setOnClickListener(this.listener);
+		//viewHolder.ivFavourites.setTag(position);
+		//viewHolder.ivFavourites.setOnClickListener(this.listener);
+        viewHolder.btnFavourites.setTag(position);
+        viewHolder.btnFavourites.setOnClickListener(this.listener);
 		
 		return row;
 	}
@@ -172,7 +182,8 @@ public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
         public TextView lblTitle, lblDescription;
         public ImageView ivImage;
         public ProgressBar pbImage;
-        public ImageView ivFavourites;
+        //public ImageView ivFavourites;
+        public Button btnFavourites;
         public int position;
     }
 

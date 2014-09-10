@@ -41,7 +41,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" />
 
-        <ImageView
+        <!--<ImageView
             android:contentDescription="@string/app_name"
             android:id="@+id/ivFavourites"
             android:layout_width="35dp"
@@ -49,7 +49,19 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:background="@android:color/transparent"
-            android:src="@android:drawable/star_off" />
+            android:src="@android:drawable/star_off" />-->
+
+        <Button
+            android:id="@+id/btnFavourites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/orange"
+            android:background="@android:color/transparent"
+            android:textSize="30sp"
+            android:text="@string/icon_star_half_empty" />
         
     </RelativeLayout>
 
