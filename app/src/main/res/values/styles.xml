@@ -73,13 +73,13 @@
     <style name="btn_drawer_list_text" parent="AppBaseTheme">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/red</item>
+        <item name="android:textColor">@color/orange</item>
     </style>
 
     <style name="btn_drawer_list_icon" parent="AppBaseTheme">
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/red</item>
+        <item name="android:textColor">@color/orange</item>
     </style>
 
 
@@ -87,10 +87,8 @@
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@null</item>
-        <!--
         <item name="metaButtonBarStyle">@style/ButtonBar</item>
         <item name="metaButtonBarButtonStyle">@style/ButtonBarButton</item>
-        -->
     </style>
 
 
