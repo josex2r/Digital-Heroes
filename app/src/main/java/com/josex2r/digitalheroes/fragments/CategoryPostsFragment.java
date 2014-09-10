@@ -17,6 +17,9 @@ import com.josex2r.digitalheroes.model.Typefaces;
 
 
 public class CategoryPostsFragment extends Fragment implements OnClickListener{
+
+    private Blog blog;
+    private MainActivity mainActivity;
 	
 	public CategoryPostsFragment(){
 		
@@ -27,6 +30,9 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_category_posts,
 				container, false);
+
+        blog = Blog.getInstance();
+        mainActivity = (MainActivity)getActivity();
 		
 		Button btnAdvertising = (Button) rootView.findViewById(R.id.btnAdversiting);
 		Button btnCreatividad = (Button) rootView.findViewById(R.id.btnCreatividad);
@@ -76,9 +82,7 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		MainActivity mainActivity=(MainActivity)getActivity();
-		Blog blog=Blog.getInstance();
-		
+
 		BlogFilter selectedFilter = blog.getActiveFilter();
 		
 		int id = v.getId();
@@ -97,23 +101,16 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
 		} else if (id == R.id.btnWeb || id == R.id.btnWebIcon) {
 			selectedFilter = Blog.FILTER_WEB;
 		}
-		
+		//Check if selected filter is not the current filter
 		if( !blog.getActiveFilter().equals(selectedFilter) ){
-		
+		    //Change blog data
 			blog.setActiveFilter(selectedFilter);
 			blog.setCurrentPage(1);
-			
-			/*
-			Fragment newPostsFragment = new AllPostsFragment();
-			newPostsFragment.setArguments(data);
-	
-			MainActivity main=((MainActivity) getActivity());*/
-			//mainActivity.getSectionsPageAdapter().changeTitle(1, selectedFilter.getName());
-			//mainActivity.getViewPager().setCurrentItem(1);
-			//mainActivity.getDrawerList().setItemChecked(2, true);
+            //Perform Main Activity stuff
+			mainActivity.getViewPager().setCurrentItem(1);
 			mainActivity.getActionBar().setTitle(selectedFilter.getName());
+            //Force refresh
+            mainActivity.getSectionsPageAdapter().notifyDataSetChanged();
 		}
-		
-		//blog.loadCurrentPage(true);
 	}
 }

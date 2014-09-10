@@ -8,12 +8,12 @@ import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.Post;
 import com.josex2r.digitalheroes.util.RssXmlPullParser;
 
-public class FeedPageLoader extends AsyncTask<Integer, Integer, List<Post>>{
+public class RsBlogPostLoader extends AsyncTask<Integer, Integer, List<Post>>{
 	
 	private Integer page;
 	private AsyncTaskListener<List<Post>> callback;
 	
-	public FeedPageLoader() {
+	public RsBlogPostLoader() {
 		// TODO Auto-generated constructor stub
 		callback=new AsyncTaskListener<List<Post>>() {
 			public void onTaskComplete(List<Post> loadedPosts) {}
@@ -21,7 +21,7 @@ public class FeedPageLoader extends AsyncTask<Integer, Integer, List<Post>>{
 		};
 	}
 	
-	public FeedPageLoader(AsyncTaskListener<List<Post>> onComplete) {
+	public RsBlogPostLoader(AsyncTaskListener<List<Post>> onComplete) {
 		// TODO Auto-generated constructor stub
 		callback=onComplete;
 	}

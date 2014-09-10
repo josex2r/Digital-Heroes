@@ -18,10 +18,8 @@ import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
 import com.josex2r.digitalheroes.controllers.FavouritesSQLiteHelper;
-import com.josex2r.digitalheroes.controllers.FeedPageLoader;
-import com.josex2r.digitalheroes.util.DiskLruImageCache;
+import com.josex2r.digitalheroes.controllers.RsBlogPostLoader;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,7 +40,7 @@ public class Blog {
     //-------------	Loading posts? -------------
     private boolean loading;
     //-------------	Bitmap Cache -------------
-    private DiskLruImageCache imagesCache;
+    private CustomDiskLruImageCache imagesCache;
     public static final int CACHE_SIZE = 700000;
     public static final String CACHE_DIR = "postCache";
 
@@ -121,7 +119,7 @@ public class Blog {
     public BlogFilter getActiveFilter(){
         return activeFilter;
     }
-    public DiskLruImageCache getImagesCache(){
+    public CustomDiskLruImageCache getImagesCache(){
         return imagesCache;
     }
 
@@ -135,6 +133,7 @@ public class Blog {
     public void setActiveFilter(BlogFilter filter){
         this.activeFilter = filter;
     }
+
     public void initBlog(Context context){
         this.context = context;
         //-------------	Post Filters -------------
@@ -206,16 +205,8 @@ public class Blog {
                 BlogFilter.BlogFilterType.FAVOURITES);
 
         this.setActiveFilter(Blog.FILTER_ALL);
-    }
-    public void initDiskLruImageCache(){
-        // check if it exits. if not create one
-        File cacheDir = new File(android.os.Environment.getExternalStorageDirectory() + CACHE_DIR);
-        if( !cacheDir.exists() ){
-            cacheDir.mkdirs();
-        }
-        if( cacheDir.exists() ){
-            this.imagesCache = new DiskLruImageCache(this.context, CACHE_DIR, CACHE_SIZE, Bitmap.CompressFormat.JPEG, 80);
-        }
+
+        this.imagesCache = new CustomDiskLruImageCache(this.context, CACHE_DIR, CACHE_SIZE, Bitmap.CompressFormat.JPEG, 80);
     }
 
     public void setOnLoadListener(AsyncTaskListener<Boolean> callback){
@@ -334,25 +325,24 @@ public class Blog {
             Log.d("MyApp", "addRemoveFromFavourites:"+Integer.toString(position));
 
             Post selectedPost=getFilteredAllPagedPosts().get(position);
-            String link=selectedPost.getLink();
 
             //Always delete
 
 
-            if(!isFavourite(link)){
+            if(!isFavourite(selectedPost)){
 
                 //Insert
-                removeFavourite(link);
+                removeFavourite(selectedPost);
                 addFavourite(selectedPost);
 
             }else
-                removeFavourite(link);
+                removeFavourite(selectedPost);
 
         }
     }
 
     //-------------	Remove post from favourites (collection + DB) -------------
-    private boolean removeFavourite(String link){
+    private boolean removeFavourite(Post post){
 
         if(context!=null){
             SQLiteDatabase db=null;
@@ -360,11 +350,11 @@ public class Blog {
                 FavouritesSQLiteHelper conexionDB=new FavouritesSQLiteHelper(context, "DBFavourites", null, DB_VERSION);
                 db=conexionDB.getWritableDatabase();
 
-                db.delete("favourites", "link=?", new String[]{link});
+                db.delete("favourites", "link=?", new String[]{post.getLink()});
 
                 List<Post> favourites=this.posts.get(Blog.FILTER_FAVOURITES.getId()).get(1);
                 for(int i=0;i<favourites.size();i++){
-                    if( favourites.get(i).getLink().equals(link) )
+                    if( favourites.get(i).getLink().equals(post.getLink()) )
                         favourites.remove(i);
                 }
 
@@ -417,11 +407,11 @@ public class Blog {
     }
 
     //-------------	check if post is favourite -------------
-    public boolean isFavourite(String link){
+    public boolean isFavourite(Post post){
         boolean found=false;
-        List<Post> favourites=this.posts.get(Blog.FILTER_FAVOURITES.getId()).get(1);
+        List<Post> favourites = this.posts.get(FILTER_FAVOURITES.getId()).get(1);
         for(Post favourite : favourites){
-            if(favourite.getLink().equals(link)) {
+            if( favourite.getLink().equals( post.getLink() ) ) {
                 found = true;
             }
         }
@@ -441,7 +431,7 @@ public class Blog {
             try {
                 final Date lastDate = formatter.parse(lastUpdate);
 
-                FeedPageLoader lastPosts=new FeedPageLoader(new AsyncTaskListener<List<Post>>() {
+                RsBlogPostLoader lastPosts=new RsBlogPostLoader(new AsyncTaskListener<List<Post>>() {
                     @Override
                     public void onTaskComplete(List<Post> loadedPosts) {
                         //Display notification

@@ -1,13 +1,13 @@
 package com.josex2r.digitalheroes.model;
 
-public class ScrollableMenu {
+public class DrawerLayoutItem {
 	 
 	//Menu text name
     String text;
     //Menu text icon (font-awesome)
     String icon;
 
-    public ScrollableMenu(String text, String icon) {
+    public DrawerLayoutItem(String text, String icon) {
     	super();
     	this.text = text;
     	this.icon = icon;

@@ -14,17 +14,20 @@
            
         <FrameLayout
             android:id="@+id/fl_oval"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+	        android:layout_centerVertical="true"
             android:background="@drawable/shape_oval_loading" >
         
         </FrameLayout>
         
         <ImageView
 	        android:id="@+id/iv_logo_blank"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
+	        android:layout_width="300dp"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_centerVertical="true"
 	        android:src="@drawable/logo_heroes_blank" />
         
         

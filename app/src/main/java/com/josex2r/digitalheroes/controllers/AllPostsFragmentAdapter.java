@@ -17,32 +17,33 @@ import android.widget.TextView;
 
 import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.model.Blog;
+import com.josex2r.digitalheroes.model.CustomDiskLruImageCache;
 import com.josex2r.digitalheroes.model.Post;
-import com.josex2r.digitalheroes.model.PostViewHolder;
-import com.josex2r.digitalheroes.util.DiskLruImageCache;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
-public class PostsAdapter extends ArrayAdapter<Post>{
+public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
 
 	private Context context;
 	private List<Post> news;
 	private int resource;
 	private ListView lvPosts;
-	private DiskLruImageCache imagesCache;
+	private CustomDiskLruImageCache imagesCache;
 	private OnClickListener listener;
+    private Blog blog;
 	
-	public PostsAdapter(Context context, int resource, List<Post> objects, ListView lv, OnClickListener li) {
+	public AllPostsFragmentAdapter(Context context, int resource, List<Post> objects, ListView lv, OnClickListener li) {
 		super(context, resource, objects);
 		// TODO Auto-generated constructor stub
 		this.resource=resource;
 		this.context=context;
 		this.news=objects;
 		this.lvPosts=lv;
-		this.imagesCache =Blog.getInstance().getImagesCache();
+        this.blog = Blog.getInstance();
+		this.imagesCache = blog.getImagesCache();
 		this.listener=li;
 	}
 	
@@ -58,57 +59,50 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 		Post currPost=news.get(position);
 		
 		if(row==null){
-			LayoutInflater inflater=((Activity) context).getLayoutInflater();
-			row=inflater.inflate(resource, null);
-			viewHolder=new PostViewHolder();
-			viewHolder.lblTitle=(TextView) row.findViewById(R.id.lblTitle);
-			viewHolder.lblDescription=(TextView) row.findViewById(R.id.lblDescription);
-			viewHolder.ivImage=(ImageView) row.findViewById(R.id.ivImage);
-			viewHolder.pbImage=(ProgressBar) row.findViewById(R.id.pbImage);
-			viewHolder.ivFavourites=(ImageView)row.findViewById(R.id.ivFavourites);
+            //Inflate view
+			LayoutInflater inflater =((Activity) context).getLayoutInflater();
+			row = inflater.inflate(resource, null);
+            //Set view holder
+			viewHolder = new PostViewHolder();
+			viewHolder.lblTitle = (TextView) row.findViewById(R.id.lblTitle);
+			viewHolder.lblDescription = (TextView) row.findViewById(R.id.lblDescription);
+			viewHolder.ivImage = (ImageView) row.findViewById(R.id.ivImage);
+			viewHolder.pbImage = (ProgressBar) row.findViewById(R.id.pbImage);
+			viewHolder.ivFavourites = (ImageView)row.findViewById(R.id.ivFavourites);
 			row.setTag(viewHolder);
 		}else{
-			viewHolder=(PostViewHolder) row.getTag();
+			viewHolder = (PostViewHolder) row.getTag();
 		}
-		viewHolder.position=position;
-
+        //Set data to the view holder
+		viewHolder.position = position;
 		viewHolder.lblTitle.setText( currPost.getTitle() );
 		viewHolder.lblDescription.setText( currPost.getDescription() );
 		viewHolder.pbImage.setIndeterminate(true);
+        //Handle image view
 		hideImage(viewHolder);
-		
-		
-		if(currPost.getImageLink().equals("NO-IMAGE")){
+		if(currPost.getImageLink().toUpperCase().equals("NO-IMAGE")){
 			//No post image, must set "no_image.jpg"
-			if( imagesCache.getBitmap("empty")==null ){
-				imagesCache.put("empty", BitmapFactory.decodeResource(context.getResources(), R.drawable.no_image));
-			}
-			viewHolder.ivImage.setImageBitmap( imagesCache.getBitmap("empty") );
+			viewHolder.ivImage.setImageBitmap( imagesCache.getNoImage() );
 			showImage(viewHolder);
 		}else{
 			//Check if image exist
-			if( imagesCache ==null || imagesCache.getBitmap(currPost.getImageLink())==null ){
+			if( imagesCache.getImage(currPost.getImageLink())==null ){
 				//Image is not stored on disk cache, must download it
-				ImageLoader downloader=new ImageLoader(position);
-				downloader.postHolder=viewHolder;
+				ImageLoader downloader = new ImageLoader(position);
+				downloader.postHolder = viewHolder;
 				downloader.execute( currPost.getImageLink() );
 			}else{
 				//Image is stored on disk cache
-				viewHolder.ivImage.setImageBitmap( imagesCache.getBitmap(currPost.getImageLink()) );
+				viewHolder.ivImage.setImageBitmap( imagesCache.getImage(currPost.getImageLink()) );
 				showImage(viewHolder);
 			}
 		}
-		
-		//Get blog instance
-		Blog blog = Blog.getInstance();
-		
 		//Check if this post is marked as favourite
-		if(blog.isFavourite(currPost.getLink())){
+		if( blog.isFavourite(currPost) ){
 			viewHolder.ivFavourites.setImageDrawable(context.getResources().getDrawable(android.R.drawable.star_on));
 		}else{
 			viewHolder.ivFavourites.setImageDrawable(context.getResources().getDrawable(android.R.drawable.star_off));
 		}
-		
 		viewHolder.ivFavourites.setTag(position);
 		viewHolder.ivFavourites.setOnClickListener(this.listener);
 		
@@ -140,38 +134,24 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 			URL postUrl;
 			Bitmap bitmap;
 			try {
-				if(url[0].equals("NO-IMAGE"))
-					throw new Exception();
-				
 				postUrl=new URL(url[0]);
 		        URLConnection conn=postUrl.openConnection();
 		        conn.connect();
-		        InputStream stream=postUrl.openStream();
+		        InputStream stream = postUrl.openStream();
                 try {
                     bitmap = BitmapFactory.decodeStream(stream);
                 }catch(OutOfMemoryError e){
-                    bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.no_image);
+                    bitmap = imagesCache.getNoImage();
                 }
-		        //post.setImage( bitmap );
-                if( imagesCache !=null ) {
+		        //Try to save into cache
+                if( imagesCache != null ) {
                     imagesCache.put(url[0], bitmap);
                 }
 
 		    }catch(Exception e){
-		    	if( imagesCache !=null ) {
-                    if( imagesCache.getBitmap("empty")==null ) {
-                        imagesCache.put("empty", BitmapFactory.decodeResource(context.getResources(), R.drawable.no_image));
-                        context.getResources().getDrawable(R.drawable.no_image);
-                    }
-                    bitmap= imagesCache.getBitmap("empty");
-                }else{
-                    bitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.no_image);
-                }
-		    	//post.setImage( bitmap );
+                bitmap = imagesCache.getNoImage();
 		    	return null;
 		    }
-			
-			
 			return bitmap;
 			
 		}
@@ -186,5 +166,13 @@ public class PostsAdapter extends ArrayAdapter<Post>{
 			super.onPostExecute(result);
 		}
 	}
+
+    public static class PostViewHolder {
+        public TextView lblTitle, lblDescription;
+        public ImageView ivImage;
+        public ProgressBar pbImage;
+        public ImageView ivFavourites;
+        public int position;
+    }
 
 }

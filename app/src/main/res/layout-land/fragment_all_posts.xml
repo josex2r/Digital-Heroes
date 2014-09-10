@@ -8,8 +8,6 @@
         android:id="@+id/lvPosts"
         android:layout_width="match_parent"
         android:visibility="visible"
-        android:focusableInTouchMode="true"
-        android:focusable="true"
         android:layout_height="wrap_content" >
     </ListView>
 

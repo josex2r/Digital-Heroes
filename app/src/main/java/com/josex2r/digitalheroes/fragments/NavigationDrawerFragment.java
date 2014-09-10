@@ -21,8 +21,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.josex2r.digitalheroes.R;
-import com.josex2r.digitalheroes.controllers.ScrollableMenuAdapter;
-import com.josex2r.digitalheroes.model.ScrollableMenu;
+import com.josex2r.digitalheroes.controllers.DrawerLayoutAdapter;
+import com.josex2r.digitalheroes.model.DrawerLayoutItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,12 +98,12 @@ public class NavigationDrawerFragment extends Fragment {
             Bundle savedInstanceState) {
 
         //Drawer menu items
-        List<ScrollableMenu> dataList= new ArrayList<ScrollableMenu>();
-        dataList.add(new ScrollableMenu(getString(R.string.navigation_drawer_section1), getString(R.string.icon_inbox)));
-        dataList.add(new ScrollableMenu(getString(R.string.navigation_drawer_section2), getString(R.string.icon_bookmark)));
-        dataList.add(new ScrollableMenu(getString(R.string.navigation_drawer_section3), getString(R.string.icon_user)));
-        dataList.add(new ScrollableMenu(getString(R.string.navigation_drawer_section4), getString(R.string.icon_star)));
-        dataList.add(new ScrollableMenu(getString(R.string.navigation_drawer_section5), getString(R.string.icon_mail_reply_all)));
+        List<DrawerLayoutItem> dataList= new ArrayList<DrawerLayoutItem>();
+        dataList.add(new DrawerLayoutItem(getString(R.string.navigation_drawer_section1), getString(R.string.icon_inbox)));
+        dataList.add(new DrawerLayoutItem(getString(R.string.navigation_drawer_section2), getString(R.string.icon_bookmark)));
+        dataList.add(new DrawerLayoutItem(getString(R.string.navigation_drawer_section3), getString(R.string.icon_user)));
+        dataList.add(new DrawerLayoutItem(getString(R.string.navigation_drawer_section4), getString(R.string.icon_star)));
+        dataList.add(new DrawerLayoutItem(getString(R.string.navigation_drawer_section5), getString(R.string.icon_mail_reply_all)));
 
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
@@ -111,7 +111,7 @@ public class NavigationDrawerFragment extends Fragment {
         View header=this.getActivity().getLayoutInflater().inflate(R.layout.drawer_list_header, null);
         mDrawerListView.addHeaderView(header, new Object(), false);
 
-        mDrawerListView.setAdapter(new ScrollableMenuAdapter(this.getActivity(), R.layout.drawer_list_item, dataList));
+        mDrawerListView.setAdapter(new DrawerLayoutAdapter(this.getActivity(), R.layout.drawer_list_item, dataList));
 
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -215,7 +215,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void selectItem(int position) {
         mCurrentSelectedPosition = position;
-        if (mDrawerListView != null && position!=5) {
+        if (mDrawerListView != null) {
             mLastSelectedPosition = mCurrentSelectedPosition;
             mDrawerListView.setItemChecked(position, true);
         }

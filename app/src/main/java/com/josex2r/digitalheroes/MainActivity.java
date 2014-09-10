@@ -64,6 +64,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
         blog.initBlog(this.getApplicationContext());
         blog.loadFavouritesFromDB();
 
+        actionBar = getActionBar();
+
         //Init view pager
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -154,6 +156,13 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    public ViewPager getViewPager(){
+        return mViewPager;
+    }
+    public SectionsPagerAdapter getSectionsPageAdapter(){
+        return mSectionsPagerAdapter;
+    }
+
     /*
      * GOOGLE ANALYTICS TRACK
      */
@@ -231,6 +240,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
                     blog.setActiveFilter( Blog.FILTER_ALL );
                     blog.setCurrentPage(1);
                 }
+                //Force to refresh by changing the title
                 mSectionsPagerAdapter.changeTitle(1, getString(R.string.navigation_drawer_section1));
                 mViewPager.setCurrentItem(1);
                 actionBar.setTitle(getString(R.string.app_name));
@@ -249,6 +259,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
                     blog.setActiveFilter( Blog.FILTER_FAVOURITES );
                     blog.setCurrentPage(1);
                 }
+                //Force to refresh by changing the title
                 mSectionsPagerAdapter.changeTitle(1, getString(R.string.navigation_drawer_section4));
                 actionBar.setTitle(getString(R.string.navigation_drawer_section4));
                 mViewPager.setCurrentItem(1);
@@ -264,13 +275,5 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
                 startActivity(mailer);
                 break;
         }
-        //Check item except "contact"
-        /*
-        ListView mDrawerListView = this.mNavigationDrawerFragment.getNavigationDrawerList();
-        if(position!=5){
-            mDrawerListView.setItemChecked(position, true);
-        }else{
-            mDrawerListView.setItemChecked(mDrawerLastPosition, true);
-        }*/
     }
 }

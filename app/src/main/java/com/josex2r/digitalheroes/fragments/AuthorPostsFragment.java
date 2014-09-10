@@ -14,6 +14,10 @@ import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.BlogFilter;
 
 public class AuthorPostsFragment extends Fragment implements OnClickListener{
+
+    private Blog blog;
+    private MainActivity mainActivity;
+
 	public AuthorPostsFragment(){
 		
 	}
@@ -23,6 +27,9 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_author_posts,
 				container, false);
+
+        blog = Blog.getInstance();
+        mainActivity = (MainActivity)getActivity();
 		
 		Button btnBinary = (Button) rootView.findViewById(R.id.btnBinary);
 		Button btnCode = (Button) rootView.findViewById(R.id.btnCode);
@@ -56,8 +63,6 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		MainActivity mainActivity=(MainActivity)getActivity();
-		Blog blog=Blog.getInstance();
 		
 		BlogFilter selectedFilter = blog.getActiveFilter();
 		
@@ -89,15 +94,14 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 		}
 		
 		if( !blog.getActiveFilter().equals(selectedFilter) ){
-			
-			blog.setActiveFilter(selectedFilter);
-			
-			blog.setCurrentPage(1);
-			
-			//mainActivity.getSectionsPageAdapter().changeTitle(1, selectedFilter.getName());
-			//mainActivity.getViewPager().setCurrentItem(1);
-			//mainActivity.getDrawerList().setItemChecked(3, true);
-			mainActivity.getActionBar().setTitle(selectedFilter.getName());
+            //Change blog data
+            blog.setActiveFilter(selectedFilter);
+            blog.setCurrentPage(1);
+            //Perform Main Activity stuff
+            mainActivity.getViewPager().setCurrentItem(1);
+            mainActivity.getActionBar().setTitle(selectedFilter.getName());
+            //Force refresh
+            mainActivity.getSectionsPageAdapter().notifyDataSetChanged();
 		}
 	}
 }
