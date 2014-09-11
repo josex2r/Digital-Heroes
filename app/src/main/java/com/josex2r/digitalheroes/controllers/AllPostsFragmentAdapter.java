@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -72,7 +71,7 @@ public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
 			viewHolder.ivImage = (ImageView) row.findViewById(R.id.ivImage);
 			viewHolder.pbImage = (ProgressBar) row.findViewById(R.id.pbImage);
 			//viewHolder.ivFavourites = (ImageView)row.findViewById(R.id.ivFavourites);
-            viewHolder.btnFavourites = (Button)row.findViewById(R.id.btnFavourites);
+            viewHolder.btnFavourites = (TextView)row.findViewById(R.id.btnFavourites);
 			row.setTag(viewHolder);
 		}else{
 			viewHolder = (PostViewHolder) row.getTag();
@@ -183,7 +182,7 @@ public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
         public ImageView ivImage;
         public ProgressBar pbImage;
         //public ImageView ivFavourites;
-        public Button btnFavourites;
+        public TextView btnFavourites;
         public int position;
     }
 

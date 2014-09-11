@@ -6,11 +6,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.ShareActionProvider;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,6 +21,10 @@ import java.net.URL;
 @SuppressLint("SetJavaScriptEnabled") public class BrowserActivity extends Activity {
 	
 	private ProgressBar pbWebLoader;
+
+    private ShareActionProvider mShareActionProvider;
+
+    private Bundle data;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +40,7 @@ import java.net.URL;
 		pbWebLoader = (ProgressBar) findViewById(R.id.pbWebLoader);
 		pbWebLoader.setVisibility(View.VISIBLE);
 		
-		Bundle data = getIntent().getExtras();
+		data = getIntent().getExtras();
 
 		try {
 			String title = data.getString("title");
@@ -81,5 +88,34 @@ import java.net.URL;
 		overridePendingTransition(R.anim.no_anim, R.anim.activity_slide_out);
 		super.onPause();
 	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate menu resource file.
+        getMenuInflater().inflate(R.menu.share, menu);
+
+        // Locate MenuItem with ShareActionProvider
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+
+        // Fetch and store ShareActionProvider
+        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+
+        Intent myIntent = new Intent();
+        myIntent.setAction(Intent.ACTION_SEND);
+        myIntent.putExtra(Intent.EXTRA_TEXT, data.getString("uri"));
+        myIntent.setType("text/plain");
+
+        setShareIntent(myIntent);
+
+        // Return true to display menu
+        return true;
+    }
+
+    // Call to update the share intent
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
+    }
 
 }

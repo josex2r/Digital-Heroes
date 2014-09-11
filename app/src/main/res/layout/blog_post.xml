@@ -51,7 +51,7 @@
             android:background="@android:color/transparent"
             android:src="@android:drawable/star_off" />-->
 
-        <Button
+        <TextView
             android:id="@+id/btnFavourites"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
