@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.R;
@@ -30,32 +30,8 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 
         blog = Blog.getInstance();
         mainActivity = (MainActivity)getActivity();
-		
-		Button btnBinary = (Button) rootView.findViewById(R.id.btnBinary);
-		Button btnCode = (Button) rootView.findViewById(R.id.btnCode);
-		Button btnCraft = (Button) rootView.findViewById(R.id.btnCraft);
-		Button btnCrea = (Button) rootView.findViewById(R.id.btnCrea);
-		Button btnIdea = (Button) rootView.findViewById(R.id.btnIdea);
-		Button btnNumbers = (Button) rootView.findViewById(R.id.btnNumbers);
-		Button btnPencil = (Button) rootView.findViewById(R.id.btnPencil);
-		Button btnPixel = (Button) rootView.findViewById(R.id.btnPixel);
-		Button btnSem = (Button) rootView.findViewById(R.id.btnSem);
-		Button btnSocial = (Button) rootView.findViewById(R.id.btnSocial);
-		Button btnSpeed = (Button) rootView.findViewById(R.id.btnSpeed);
-		Button btnTrix = (Button) rootView.findViewById(R.id.btnTrix);
-		
-		btnBinary.setOnClickListener(this);
-		btnCode.setOnClickListener(this);
-		btnCraft.setOnClickListener(this);
-		btnCrea.setOnClickListener(this);
-		btnIdea.setOnClickListener(this);
-		btnNumbers.setOnClickListener(this);
-		btnPencil.setOnClickListener(this);
-		btnPixel.setOnClickListener(this);
-		btnSem.setOnClickListener(this);
-		btnSocial.setOnClickListener(this);
-		btnSpeed.setOnClickListener(this);
-		btnTrix.setOnClickListener(this);
+
+        ((LinearLayout) rootView.findViewById(R.id.lyBinary)).setOnClickListener(this);
 		
 		return rootView;
 	}
@@ -67,7 +43,7 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 		BlogFilter selectedFilter = blog.getActiveFilter();
 		
 		int id = v.getId();
-		if (id == R.id.btnBinary) {
+		if (id == R.id.lyBinary) {
 			selectedFilter = Blog.FILTER_BINARY;
 		} else if (id == R.id.btnCode) {
 			selectedFilter = Blog.FILTER_CODE;

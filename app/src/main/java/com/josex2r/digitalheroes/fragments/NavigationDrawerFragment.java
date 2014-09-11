@@ -132,6 +132,7 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.navigation_drawer_section5),
                 }));*/
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
         return mDrawerListView;
     }
 
@@ -211,6 +212,7 @@ public class NavigationDrawerFragment extends Fragment {
         });
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
     }
 
     private void selectItem(int position) {
@@ -304,6 +306,10 @@ public class NavigationDrawerFragment extends Fragment {
          * Called when an item in the navigation drawer is selected.
          */
         void onNavigationDrawerItemSelected(int position);
+    }
+
+    public DrawerLayout getDrawerLayout(){
+        return mDrawerLayout;
     }
 
 }

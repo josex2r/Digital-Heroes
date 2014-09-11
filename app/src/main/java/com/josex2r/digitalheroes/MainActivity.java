@@ -72,6 +72,14 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
         actionBar = getActionBar();
 
+        //Init drawer menu
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        // Set up the drawer.
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
+
         //Init view pager
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -89,16 +97,6 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
         fragmentTitles.add(getString(R.string.view_pager_section3));
         //Add fragments and titles to the adapter
         mSectionsPagerAdapter.addFragments(fragmentList, fragmentTitles);
-
-        //Init drawer menu
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getFragmentManager().findFragmentById(R.id.navigation_drawer);
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
-
-
     }
 
     @Override
@@ -122,6 +120,9 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
             t.setScreenName("capture");
             t.send(new HitBuilders.AppViewBuilder().build());
         }
+
+        //Close the Drawer
+        mNavigationDrawerFragment.getDrawerLayout().closeDrawers();
     }
 
     @Override

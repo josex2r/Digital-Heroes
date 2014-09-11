@@ -29,6 +29,9 @@
     </style>
 
 
+    <style name="btn_author_icon" parent="AppBaseTheme">
+        <item name="android:gravity">center_vertical</item>
+    </style>
 
     <style name="btn_category_icon" parent="AppBaseTheme">
         <item name="android:textSize">60sp</item>

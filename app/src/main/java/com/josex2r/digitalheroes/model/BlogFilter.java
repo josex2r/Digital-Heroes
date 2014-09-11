@@ -35,16 +35,16 @@ public class BlogFilter {
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		System.out.println("BlogFilter.equals()");
+		//System.out.println("BlogFilter.equals()");
 		if( !(obj instanceof BlogFilter) ){
-			System.out.println("!(obj instanceof BlogFilter)");
+			//System.out.println("!(obj instanceof BlogFilter)");
             return false;
 		}if( obj == this ){
-			System.out.println("obj == this");
+			//System.out.println("obj == this");
             return true;
 		}
-		System.out.println(this.id==((BlogFilter) obj).getId());
-		System.out.println(this.id + "==" + ((BlogFilter) obj).getId());
+		//System.out.println(this.id==((BlogFilter) obj).getId());
+		//System.out.println(this.id + "==" + ((BlogFilter) obj).getId());
 		return this.id==((BlogFilter) obj).getId();
 	}
 

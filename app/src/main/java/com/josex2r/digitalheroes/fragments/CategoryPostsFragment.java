@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.MainActivity;
+import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.BlogFilter;
 import com.josex2r.digitalheroes.model.Typefaces;
@@ -42,10 +42,10 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
 
         Typeface font = Typefaces.get( getActivity().getApplicationContext(), "font/fontawesome-webfont.ttf" );
 
-        ((Button) rootView.findViewById(R.id.btnIdeasIcon)).setTypeface(font);
-        ((Button) rootView.findViewById(R.id.btnContentIcon)).setTypeface(font);
-        ((Button) rootView.findViewById(R.id.btnGoogleIcon)).setTypeface(font);
-        ((Button) rootView.findViewById(R.id.btnInsideIcon)).setTypeface(font);
+        ((TextView) rootView.findViewById(R.id.btnIdeasIcon)).setTypeface(font);
+        ((TextView) rootView.findViewById(R.id.btnContentIcon)).setTypeface(font);
+        ((TextView) rootView.findViewById(R.id.btnGoogleIcon)).setTypeface(font);
+        ((TextView) rootView.findViewById(R.id.btnInsideIcon)).setTypeface(font);
 		
 		return rootView;
 	}
