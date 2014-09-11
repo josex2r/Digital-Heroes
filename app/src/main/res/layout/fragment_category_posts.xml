@@ -9,7 +9,7 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,191 +19,194 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:background="@color/orange"></LinearLayout>
-            
-            <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:orientation="horizontal" >
-		        
-                <Button
-			        android:id="@+id/btnAdversitingIcon"
-			        android:layout_width="0dp"
-			        android:layout_height="wrap_content"
-			        android:layout_weight="1"
-			        android:text="@string/icon_bullhorn"
-			        android:background="@drawable/btn_category_advertising"
-			        style="@style/btn_category_icon" />
-                
-                <Button
-			        android:id="@+id/btnAdversiting"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_weight="3"
-			        android:text="@string/category_advertising"
-			        android:background="@drawable/btn_category_advertising"
-			        style="@style/btn_category" />
-                
-		    </LinearLayout>
-		    
-            <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="20dp"
-		        android:orientation="horizontal" >
-		        
-                <Button
-			        android:id="@+id/btnCreatividadIcon"
-			        android:layout_width="0dp"
-			        android:layout_height="wrap_content"
-			        android:layout_weight="1"
-			        android:text="@string/icon_pencil"
-			        android:background="@drawable/btn_category_creatividad"
-			        style="@style/btn_category_icon" />
-                
-                <Button
-			        android:id="@+id/btnCreatividad"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_weight="3"
-			        android:text="@string/category_creatividad"
-			        android:background="@drawable/btn_category_creatividad"
-			        style="@style/btn_category" />
-                
-		    </LinearLayout>
-            
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="20dp"
-		        android:orientation="horizontal" >
-		        
-                <Button
-			        android:id="@+id/btnInsideIcon"
-			        android:layout_width="0dp"
-			        android:layout_height="wrap_content"
-			        android:layout_weight="1"
-			        android:text="@string/icon_eye_open"
-			        android:background="@drawable/btn_category_inside"
-			        style="@style/btn_category_icon" />
-                
-                <Button
-			        android:id="@+id/btnInside"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_weight="3"
-			        android:text="@string/category_inside"
-			        android:background="@drawable/btn_category_inside"
-			        style="@style/btn_category" />
-                
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="20dp"
-		        android:orientation="horizontal" >
-		        
-                <Button
-			        android:id="@+id/btnMarketingIcon"
-			        android:layout_width="0dp"
-			        android:layout_height="wrap_content"
-			        android:layout_weight="1"
-			        android:text="@string/icon_shopping_cart"
-			        android:background="@drawable/btn_category_marketing"
-			        style="@style/btn_category_icon" />
-                
-                <Button
-			        android:id="@+id/btnMarketing"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_weight="3"
-			        android:text="@string/category_marketing"
-			        android:background="@drawable/btn_category_marketing"
-			        style="@style/btn_category" />
-                
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="20dp"
-		        android:orientation="horizontal" >
-		        
-                <Button
-			        android:id="@+id/btnNegociosIcon"
-			        android:layout_width="0dp"
-			        android:layout_height="wrap_content"
-			        android:layout_weight="1"
-			        android:text="@string/icon_money"
-			        android:background="@drawable/btn_category_negocios"
-			        style="@style/btn_category_icon" />
-                
-                <Button
-			        android:id="@+id/btnNegocios"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_weight="3"
-			        android:text="@string/category_negocios"
-			        android:background="@drawable/btn_category_negocios"
-			        style="@style/btn_category" />
-                
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="20dp"
-		        android:orientation="horizontal" >
-		        
-                <Button
-			        android:id="@+id/btnSeoIcon"
-			        android:layout_width="0dp"
-			        android:layout_height="wrap_content"
-			        android:layout_weight="1"
-			        android:text="@string/icon_thumbs_o_up"
-			        android:background="@drawable/btn_category_seo"
-			        style="@style/btn_category_icon" />
-                
-                <Button
-			        android:id="@+id/btnSeo"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_weight="3"
-			        android:text="@string/category_seo"
-			        android:background="@drawable/btn_category_seo"
-			        style="@style/btn_category" />
-                
-		    </LinearLayout>
 
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="20dp"
-		        android:orientation="horizontal" >
-		        
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:background="@drawable/btn_category_ideas"
+                android:orientation="horizontal" >
+
                 <Button
-			        android:id="@+id/btnWebIcon"
-			        android:layout_width="0dp"
-			        android:layout_height="wrap_content"
-			        android:layout_weight="1"
-			        android:text="@string/icon_code"
-			        android:background="@drawable/btn_category_web"
-			        style="@style/btn_category_icon" />
-                
+                    android:id="@+id/btnIdeasIcon"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_category_ideas"
+                    android:text="@string/icon_comments"
+                    style="@style/btn_category_icon" />
+
+                <LinearLayout
+                    android:id="@+id/lyIdeas"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/category_ideas"
+                        android:background="@drawable/btn_category_ideas"
+                        android:paddingBottom="5dp"
+                        style="@style/btn_category" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="0dp"
+                        android:text="@string/category_ideas_description"
+                        android:background="@drawable/btn_category_ideas"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:background="@drawable/btn_category_content"
+                android:orientation="horizontal" >
+
                 <Button
-			        android:id="@+id/btnWeb"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_weight="3"
-			        android:text="@string/category_web"
-			        android:background="@drawable/btn_category_web"
-			        style="@style/btn_category" />
-                
-		    </LinearLayout>
-            
+                    android:id="@+id/btnContentIcon"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/icon_quote_right"
+                    android:background="@drawable/btn_category_content"
+                    style="@style/btn_category_icon" />
+
+                <LinearLayout
+                    android:id="@+id/lyContent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/category_content"
+                        android:background="@drawable/btn_category_content"
+                        android:paddingBottom="5dp"
+                        style="@style/btn_category" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="0dp"
+                        android:text="@string/category_content_description"
+                        android:background="@drawable/btn_category_content"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:background="@drawable/btn_category_google"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btnGoogleIcon"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/icon_google_plus"
+                    android:background="@drawable/btn_category_google"
+                    style="@style/btn_category_icon" />
+
+                <LinearLayout
+                    android:id="@+id/lyGoogle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/category_google"
+                        android:background="@drawable/btn_category_google"
+                        android:paddingBottom="5dp"
+                        style="@style/btn_category" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="0dp"
+                        android:text="@string/category_google_description"
+                        android:background="@drawable/btn_category_google"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:background="@drawable/btn_category_inside"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btnInsideIcon"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/icon_comments"
+                    android:background="@drawable/btn_category_inside"
+                    style="@style/btn_category_icon" />
+
+                <LinearLayout
+                    android:id="@+id/lyInside"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/category_inside"
+                        android:background="@drawable/btn_category_inside"
+                        android:paddingBottom="5dp"
+                        style="@style/btn_category" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="0dp"
+                        android:text="@string/category_inside_description"
+                        android:background="@drawable/btn_category_inside"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

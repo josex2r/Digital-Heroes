@@ -102,6 +102,7 @@ import java.net.URL;
 
         Intent myIntent = new Intent();
         myIntent.setAction(Intent.ACTION_SEND);
+        myIntent.putExtra(Intent.EXTRA_SUBJECT, data.getString("title"));
         myIntent.putExtra(Intent.EXTRA_TEXT, data.getString("uri"));
         myIntent.setType("text/plain");
 

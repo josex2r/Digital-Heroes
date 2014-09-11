@@ -1,14 +1,16 @@
 package com.josex2r.digitalheroes.model;
 
 public class BlogFilter {
+    private static int ID_COUNTER = 0;
+
 	private int id;
 	private String name;
 	private String feedURl;
     private BlogFilterType type;
 	
-	public BlogFilter(int id, String name, String feedURl, BlogFilterType type) {
+	public BlogFilter(String name, String feedURl, BlogFilterType type) {
 		super();
-		this.id = id;
+		this.id = ID_COUNTER++;
 		this.name = name;
 		this.feedURl = feedURl;
         this.type = type;
@@ -16,9 +18,6 @@ public class BlogFilter {
 	
 	public int getId() {
 		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 	public String getName() {
 		return name;
@@ -56,7 +55,13 @@ public class BlogFilter {
         FAVOURITES
     }
 
+    protected void setId(int id){
+        this.id = id;
+    }
+
     public BlogFilter clone() {
-        return new BlogFilter(this.id, this.name, this.feedURl, this.type);
+        BlogFilter clonedFilter = new BlogFilter(this.name, this.feedURl, this.type);
+        clonedFilter.setId(this.id);
+        return clonedFilter;
     }
 }

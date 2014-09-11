@@ -65,24 +65,8 @@ public class DiskLruImageCache {
         return new File(cachePath + File.separator + uniqueName);
     }
 
-    private Bitmap resizeBitmap(Bitmap bitmap, int maxW){
-        double ratio=1;
-        double newW=bitmap.getWidth();
-        double newH=bitmap.getHeight();
-
-        if( bitmap.getWidth()>maxW ){
-            ratio=maxW/newW;
-            newW=maxW;
-            newH=ratio*bitmap.getHeight();
-        }
-
-        return Bitmap.createScaledBitmap(bitmap, ((int)newW), ((int)newH), false);
-    }
-
     public void put( String key, Bitmap data ) {
         key=Utils.sha1(key).toLowerCase(Locale.getDefault());
-
-        data = resizeBitmap(data, 800);
 
         DiskLruCache.Editor editor = null;
         try {

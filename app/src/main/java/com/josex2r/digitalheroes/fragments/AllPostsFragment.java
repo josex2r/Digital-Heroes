@@ -43,6 +43,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
     //Context menu actions
     public static final int CONTEXT_MENU_SHOW_POST = 0;
     public static final int CONTEXT_MENU_TOGGLE_FAVOURITE = 1;
+    public static final int CONTEXT_MENU_SHARE = 2;
 
     //-------------	Constructor -------------
     public AllPostsFragment(){
@@ -233,6 +234,7 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
             menu.setHeaderTitle(title);
             menu.add(Menu.NONE, CONTEXT_MENU_SHOW_POST, Menu.NONE, getResources().getString(R.string.context_menu_show));
             menu.add(Menu.NONE, CONTEXT_MENU_TOGGLE_FAVOURITE, Menu.NONE, getResources().getString(R.string.context_menu_toggle_favourites));
+            menu.add(Menu.NONE, CONTEXT_MENU_SHARE, Menu.NONE, getResources().getString(R.string.share));
         }
     }
 
@@ -246,6 +248,17 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
                 return true;
             case CONTEXT_MENU_TOGGLE_FAVOURITE:
                 toggleFavourite( info.position );
+                return true;
+            case CONTEXT_MENU_SHARE:
+                //Get post
+                Post post = adapter.getItem(info.position);
+                //Share the post
+                Intent myIntent = new Intent();
+                myIntent.setAction(Intent.ACTION_SEND);
+                myIntent.putExtra(Intent.EXTRA_SUBJECT, post.getTitle());
+                myIntent.putExtra(Intent.EXTRA_TEXT, post.getLink());
+                myIntent.setType("text/plain");
+                startActivity(myIntent);
                 return true;
             default:
                 return super.onContextItemSelected(item);

@@ -12,9 +12,9 @@
     <string name="context_menu_show">Ver contenido</string>
     <string name="context_menu_toggle_favourites">Añadir/Eliminar favorito</string>
 
-    <string name="navigation_drawer_section1">Todos</string>
-    <string name="navigation_drawer_section2">Categorías</string>
-    <string name="navigation_drawer_section3">Autores</string>
+    <string name="navigation_drawer_section1">Ver todos</string>
+    <string name="navigation_drawer_section2">Super Poderes</string>
+    <string name="navigation_drawer_section3">Super Héroes</string>
     <string name="navigation_drawer_section4">Favoritos</string>
     <string name="navigation_drawer_section5">Contacta</string>
 
@@ -28,13 +28,22 @@
     <string name="image">Imagen</string>
     <string name="no_image">La imagen no se pudo cargar</string>
 
+    <!--
     <string name="category_advertising">Advertising</string>
     <string name="category_creatividad">Creatividad</string>
     <string name="category_inside">Inside Góbalo</string>
     <string name="category_marketing">Marketing Digital</string>
     <string name="category_negocios">Negocios</string>
     <string name="category_seo">SEO y SEM</string>
-    <string name="category_web">Web y Programación</string>
+    <string name="category_web">Web y Programación</string>-->
+    <string name="category_ideas">Big Ideas</string>
+    <string name="category_ideas_description">Ocurrencias, experimentos, genialidades, toda clase de ideas y siempre, cuanto más creativas e innovadoras… ¡mejor!</string>
+    <string name="category_content">Content lovers</string>
+    <string name="category_content_description">Amantes de las estrategias de marketing de contenidos, los copys cuidados hasta el último detalle, Social Media, herramientas… Porque el contenido es el rey.</string>
+    <string name="category_google">Google friendly</string>
+    <string name="category_google_description">Nos hemos echado un amigo de esos difíciles de complacer. Por ello, hablamos de trucos, herramientas, analítica web, SEO y SEM para aprender a conquistarlo.</string>
+    <string name="category_inside">Inside Góbalo</string>
+    <string name="category_inside_description">Siendo una agencia creativa digital las mejores ideas surgen en el proceso creativo y de desarrollo de los proyectos, la inspiración nos pilla trabajando sin duda.</string>
 
     <string name="author_01101">Super 01101</string>
     <string name="author_code">Super Code</string>

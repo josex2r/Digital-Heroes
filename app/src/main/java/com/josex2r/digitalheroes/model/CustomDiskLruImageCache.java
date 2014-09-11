@@ -54,7 +54,7 @@ public class CustomDiskLruImageCache {
 
     public void put(String key, Bitmap data){
         if(existsCache()){
-            this.cache.put(key, data);
+            this.cache.put(key, resizeBitmap(data, 800));
         }
     }
 
@@ -64,5 +64,19 @@ public class CustomDiskLruImageCache {
         }
         Bitmap image = this.cache.getBitmap(key);
         return image;
+    }
+
+    private Bitmap resizeBitmap(Bitmap bitmap, int maxW){
+        double ratio=1;
+        double newW=bitmap.getWidth();
+        double newH=bitmap.getHeight();
+
+        if( bitmap.getWidth()>maxW ){
+            ratio=maxW/newW;
+            newW=maxW;
+            newH=ratio*bitmap.getHeight();
+        }
+
+        return Bitmap.createScaledBitmap(bitmap, ((int)newW), ((int)newH), false);
     }
 }

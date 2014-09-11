@@ -60,13 +60,18 @@ public class Blog {
     //-------------	Post Filters -------------
     public static BlogFilter FILTER_ALL;
     //-------------	Categories -------------
+    /*
     public static BlogFilter FILTER_ADVERSITING;
     public static BlogFilter FILTER_CREATIVIDAD;
     public static BlogFilter FILTER_INSIDE;
     public static BlogFilter FILTER_MARKETING;
     public static BlogFilter FILTER_NEGOCIOS;
     public static BlogFilter FILTER_SEO;
-    public static BlogFilter FILTER_WEB;
+    public static BlogFilter FILTER_WEB;*/
+    public static BlogFilter FILTER_IDEAS;
+    public static BlogFilter FILTER_CONTENT;
+    public static BlogFilter FILTER_GOOGLE;
+    public static BlogFilter FILTER_INSIDE;
     //-------------	Authors -------------
     public static BlogFilter FILTER_BINARY;
     public static BlogFilter FILTER_CODE;
@@ -137,11 +142,11 @@ public class Blog {
     public void initBlog(Context context){
         this.context = context;
         //-------------	Post Filters -------------
-        Blog.FILTER_ALL = new BlogFilter(0, this.context.getString(R.string.app_name),
+        Blog.FILTER_ALL = new BlogFilter(this.context.getString(R.string.app_name),
                 "http://blog.gobalo.es/feed/",
                 BlogFilter.BlogFilterType.ALL);
         //-------------	Categories -------------
-        Blog.FILTER_ADVERSITING = new BlogFilter(1, this.context
+        /*Blog.FILTER_ADVERSITING = new BlogFilter(1, this.context
                 .getString(R.string.category_advertising), "http://blog.gobalo.es/category/advertising-2/feed/",
                 BlogFilter.BlogFilterType.ALL);
         Blog.FILTER_CREATIVIDAD = new BlogFilter(2, this.context
@@ -161,46 +166,54 @@ public class Blog {
                 BlogFilter.BlogFilterType.CATEGORY);
         Blog.FILTER_WEB = new BlogFilter(7, this.context
                 .getString(R.string.category_web), "http://blog.gobalo.es/category/web-y-programacion/feed/",
-                BlogFilter.BlogFilterType.CATEGORY);
+                BlogFilter.BlogFilterType.CATEGORY);*/
+        Blog.FILTER_IDEAS = new BlogFilter(this.context.getString(R.string.category_ideas),
+                "http://blog.gobalo.es/category/big-ideas/feed/", BlogFilter.BlogFilterType.CATEGORY);
+        Blog.FILTER_CONTENT = new BlogFilter(this.context.getString(R.string.category_content),
+                "http://blog.gobalo.es/category/content-lovers/feed/", BlogFilter.BlogFilterType.CATEGORY);
+        Blog.FILTER_GOOGLE = new BlogFilter(this.context.getString(R.string.category_google),
+                "http://blog.gobalo.es/category/google-friendly/feed/", BlogFilter.BlogFilterType.CATEGORY);
+        Blog.FILTER_INSIDE = new BlogFilter(this.context.getString(R.string.category_inside),
+                "http://blog.gobalo.es/category/inside-gobalo/feed/", BlogFilter.BlogFilterType.CATEGORY);
         //-------------	Authors -------------
-        Blog.FILTER_BINARY = new BlogFilter(20, this.context
+        Blog.FILTER_BINARY = new BlogFilter(this.context
                 .getString(R.string.author_01101), "http://blog.gobalo.es/author/a-vara/feed/",
                 BlogFilter.BlogFilterType.AUTHOR);
-        Blog.FILTER_CODE = new BlogFilter(21, this.context
+        Blog.FILTER_CODE = new BlogFilter(this.context
                 .getString(R.string.author_code), "http://blog.gobalo.es/author/jl-represa/feed/",
                 BlogFilter.BlogFilterType.AUTHOR);
-        Blog.FILTER_CRAFT = new BlogFilter(22, this.context
+        Blog.FILTER_CRAFT = new BlogFilter(this.context
                 .getString(R.string.author_craft), "http://blog.gobalo.es/author/n-pastor/feed/",
                 BlogFilter.BlogFilterType.AUTHOR);
-        Blog.FILTER_CREA = new BlogFilter(23, this.context
+        Blog.FILTER_CREA = new BlogFilter(this.context
                 .getString(R.string.author_crea), "http://blog.gobalo.es/author/g-gomez/feed/",
                 BlogFilter.BlogFilterType.AUTHOR);
-        Blog.FILTER_IDEA = new BlogFilter(24, this.context
+        Blog.FILTER_IDEA = new BlogFilter(this.context
                 .getString(R.string.author_idea), "http://blog.gobalo.es/author/j-azpeitia/feed/",
                 BlogFilter.BlogFilterType.AUTHOR);
-        Blog.FILTER_NUMBERS = new BlogFilter(25, this.context
+        Blog.FILTER_NUMBERS = new BlogFilter(this.context
                 .getString(R.string.author_numbers), "http://blog.gobalo.es/author/m-becerra/feed/",
                 BlogFilter.BlogFilterType.AUTHOR);
-        Blog.FILTER_PENCIL = new BlogFilter(26, this.context
+        Blog.FILTER_PENCIL = new BlogFilter(this.context
                 .getString(R.string.author_pencil), "http://blog.gobalo.es/author/a-fassi/feed/",
                 BlogFilter.BlogFilterType.AUTHOR);
-        Blog.FILTER_PIXEL = new BlogFilter(27, this.context
+        Blog.FILTER_PIXEL = new BlogFilter(this.context
                 .getString(R.string.author_pixel), "http://blog.gobalo.es/author/f-bril/feed/",
                 BlogFilter.BlogFilterType.AUTHOR);
-        Blog.FILTER_SEM = new BlogFilter(28, this.context
+        Blog.FILTER_SEM = new BlogFilter(this.context
                 .getString(R.string.author_sem), "http://blog.gobalo.es/author/l-casado/feed/",
                 BlogFilter.BlogFilterType.AUTHOR);
-        Blog.FILTER_SOCIAL = new BlogFilter(29, this.context
+        Blog.FILTER_SOCIAL = new BlogFilter(this.context
                 .getString(R.string.author_social), "http://blog.gobalo.es/author/bloggobalo-es/feed/",
                 BlogFilter.BlogFilterType.AUTHOR);
-        Blog.FILTER_SPEED = new BlogFilter(30, this.context
+        Blog.FILTER_SPEED = new BlogFilter(this.context
                 .getString(R.string.author_speed), "http://blog.gobalo.es/author/a-gonzalez/feed/",
                 BlogFilter.BlogFilterType.AUTHOR);
-        Blog.FILTER_TRIX = new BlogFilter(31, this.context
+        Blog.FILTER_TRIX = new BlogFilter(this.context
                 .getString(R.string.author_trix), "http://blog.gobalo.es/author/cristina/feed/",
                 BlogFilter.BlogFilterType.AUTHOR);
         //-------------	Favourites -------------
-        Blog.FILTER_FAVOURITES = new BlogFilter(99, this.context
+        Blog.FILTER_FAVOURITES = new BlogFilter(this.context
                 .getString(R.string.navigation_drawer_section4), null,
                 BlogFilter.BlogFilterType.FAVOURITES);
 

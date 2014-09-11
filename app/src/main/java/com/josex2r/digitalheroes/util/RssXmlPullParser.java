@@ -81,7 +81,7 @@ public class RssXmlPullParser {
                                 noticiaActual.setCreator(parser.nextText());
                             else if (tag.equals("category")){
                             	String categoryName=parser.nextText();
-                            	
+                            	/*
                             	if(categoryName.equals("Advertising")){
                             		noticiaActual.setCategory(Blog.FILTER_ADVERSITING.getId());
                             	}else if(categoryName.equals("Creatividad")){
@@ -96,7 +96,16 @@ public class RssXmlPullParser {
                             		noticiaActual.setCategory(Blog.FILTER_SEO.getId());
                             	}else if(categoryName.equals("Web y Programaci�n")){
                             		noticiaActual.setCategory(Blog.FILTER_WEB.getId());
-                            	}
+                            	}*/
+                                if(categoryName.equals(Blog.FILTER_IDEAS.getName())){
+                                    noticiaActual.setCategory(Blog.FILTER_IDEAS.getId());
+                                }else if(categoryName.equals(Blog.FILTER_CONTENT.getName())){
+                                    noticiaActual.setCategory(Blog.FILTER_CONTENT.getId());
+                                }else if(categoryName.equals(Blog.FILTER_GOOGLE.getName())){
+                                    noticiaActual.setCategory(Blog.FILTER_GOOGLE.getId());
+                                }else if(categoryName.equals(Blog.FILTER_INSIDE.getName())){
+                                    noticiaActual.setCategory(Blog.FILTER_INSIDE.getId());
+                                }
                                 
                             }else if (tag.equals("image"))
                                 noticiaActual.setImageLink(parser.nextText());

@@ -5,6 +5,6 @@
     <color name="white">#FEFEFE</color>
     <color name="black">#000000</color>
     <color name="orange">#ff4844</color>
-    <color name="orange_overlay">#AAff4844</color>
+    <color name="orange_overlay">#CCff4844</color>
     <color name="black_overlay">#66000000</color>
 </resources>

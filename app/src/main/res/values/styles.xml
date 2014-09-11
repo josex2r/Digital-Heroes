@@ -31,10 +31,19 @@
 
 
     <style name="btn_category_icon" parent="AppBaseTheme">
-        <item name="android:textSize">45sp</item>
+        <item name="android:textSize">60sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#fff</item>
-        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:gravity">top</item>
+    </style>
+
+    <style name="btn_category_icon_land" parent="AppBaseTheme">
+        <item name="android:textSize">75sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="btn_category" parent="AppBaseTheme">
