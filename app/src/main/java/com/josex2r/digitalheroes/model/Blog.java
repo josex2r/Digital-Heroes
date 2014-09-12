@@ -75,6 +75,7 @@ public class Blog {
     //-------------	Authors -------------
     public static BlogFilter FILTER_BINARY;
     public static BlogFilter FILTER_CODE;
+    public static BlogFilter FILTER_CYCLE;
     public static BlogFilter FILTER_CRAFT;
     public static BlogFilter FILTER_CREA;
     public static BlogFilter FILTER_IDEA;
@@ -178,6 +179,9 @@ public class Blog {
         //-------------	Authors -------------
         Blog.FILTER_BINARY = new BlogFilter(this.context
                 .getString(R.string.author_01101), "http://blog.gobalo.es/author/a-vara/feed/",
+                BlogFilter.BlogFilterType.AUTHOR);
+        Blog.FILTER_CYCLE = new BlogFilter(this.context
+                .getString(R.string.author_craft), "http://blog.gobalo.es/author/a-morencos/feed/",
                 BlogFilter.BlogFilterType.AUTHOR);
         Blog.FILTER_CODE = new BlogFilter(this.context
                 .getString(R.string.author_code), "http://blog.gobalo.es/author/jl-represa/feed/",

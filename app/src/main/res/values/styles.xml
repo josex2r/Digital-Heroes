@@ -33,6 +33,11 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
+    <style name="btn_author_icon_land" parent="AppBaseTheme">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+    </style>
+
     <style name="btn_category_icon" parent="AppBaseTheme">
         <item name="android:textSize">60sp</item>
         <item name="android:textStyle">bold</item>

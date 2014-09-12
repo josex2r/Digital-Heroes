@@ -32,6 +32,18 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
         mainActivity = (MainActivity)getActivity();
 
         ((LinearLayout) rootView.findViewById(R.id.lyBinary)).setOnClickListener(this);
+        ((LinearLayout) rootView.findViewById(R.id.lyCycle)).setOnClickListener(this);
+        ((LinearLayout) rootView.findViewById(R.id.lyCode)).setOnClickListener(this);
+        ((LinearLayout) rootView.findViewById(R.id.lyCraft)).setOnClickListener(this);
+        ((LinearLayout) rootView.findViewById(R.id.lyCrea)).setOnClickListener(this);
+        ((LinearLayout) rootView.findViewById(R.id.lyIdea)).setOnClickListener(this);
+        ((LinearLayout) rootView.findViewById(R.id.lyNumbers)).setOnClickListener(this);
+        ((LinearLayout) rootView.findViewById(R.id.lyPencil)).setOnClickListener(this);
+        ((LinearLayout) rootView.findViewById(R.id.lyPixel)).setOnClickListener(this);
+        ((LinearLayout) rootView.findViewById(R.id.lySem)).setOnClickListener(this);
+        ((LinearLayout) rootView.findViewById(R.id.lySocial)).setOnClickListener(this);
+        ((LinearLayout) rootView.findViewById(R.id.lySpeed)).setOnClickListener(this);
+        ((LinearLayout) rootView.findViewById(R.id.lyTrix)).setOnClickListener(this);
 		
 		return rootView;
 	}
@@ -45,27 +57,29 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 		int id = v.getId();
 		if (id == R.id.lyBinary) {
 			selectedFilter = Blog.FILTER_BINARY;
-		} else if (id == R.id.btnCode) {
+		} else if (id == R.id.lyCycle) {
+            selectedFilter = Blog.FILTER_CYCLE;
+        } else if (id == R.id.lyCode) {
 			selectedFilter = Blog.FILTER_CODE;
-		} else if (id == R.id.btnCraft) {
+		} else if (id == R.id.lyCraft) {
 			selectedFilter = Blog.FILTER_CRAFT;
-		} else if (id == R.id.btnCrea) {
+		} else if (id == R.id.lyCrea) {
 			selectedFilter = Blog.FILTER_CREA;
-		} else if (id == R.id.btnIdea) {
+		} else if (id == R.id.lyIdea) {
 			selectedFilter = Blog.FILTER_IDEA;
-		} else if (id == R.id.btnNumbers) {
+		} else if (id == R.id.lyNumbers) {
 			selectedFilter = Blog.FILTER_NUMBERS;
-		} else if (id == R.id.btnPencil) {
+		} else if (id == R.id.lyPencil) {
 			selectedFilter = Blog.FILTER_PENCIL;
-		} else if (id == R.id.btnPixel) {
+		} else if (id == R.id.lyPixel) {
 			selectedFilter = Blog.FILTER_PIXEL;
-		} else if (id == R.id.btnSem) {
+		} else if (id == R.id.lySem) {
 			selectedFilter = Blog.FILTER_SEM;
-		} else if (id == R.id.btnSocial) {
+		} else if (id == R.id.lySocial) {
 			selectedFilter = Blog.FILTER_SOCIAL;
-		} else if (id == R.id.btnSpeed) {
+		} else if (id == R.id.lySpeed) {
 			selectedFilter = Blog.FILTER_SPEED;
-		} else if (id == R.id.btnTrix) {
+		} else if (id == R.id.lyTrix) {
 			selectedFilter = Blog.FILTER_TRIX;
 		}
 		

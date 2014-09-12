@@ -148,7 +148,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lyCr"
+                android:id="@+id/lyCraft"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -314,68 +314,261 @@
                 </LinearLayout>
 
             </LinearLayout>
-		    
-		    <Button
-		        android:id="@+id/btnPencil"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:text="@string/author_pencil"
-		        android:drawableLeft="@drawable/ic_super_pencil"
-		        android:layout_marginTop="10dp"
-		        android:background="@drawable/btn_author_pencil"
-		        style="@style/btn_author" />
-		    
-		    <Button
-		        android:id="@+id/btnPixel"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:text="@string/author_pixel"
-		        android:drawableLeft="@drawable/ic_super_pixel"
-		        android:layout_marginTop="10dp"
-		        android:background="@drawable/btn_author_pixel"
-		        style="@style/btn_author" />
-		    
-		    <Button
-		        android:id="@+id/btnSem"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:text="@string/author_sem"
-		        android:drawableLeft="@drawable/ic_super_sem"
-		        android:layout_marginTop="10dp"
-		        android:background="@drawable/btn_author_sem"
-		        style="@style/btn_author" />
-		    
-		    <Button
-		        android:id="@+id/btnSocial"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:text="@string/author_social"
-		        android:drawableLeft="@drawable/ic_super_social"
-		        android:layout_marginTop="10dp"
-		        android:background="@drawable/btn_author_social"
-		        style="@style/btn_author" />
-		    
-		    <Button
-		        android:id="@+id/btnSpeed"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:text="@string/author_speed"
-		        android:drawableLeft="@drawable/ic_super_speed"
-		        android:layout_marginTop="10dp"
-		        android:background="@drawable/btn_author_speed"
-		        style="@style/btn_author" />
-		    
-		    <Button
-		        android:id="@+id/btnTrix"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:text="@string/author_trix"
-		        android:drawableLeft="@drawable/ic_super_trix"
-		        android:layout_marginTop="10dp"
-		        android:background="@drawable/btn_author_trix"
-		        style="@style/btn_author" />
-            
+
+            <LinearLayout
+                android:id="@+id/lyPencil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/btn_author_pencil"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_super_pencil"
+                    style="@style/btn_author_icon" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/author_pencil"
+                        android:background="@drawable/btn_author_pencil"
+                        android:paddingBottom="5dp"
+                        style="@style/btn_category" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="0dp"
+                        android:text="@string/author_pencil_description"
+                        android:background="@drawable/btn_author_pencil"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyPixel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/btn_author_pixel"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_super_pixel"
+                    style="@style/btn_author_icon" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/author_pixel"
+                        android:background="@drawable/btn_author_pixel"
+                        android:paddingBottom="5dp"
+                        style="@style/btn_category" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="0dp"
+                        android:text="@string/author_pixel_description"
+                        android:background="@drawable/btn_author_pixel"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lySem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/btn_author_sem"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_super_sem"
+                    style="@style/btn_author_icon" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/author_sem"
+                        android:background="@drawable/btn_author_sem"
+                        android:paddingBottom="5dp"
+                        style="@style/btn_category" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="0dp"
+                        android:text="@string/author_sem_description"
+                        android:background="@drawable/btn_author_sem"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lySocial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/btn_author_social"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_super_social"
+                    style="@style/btn_author_icon" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/author_social"
+                        android:background="@drawable/btn_author_social"
+                        android:paddingBottom="5dp"
+                        style="@style/btn_category" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="0dp"
+                        android:text="@string/author_social_description"
+                        android:background="@drawable/btn_author_social"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lySpeed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/btn_author_speed"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_super_speed"
+                    style="@style/btn_author_icon" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/author_speed"
+                        android:background="@drawable/btn_author_speed"
+                        android:paddingBottom="5dp"
+                        style="@style/btn_category" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="0dp"
+                        android:text="@string/author_speed_description"
+                        android:background="@drawable/btn_author_speed"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyTrix"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/btn_author_trix"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_super_trix"
+                    style="@style/btn_author_icon" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/author_social"
+                        android:background="@drawable/btn_author_trix"
+                        android:paddingBottom="5dp"
+                        style="@style/btn_category" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="0dp"
+                        android:text="@string/author_trix_description"
+                        android:background="@drawable/btn_author_trix"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>
