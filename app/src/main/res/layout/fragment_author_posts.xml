@@ -48,7 +48,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_01101"
                         android:background="@drawable/btn_author_01101"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -90,7 +91,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_cycle"
                         android:background="@drawable/btn_author_cycle"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -132,7 +134,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_code"
                         android:background="@drawable/btn_author_code"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -174,7 +177,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_craft"
                         android:background="@drawable/btn_author_craft"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -216,7 +220,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_crea"
                         android:background="@drawable/btn_author_crea"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -258,7 +263,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_idea"
                         android:background="@drawable/btn_author_idea"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -300,7 +306,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_numbers"
                         android:background="@drawable/btn_author_numbers"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -342,7 +349,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_pencil"
                         android:background="@drawable/btn_author_pencil"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -384,7 +392,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_pixel"
                         android:background="@drawable/btn_author_pixel"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -426,7 +435,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_sem"
                         android:background="@drawable/btn_author_sem"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -468,7 +478,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_social"
                         android:background="@drawable/btn_author_social"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -510,7 +521,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_speed"
                         android:background="@drawable/btn_author_speed"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -550,9 +562,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/author_social"
+                        android:text="@string/author_trix"
                         android:background="@drawable/btn_author_trix"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView

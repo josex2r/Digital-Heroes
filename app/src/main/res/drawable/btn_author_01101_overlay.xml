@@ -5,11 +5,11 @@
         android:radius="0dp" />
 
     <padding 
-        android:left="5dp"
+        android:left="15dp"
         android:right="5dp"
         android:top="5dp"
         android:bottom="5dp"/>
 
-    <solid android:color="#96c11f"/>
+    <solid android:color="@color/author_01101_overlay"/>
 
 </shape>

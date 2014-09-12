@@ -7,4 +7,32 @@
     <color name="orange">#ff4844</color>
     <color name="orange_overlay">#CCff4844</color>
     <color name="black_overlay">#66000000</color>
+
+    <color name="author_01101">#169e04</color>
+    <color name="author_cycle">#FFD421</color>
+    <color name="author_code">#e82c2c</color>
+    <color name="author_craft">#780000</color>
+    <color name="author_crea">#690fef</color>
+    <color name="author_idea">#ff7200</color>
+    <color name="author_numbers">#11c0a5</color>
+    <color name="author_pencil">#ff563f</color>
+    <color name="author_pixel">#b400ff</color>
+    <color name="author_sem">#ffa800</color>
+    <color name="author_social">#005aff</color>
+    <color name="author_speed">#00a8ff</color>
+    <color name="author_trix">#96c11f</color>
+
+    <color name="author_01101_overlay">#AA169e04</color>
+    <color name="author_code_overlay">#AAe82c2c</color>
+    <color name="author_cycle_overlay">#AAFFD421</color>
+    <color name="author_craft_overlay">#AA780000</color>
+    <color name="author_crea_overlay">#AA690fef</color>
+    <color name="author_idea_overlay">#AAff7200</color>
+    <color name="author_numbers_overlay">#AA11c0a5</color>
+    <color name="author_pencil_overlay">#AAff563f</color>
+    <color name="author_pixel_overlay">#AAb400ff</color>
+    <color name="author_sem_overlay">#AAffa800</color>
+    <color name="author_social_overlay">#AA005aff</color>
+    <color name="author_speed_overlay">#AA00a8ff</color>
+    <color name="author_trix_overlay">#AA96c11f</color>
 </resources>

@@ -77,35 +77,15 @@ public class RssXmlPullParser {
                                 noticiaActual.setTitle(parser.nextText());
                             else if (tag.equals("guid"))
                                 noticiaActual.setGuid(parser.nextText());
-                            else if (tag.equals("creator"))
-                                noticiaActual.setCreator(parser.nextText());
-                            else if (tag.equals("category")){
-                            	String categoryName=parser.nextText();
-                            	/*
-                            	if(categoryName.equals("Advertising")){
-                            		noticiaActual.setCategory(Blog.FILTER_ADVERSITING.getId());
-                            	}else if(categoryName.equals("Creatividad")){
-                            		noticiaActual.setCategory(Blog.FILTER_CREATIVIDAD.getId());
-                            	}else if(categoryName.equals("Inside G�balo")){
-                            		noticiaActual.setCategory(Blog.FILTER_INSIDE.getId());
-                            	}else if(categoryName.equals("Marketing Digital y Social Media")){
-                            		noticiaActual.setCategory(Blog.FILTER_MARKETING.getId());
-                            	}else if(categoryName.equals("Negocios")){
-                            		noticiaActual.setCategory(Blog.FILTER_NEGOCIOS.getId());
-                            	}else if(categoryName.equals("SEO y SEM")){
-                            		noticiaActual.setCategory(Blog.FILTER_SEO.getId());
-                            	}else if(categoryName.equals("Web y Programaci�n")){
-                            		noticiaActual.setCategory(Blog.FILTER_WEB.getId());
-                            	}*/
-                                if(categoryName.equals(Blog.FILTER_IDEAS.getName())){
-                                    noticiaActual.setCategory(Blog.FILTER_IDEAS.getId());
-                                }else if(categoryName.equals(Blog.FILTER_CONTENT.getName())){
-                                    noticiaActual.setCategory(Blog.FILTER_CONTENT.getId());
-                                }else if(categoryName.equals(Blog.FILTER_GOOGLE.getName())){
-                                    noticiaActual.setCategory(Blog.FILTER_GOOGLE.getId());
-                                }else if(categoryName.equals(Blog.FILTER_INSIDE.getName())){
-                                    noticiaActual.setCategory(Blog.FILTER_INSIDE.getId());
-                                }
+                            else if (tag.equals("creator")){
+
+                                String authorName = parser.nextText();
+                                noticiaActual.setCreator(Blog.getInstance().getFilterByName(authorName));
+
+                            } else if (tag.equals("category")){
+
+                            	String categoryName = parser.nextText();
+                                noticiaActual.setCategory(Blog.getInstance().getFilterByName(categoryName));
                                 
                             }else if (tag.equals("image"))
                                 noticiaActual.setImageLink(parser.nextText());

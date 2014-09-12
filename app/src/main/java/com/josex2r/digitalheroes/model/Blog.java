@@ -138,6 +138,7 @@ public class Blog {
     }
     public void setActiveFilter(BlogFilter filter){
         this.activeFilter = filter;
+        this.setCurrentPage(1);
     }
 
     public void initBlog(Context context){
@@ -268,7 +269,7 @@ public class Blog {
                         post.setLink( i.getString(1) );
                         post.setComments( i.getString(2) );
                         post.setDate( i.getString(3) );
-                        post.setCreator( i.getString(4) );
+                        post.setCreator( getFilterByName(i.getString(4)) );
                         post.setGuid( i.getString(5) );
                         post.setDescription( i.getString(6) );
                         post.setImageLink( i.getString(7) );
@@ -334,16 +335,48 @@ public class Blog {
 
     }
 
+    public List<BlogFilter> getFilterList(){
+        return new ArrayList<BlogFilter>(){{
+            add(Blog.FILTER_ALL);
+            add(Blog.FILTER_IDEAS);
+            add(Blog.FILTER_CONTENT);
+            add(Blog.FILTER_GOOGLE);
+            add(Blog.FILTER_INSIDE);
+            add(Blog.FILTER_BINARY);
+            add(Blog.FILTER_CYCLE);
+            add(Blog.FILTER_CODE);
+            add(Blog.FILTER_CONTENT);
+            add(Blog.FILTER_CRAFT);
+            add(Blog.FILTER_CREA);
+            add(Blog.FILTER_IDEA);
+            add(Blog.FILTER_NUMBERS);
+            add(Blog.FILTER_PENCIL);
+            add(Blog.FILTER_PIXEL);
+            add(Blog.FILTER_SEM);
+            add(Blog.FILTER_SOCIAL);
+            add(Blog.FILTER_SPEED);
+            add(Blog.FILTER_TRIX);
+        }};
+    }
+
+    public BlogFilter getFilterByName(String name){
+        List<BlogFilter> filterList = getFilterList();
+        for(BlogFilter filter : filterList){
+            if( filter.getName().equals(name) ){
+                return filter;
+            }
+        }
+        return null;
+    }
+
     //-------------	Toggle post (click on star icon) -------------
     public void addRemoveFromFavourites(int position){
         if(context!=null){
             Log.d("MyApp", "addRemoveFromFavourites:"+Integer.toString(position));
 
-            Post selectedPost=getFilteredAllPagedPosts().get(position);
+            Post selectedPost = getFilteredAllPagedPosts().get(position);
 
             //Always delete
-
-
             if(!isFavourite(selectedPost)){
 
                 //Insert
@@ -400,7 +433,7 @@ public class Blog {
                 insertSQL.put("link", post.getLink());
                 insertSQL.put("comments", post.getComments());
                 insertSQL.put("date", post.getDate());
-                insertSQL.put("creator", post.getCreator());
+                insertSQL.put("creator", post.getCreator().getName());
                 insertSQL.put("guid", post.getGuid());
                 insertSQL.put("description", post.getDescription());
                 insertSQL.put("imageLink", post.getImageLink());
@@ -494,5 +527,7 @@ public class Blog {
 
         }
     }
+
+
 
 }

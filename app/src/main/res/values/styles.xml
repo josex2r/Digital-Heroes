@@ -26,11 +26,13 @@
     <style name="MyActionBar"
         parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/orange_overlay</item>
+        <item name="android:icon">@drawable/ic_action_bar</item>
     </style>
 
 
     <style name="btn_author_icon" parent="AppBaseTheme">
         <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
     </style>
 
     <style name="btn_author_icon_land" parent="AppBaseTheme">
@@ -96,7 +98,7 @@
     <style name="btn_drawer_list_icon" parent="AppBaseTheme">
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/orange</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
 

@@ -13,7 +13,7 @@
         android:id="@+id/lblItemDrawerIcon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@drawable/drawer_text_selector"
+        android:textColor="@drawable/drawer_icon_selector"
         style="@style/btn_drawer_list_icon"
         android:layout_weight="1"
         android:text="@string/icon_star" />
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="@string/author_01101"
         android:layout_gravity="center"
-        android:layout_weight="5"
+        android:layout_weight="4"
         android:textColor="@drawable/drawer_text_selector"
         style="@style/btn_drawer_list_text" />
 

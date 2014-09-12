@@ -7,8 +7,8 @@ public class Post {
 	private String link;
 	private String comments;
 	private String date;
-	private String creator;
-	private ArrayList<Integer> categories;
+	private BlogFilter creator;
+	private ArrayList<BlogFilter> categories;
 	private String guid;
 	private String description;
 	private String imageLink;
@@ -49,7 +49,7 @@ public class Post {
 	}*/
 
 	public Post(){
-		this.categories=new ArrayList<Integer>();
+		this.categories=new ArrayList<BlogFilter>();
 	}
 	
 	public Post(String a, String b){
@@ -81,17 +81,17 @@ public class Post {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getCreator() {
+	public BlogFilter getCreator() {
 		return creator;
 	}
-	public void setCreator(String creator) {
+	public void setCreator(BlogFilter creator) {
 		this.creator = creator;
 	}
-	public ArrayList<Integer> getCategories() {
+	public ArrayList<BlogFilter> getCategories() {
 		return categories;
 	}
-	public void setCategory(Integer categories) {
-		this.categories.add(categories);
+	public void setCategory(BlogFilter category) {
+		this.categories.add(category);
 	}
 	public boolean hasCategory(int category) {
 		return this.categories.indexOf(category)>=0;

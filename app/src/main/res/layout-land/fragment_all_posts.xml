@@ -11,7 +11,9 @@
         android:layout_height="match_parent"
         android:background="@color/orange"
         android:clipToPadding="false"
-        android:paddingTop="?android:attr/actionBarSize">
+        android:paddingTop="?android:attr/actionBarSize"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp">
     </ListView>
 
 </RelativeLayout>

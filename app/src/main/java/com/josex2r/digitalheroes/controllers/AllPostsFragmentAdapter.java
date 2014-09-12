@@ -2,6 +2,7 @@ package com.josex2r.digitalheroes.controllers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -12,12 +13,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.model.Blog;
+import com.josex2r.digitalheroes.model.BlogFilter;
 import com.josex2r.digitalheroes.model.CustomDiskLruImageCache;
 import com.josex2r.digitalheroes.model.Post;
 import com.josex2r.digitalheroes.model.Typefaces;
@@ -66,9 +69,11 @@ public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
 			row = inflater.inflate(resource, null);
             //Set view holder
 			viewHolder = new PostViewHolder();
+            viewHolder.lyPostData = (LinearLayout) row.findViewById(R.id.lyPostData);
 			viewHolder.lblTitle = (TextView) row.findViewById(R.id.lblTitle);
 			viewHolder.lblDescription = (TextView) row.findViewById(R.id.lblDescription);
 			viewHolder.ivImage = (ImageView) row.findViewById(R.id.ivImage);
+            viewHolder.ivAuthor = (ImageView) row.findViewById(R.id.ivAuthor);
 			viewHolder.pbImage = (ProgressBar) row.findViewById(R.id.pbImage);
 			//viewHolder.ivFavourites = (ImageView)row.findViewById(R.id.ivFavourites);
             viewHolder.btnFavourites = (TextView)row.findViewById(R.id.btnFavourites);
@@ -78,11 +83,56 @@ public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
 		}
         //Set data to the view holder
 		viewHolder.position = position;
-		viewHolder.lblTitle.setText( currPost.getTitle() );
-		viewHolder.lblDescription.setText( currPost.getDescription() );
+		viewHolder.lblTitle.setText(currPost.getTitle());
 		viewHolder.pbImage.setIndeterminate(true);
         Typeface font = Typefaces.get(context, "font/fontawesome-webfont.ttf");
         viewHolder.btnFavourites.setTypeface(font);
+        BlogFilter creatorFilter = currPost.getCreator();
+        //Set post info
+        if( creatorFilter!=null ){
+            //Clear the author icon
+            Resources res = context.getResources();
+            if( creatorFilter.equals(blog.FILTER_BINARY) ){
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_01101_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_01101);
+            }else if( creatorFilter.equals(blog.FILTER_CYCLE) ){
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_cycle_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_cycle);
+            }if( creatorFilter.equals(blog.FILTER_CODE) ){
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_code_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_code);
+            }else if( creatorFilter.equals(blog.FILTER_CRAFT) ){
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_craft_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_craft);
+            }if( creatorFilter.equals(blog.FILTER_CREA) ){
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_crea_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_crea);
+            }else if( creatorFilter.equals(blog.FILTER_IDEA) ){
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_idea_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_idea);
+            }if( creatorFilter.equals(blog.FILTER_NUMBERS) ){
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_numbers_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_numbers);
+            }else if( creatorFilter.equals(blog.FILTER_PENCIL) ){
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_pencil_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_pencil);
+            }if( creatorFilter.equals(blog.FILTER_PIXEL) ){
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_pixel_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_pixel);
+            }else if( creatorFilter.equals(blog.FILTER_SEM) ){
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_sem_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_sem);
+            }if( creatorFilter.equals(blog.FILTER_SOCIAL) ){
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_social_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_social);
+            }else if( creatorFilter.equals(blog.FILTER_SPEED) ){
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_speed_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_speed);
+            }else if( creatorFilter.equals(blog.FILTER_TRIX) ){
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_trix_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_trix);
+            }
+        }
         //Handle image view
 		hideImage(viewHolder);
 
@@ -105,10 +155,8 @@ public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
 		}
 		//Check if this post is marked as favourite
 		if( blog.isFavourite(currPost) ){
-			//viewHolder.ivFavourites.setImageDrawable(context.getResources().getDrawable(android.R.drawable.star_on));
             viewHolder.btnFavourites.setText(context.getString(R.string.icon_star));
 		}else{
-			//viewHolder.ivFavourites.setImageDrawable(context.getResources().getDrawable(android.R.drawable.star_off));
             viewHolder.btnFavourites.setText(context.getString(R.string.icon_star_half_empty));
 		}
 		//viewHolder.ivFavourites.setTag(position);
@@ -178,8 +226,10 @@ public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
 	}
 
     public static class PostViewHolder {
+        public LinearLayout lyPostData;
         public TextView lblTitle, lblDescription;
         public ImageView ivImage;
+        public ImageView ivAuthor;
         public ProgressBar pbImage;
         //public ImageView ivFavourites;
         public TextView btnFavourites;

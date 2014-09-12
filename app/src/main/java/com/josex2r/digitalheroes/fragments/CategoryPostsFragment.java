@@ -71,7 +71,6 @@ public class CategoryPostsFragment extends Fragment implements OnClickListener{
 		if( !blog.getActiveFilter().equals(selectedFilter) ){
 		    //Change blog data
 			blog.setActiveFilter(selectedFilter);
-			blog.setCurrentPage(1);
             //Perform Main Activity stuff
 			mainActivity.getViewPager().setCurrentItem(1);
 			mainActivity.getActionBar().setTitle(selectedFilter.getName());
