@@ -1,0 +1,56 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/orange"
+    tools:context="com.josex2r.digitalheroes.LoaderActivity" >
+
+    
+    
+    <RelativeLayout
+	        android:id="@+id/fullscreen_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+           
+        <FrameLayout
+            android:id="@+id/fl_oval"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_oval_loading" >
+        
+        </FrameLayout>
+        
+        <ImageView
+	        android:id="@+id/iv_logo_blank"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+	        android:src="@drawable/logo_heroes_blank" />
+        
+        
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true" >
+
+        <LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="?metaButtonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent" >
+
+            
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</FrameLayout>

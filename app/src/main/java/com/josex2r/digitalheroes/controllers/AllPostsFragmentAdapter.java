@@ -71,7 +71,6 @@ public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
 			viewHolder = new PostViewHolder();
             viewHolder.lyPostData = (LinearLayout) row.findViewById(R.id.lyPostData);
 			viewHolder.lblTitle = (TextView) row.findViewById(R.id.lblTitle);
-			viewHolder.lblDescription = (TextView) row.findViewById(R.id.lblDescription);
 			viewHolder.ivImage = (ImageView) row.findViewById(R.id.ivImage);
             viewHolder.ivAuthor = (ImageView) row.findViewById(R.id.ivAuthor);
 			viewHolder.pbImage = (ProgressBar) row.findViewById(R.id.pbImage);
