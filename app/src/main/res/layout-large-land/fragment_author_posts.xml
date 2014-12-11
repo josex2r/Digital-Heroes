@@ -55,6 +55,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_01101_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_01101"
                         android:textColor="@color/white"/>
 
@@ -96,6 +97,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_cycle_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_cycle"
                         android:textColor="@color/white"/>
 
@@ -178,6 +180,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_craft_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_craft"
                         android:textColor="@color/white"/>
 
@@ -219,6 +222,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_crea_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_crea"
                         android:textColor="@color/white"/>
 
@@ -260,6 +264,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_idea_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_idea"
                         android:textColor="@color/white"/>
 
@@ -301,6 +306,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_numbers_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_numbers"
                         android:textColor="@color/white"/>
 
@@ -342,6 +348,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_pencil_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_pencil"
                         android:textColor="@color/white"/>
 
@@ -383,6 +390,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_pixel_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_pixel"
                         android:textColor="@color/white"/>
 
@@ -424,6 +432,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_sem_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_sem"
                         android:textColor="@color/white"/>
 
@@ -465,6 +474,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_social_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_social"
                         android:textColor="@color/white"/>
 
@@ -506,6 +516,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_speed_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_speed"
                         android:textColor="@color/white"/>
 
@@ -547,6 +558,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_trix_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_trix"
                         android:textColor="@color/white"/>
 

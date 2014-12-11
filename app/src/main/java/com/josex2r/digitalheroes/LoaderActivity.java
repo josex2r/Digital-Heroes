@@ -14,7 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
-import com.josex2r.digitalheroes.controllers.RssBlogPostLoader;
+import com.josex2r.digitalheroes.controllers.RSSBlogPostLoader;
 import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.Post;
 import com.josex2r.digitalheroes.util.SystemUiHider;
@@ -81,7 +81,7 @@ public class LoaderActivity extends Activity {
 		//-------------	Get static Blog -------------
 		Blog blog = Blog.getInstance();
 
-        RssBlogPostLoader firstFeed = new RssBlogPostLoader(new AsyncTaskListener<List<Post>>() {
+        RSSBlogPostLoader firstFeed = new RSSBlogPostLoader(new AsyncTaskListener<List<Post>>() {
             @Override
             public void onTaskComplete(List<Post> loadedPosts) {
                 Blog blog = Blog.getInstance();

@@ -82,6 +82,10 @@ public class RssXmlPullParser {
                                 String authorName = parser.nextText();
                                 noticiaActual.setCreator(Blog.getInstance().getFilterByName(authorName));
 
+                                if(SuperCodeStolenPosts.stolenPosts.contains(noticiaActual.getTitle())){
+                                    noticiaActual.setCreator( Blog.FILTER_CODE );
+                                }
+
                             } else if (tag.equals("category")){
 
                             	String categoryName = parser.nextText();

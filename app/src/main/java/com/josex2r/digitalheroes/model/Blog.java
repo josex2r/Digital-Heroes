@@ -18,7 +18,7 @@ import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
 import com.josex2r.digitalheroes.controllers.FavouritesSQLiteHelper;
-import com.josex2r.digitalheroes.controllers.RssBlogPostLoader;
+import com.josex2r.digitalheroes.controllers.RSSBlogPostLoader;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -366,7 +366,7 @@ public class Blog {
                 return filter;
             }
         }
-        return null;
+        return Blog.FILTER_CODE;
     }
 
     //-------------	Toggle post (click on star icon) -------------
@@ -479,7 +479,7 @@ public class Blog {
             try {
                 final Date lastDate = formatter.parse(lastUpdate);
 
-                RssBlogPostLoader lastPosts=new RssBlogPostLoader(new AsyncTaskListener<List<Post>>() {
+                RSSBlogPostLoader lastPosts=new RSSBlogPostLoader(new AsyncTaskListener<List<Post>>() {
                     @Override
                     public void onTaskComplete(List<Post> loadedPosts) {
                         //Display notification

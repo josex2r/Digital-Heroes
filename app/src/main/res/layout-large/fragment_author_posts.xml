@@ -31,15 +31,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/ic_super_01101"
-                    style="@style/btn_author_icon_land" />
+                    style="@style/btn_author_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="8"
                     android:orientation="vertical" >
 
                     <TextView
@@ -47,7 +48,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_01101"
                         android:background="@drawable/btn_author_01101"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -55,6 +57,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_01101_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_01101"
                         android:textColor="@color/white"/>
 
@@ -72,15 +75,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/ic_super_cycle"
-                    style="@style/btn_author_icon_land" />
+                    style="@style/btn_author_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="8"
                     android:orientation="vertical" >
 
                     <TextView
@@ -88,7 +92,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_cycle"
                         android:background="@drawable/btn_author_cycle"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -96,6 +101,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_cycle_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_cycle"
                         android:textColor="@color/white"/>
 
@@ -113,15 +119,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/ic_super_code"
-                    style="@style/btn_author_icon_land" />
+                    style="@style/btn_author_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:orientation="vertical" >
 
                     <TextView
@@ -129,7 +136,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_code"
                         android:background="@drawable/btn_author_code"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -154,15 +162,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/ic_super_craft"
-                    style="@style/btn_author_icon_land" />
+                    style="@style/btn_author_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="8"
                     android:orientation="vertical" >
 
                     <TextView
@@ -170,7 +179,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_craft"
                         android:background="@drawable/btn_author_craft"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -178,6 +188,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_craft_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_craft"
                         android:textColor="@color/white"/>
 
@@ -195,15 +206,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/ic_super_crea"
-                    style="@style/btn_author_icon_land" />
+                    style="@style/btn_author_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="8"
                     android:orientation="vertical" >
 
                     <TextView
@@ -211,7 +223,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_crea"
                         android:background="@drawable/btn_author_crea"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -219,6 +232,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_crea_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_crea"
                         android:textColor="@color/white"/>
 
@@ -236,15 +250,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/ic_super_idea"
-                    style="@style/btn_author_icon_land" />
+                    style="@style/btn_author_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="8"
                     android:orientation="vertical" >
 
                     <TextView
@@ -252,7 +267,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_idea"
                         android:background="@drawable/btn_author_idea"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -260,6 +276,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_idea_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_idea"
                         android:textColor="@color/white"/>
 
@@ -277,15 +294,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/ic_super_numbers"
-                    style="@style/btn_author_icon_land" />
+                    style="@style/btn_author_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="8"
                     android:orientation="vertical" >
 
                     <TextView
@@ -293,7 +311,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_numbers"
                         android:background="@drawable/btn_author_numbers"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -301,6 +320,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_numbers_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_numbers"
                         android:textColor="@color/white"/>
 
@@ -318,15 +338,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/ic_super_pencil"
-                    style="@style/btn_author_icon_land" />
+                    style="@style/btn_author_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="8"
                     android:orientation="vertical" >
 
                     <TextView
@@ -334,7 +355,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_pencil"
                         android:background="@drawable/btn_author_pencil"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -342,6 +364,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_pencil_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_pencil"
                         android:textColor="@color/white"/>
 
@@ -359,15 +382,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/ic_super_pixel"
-                    style="@style/btn_author_icon_land" />
+                    style="@style/btn_author_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="8"
                     android:orientation="vertical" >
 
                     <TextView
@@ -375,7 +399,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_pixel"
                         android:background="@drawable/btn_author_pixel"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -383,6 +408,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_pixel_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_pixel"
                         android:textColor="@color/white"/>
 
@@ -400,15 +426,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/ic_super_sem"
-                    style="@style/btn_author_icon_land" />
+                    style="@style/btn_author_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="8"
                     android:orientation="vertical" >
 
                     <TextView
@@ -416,7 +443,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_sem"
                         android:background="@drawable/btn_author_sem"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -424,6 +452,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_sem_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_sem"
                         android:textColor="@color/white"/>
 
@@ -441,15 +470,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/ic_super_social"
-                    style="@style/btn_author_icon_land" />
+                    style="@style/btn_author_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="8"
                     android:orientation="vertical" >
 
                     <TextView
@@ -457,7 +487,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_social"
                         android:background="@drawable/btn_author_social"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -465,6 +496,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_social_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_social"
                         android:textColor="@color/white"/>
 
@@ -482,15 +514,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/ic_super_speed"
-                    style="@style/btn_author_icon_land" />
+                    style="@style/btn_author_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="8"
                     android:orientation="vertical" >
 
                     <TextView
@@ -498,7 +531,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_speed"
                         android:background="@drawable/btn_author_speed"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -506,6 +540,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_speed_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_speed"
                         android:textColor="@color/white"/>
 
@@ -523,15 +558,16 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/ic_super_trix"
-                    style="@style/btn_author_icon_land" />
+                    style="@style/btn_author_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="8"
                     android:orientation="vertical" >
 
                     <TextView
@@ -539,7 +575,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/author_trix"
                         android:background="@drawable/btn_author_trix"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
                         style="@style/btn_category" />
 
                     <TextView
@@ -547,6 +584,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="0dp"
                         android:text="@string/author_trix_description"
+                        android:textSize="20sp"
                         android:background="@drawable/btn_author_trix"
                         android:textColor="@color/white"/>
 

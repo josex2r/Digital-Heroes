@@ -1,5 +1,6 @@
 package com.josex2r.digitalheroes.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,7 +24,7 @@ import com.josex2r.digitalheroes.MainActivity;
 import com.josex2r.digitalheroes.R;
 import com.josex2r.digitalheroes.controllers.AllPostsFragmentAdapter;
 import com.josex2r.digitalheroes.controllers.AsyncTaskListener;
-import com.josex2r.digitalheroes.controllers.RssBlogPostLoader;
+import com.josex2r.digitalheroes.controllers.RSSBlogPostLoader;
 import com.josex2r.digitalheroes.model.Blog;
 import com.josex2r.digitalheroes.model.Post;
 
@@ -113,19 +114,23 @@ public class AllPostsFragment extends Fragment implements OnItemClickListener, O
 
     //-------------	Loader actions -------------
     public void loading(boolean action){
-        getActivity().setProgressBarIndeterminateVisibility(true);
-        if(action){
-            getActivity().setProgressBarIndeterminateVisibility(true);
-            blog.setLoading(true);
-        }else{
-            getActivity().setProgressBarIndeterminateVisibility(false);
-            blog.setLoading(false);
+        Activity activity = getActivity();
+        if(activity != null) {
+            activity.setProgressBarIndeterminateVisibility(true);
+
+            if(action){
+                activity.setProgressBarIndeterminateVisibility(true);
+                blog.setLoading(true);
+            }else{
+                activity.setProgressBarIndeterminateVisibility(false);
+                blog.setLoading(false);
+            }
         }
     }
 
     //-------------	Load posts from Internet -------------
     public void loadCurrentPage(){
-        RssBlogPostLoader page=new RssBlogPostLoader(new AsyncTaskListener<List<Post>>() {
+        RSSBlogPostLoader page=new RSSBlogPostLoader(new AsyncTaskListener<List<Post>>() {
             @Override
             public void onTaskComplete(List<Post> loadedPosts) {
                 blog.addPosts(blog.getActiveFilter(), blog.getCurrentPage(), loadedPosts);

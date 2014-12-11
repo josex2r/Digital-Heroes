@@ -33,7 +33,7 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 
         ((LinearLayout) rootView.findViewById(R.id.lyBinary)).setOnClickListener(this);
         ((LinearLayout) rootView.findViewById(R.id.lyCycle)).setOnClickListener(this);
-        ((LinearLayout) rootView.findViewById(R.id.lyCode)).setOnClickListener(this);
+        //((LinearLayout) rootView.findViewById(R.id.lyCode)).setOnClickListener(this);
         ((LinearLayout) rootView.findViewById(R.id.lyCraft)).setOnClickListener(this);
         ((LinearLayout) rootView.findViewById(R.id.lyCrea)).setOnClickListener(this);
         ((LinearLayout) rootView.findViewById(R.id.lyIdea)).setOnClickListener(this);
@@ -59,8 +59,8 @@ public class AuthorPostsFragment extends Fragment implements OnClickListener{
 			selectedFilter = Blog.FILTER_BINARY;
 		} else if (id == R.id.lyCycle) {
             selectedFilter = Blog.FILTER_CYCLE;
-        } else if (id == R.id.lyCode) {
-			selectedFilter = Blog.FILTER_CODE;
+        /*} else if (id == R.id.lyCode) {
+			selectedFilter = Blog.FILTER_CODE;*/
 		} else if (id == R.id.lyCraft) {
 			selectedFilter = Blog.FILTER_CRAFT;
 		} else if (id == R.id.lyCrea) {

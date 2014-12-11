@@ -105,8 +105,9 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
         //Set "All posts" selected
         blog.setCurrentPage(1);
-        mViewPager.setCurrentItem(1);
-
+        if(mViewPager != null) {
+            mViewPager.setCurrentItem(1);
+        }
         //Reset alarm on app start
         if( MainActivity.newPostAlarm!=null ){
             MainActivity.newPostAlarm.cancelAlarm(this);

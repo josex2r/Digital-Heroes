@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -86,51 +87,58 @@ public class AllPostsFragmentAdapter extends ArrayAdapter<Post>{
 		viewHolder.pbImage.setIndeterminate(true);
         Typeface font = Typefaces.get(context, "font/fontawesome-webfont.ttf");
         viewHolder.btnFavourites.setTypeface(font);
-        BlogFilter creatorFilter = currPost.getCreator();
+
         //Set post info
-        if( creatorFilter!=null ){
+        if( currPost.getCreator()!=null ){
+            Log.d("MyApp", "[" + currPost.getCreator().getName() + " -> " + currPost.getTitle());
             //Clear the author icon
             Resources res = context.getResources();
-            if( creatorFilter.equals(blog.FILTER_BINARY) ){
+            if( currPost.getCreator().equals(Blog.FILTER_BINARY) ){
                 viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_01101_overlay);
                 viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_01101);
-            }else if( creatorFilter.equals(blog.FILTER_CYCLE) ){
+            }else if( currPost.getCreator().equals(Blog.FILTER_CYCLE) ){
                 viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_cycle_overlay);
                 viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_cycle);
-            }if( creatorFilter.equals(blog.FILTER_CODE) ){
+            }else if( currPost.getCreator().equals(Blog.FILTER_CODE) ){
                 viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_code_overlay);
                 viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_code);
-            }else if( creatorFilter.equals(blog.FILTER_CRAFT) ){
+            }else if( currPost.getCreator().equals(Blog.FILTER_CRAFT) ){
                 viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_craft_overlay);
                 viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_craft);
-            }if( creatorFilter.equals(blog.FILTER_CREA) ){
+            }else if( currPost.getCreator().equals(Blog.FILTER_CREA) ){
                 viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_crea_overlay);
                 viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_crea);
-            }else if( creatorFilter.equals(blog.FILTER_IDEA) ){
+            }else if( currPost.getCreator().equals(Blog.FILTER_IDEA) ){
                 viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_idea_overlay);
                 viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_idea);
-            }if( creatorFilter.equals(blog.FILTER_NUMBERS) ){
+            }else if( currPost.getCreator().equals(Blog.FILTER_NUMBERS) ){
                 viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_numbers_overlay);
                 viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_numbers);
-            }else if( creatorFilter.equals(blog.FILTER_PENCIL) ){
+            }else if( currPost.getCreator().equals(Blog.FILTER_PENCIL) ){
                 viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_pencil_overlay);
                 viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_pencil);
-            }if( creatorFilter.equals(blog.FILTER_PIXEL) ){
+            }else if( currPost.getCreator().equals(Blog.FILTER_PIXEL) ){
                 viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_pixel_overlay);
                 viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_pixel);
-            }else if( creatorFilter.equals(blog.FILTER_SEM) ){
+            }else if( currPost.getCreator().equals(Blog.FILTER_SEM) ){
                 viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_sem_overlay);
                 viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_sem);
-            }if( creatorFilter.equals(blog.FILTER_SOCIAL) ){
+            }else if( currPost.getCreator().equals(Blog.FILTER_SOCIAL) ){
                 viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_social_overlay);
                 viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_social);
-            }else if( creatorFilter.equals(blog.FILTER_SPEED) ){
+            }else if( currPost.getCreator().equals(Blog.FILTER_SPEED) ){
                 viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_speed_overlay);
                 viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_speed);
-            }else if( creatorFilter.equals(blog.FILTER_TRIX) ){
+            }else if( currPost.getCreator().equals(Blog.FILTER_TRIX) ){
                 viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_trix_overlay);
                 viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_trix);
+            }else{
+                viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_code_overlay);
+                viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_code);
             }
+        }else{
+            viewHolder.lyPostData.setBackgroundResource(R.drawable.btn_author_code_overlay);
+            viewHolder.ivAuthor.setBackgroundResource(R.drawable.ic_super_code);
         }
         //Handle image view
 		hideImage(viewHolder);
